@@ -1,0 +1,19 @@
+{
+  "name": "pano-tools",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Denis Borodin <denis@tour-360.ru>",
+  "license": "ISC",
+  "bin": {
+    "pt": "index.js"
+  },
+  "dependencies": {
+    "cli-progress": "^2.1.0",
+    "commander": "^2.18.0",
+    "fs-extra": "^7.0.0",
+    "lodash": "^4.17.11",
+    "photoshop": "^0.5.2",
+    "readline-sync": "^1.4.9"
+  }
+}
