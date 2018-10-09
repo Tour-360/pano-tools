@@ -20,11 +20,10 @@ var files = Folder(options.nadirImport).getFiles(/\.(tif|)$/i);
 for(var i = 0; i < files.length; i++){
 	var file = new File(files[i]);
 	app.open( file );
-
-
 	makeCircle(829,829,660,660,true)
 	contentAwareFill()
-	app.activeDocument.close(SaveOptions.SAVECHANGES);
+    SaveTIFF(activeDocument, file);
+	activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 }
 
 executeAction(app.charIDToTypeID('quit'), undefined, DialogModes.NO);
@@ -84,6 +83,15 @@ function makeCircle(left,top,width,height,antiAlias){
     executeAction( circleSelection, descriptor, DialogModes.NO );
 }
 
+
+function SaveTIFF(doc, saveFile){
+  tiffSaveOptions = new TiffSaveOptions();
+  tiffSaveOptions.embedColorProfile = true;
+  tiffSaveOptions.alphaChannels = false;
+  tiffSaveOptions.layers = false;
+  tiffSaveOptions.imageCompression = TIFFEncoding.TIFFZIP;
+  doc.saveAs(saveFile, tiffSaveOptions, true);
+}
 
 
 

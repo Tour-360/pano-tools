@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="http://tour-360.ru/tour-player/latest/tour-player.css">
+        <script src="http://tour-360.ru/tour-player/latest/tour-player.js"></script>
+        <title>PROJECT_NAME</title>
+        <style>
+            /* Цвет информационных маркеров */
+            #markers .button {
+                /*background: #f6e50a;*/
+            }
+
+            /* Цвет полосы загрузки */
+            #control-panel .progress-bar .value {
+                /*background: #f6e50a;*/
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+        Tour.init(false, {
+            gallery: true,
+            controlPanel: false,
+            rendererType: "webgl"
+        });
+        Tour.on('load', function(data) {
+            //this.controls.autoRotate()
+            console.log(data)
+        })
+        </script>
+    </body>
+</html>

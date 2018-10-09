@@ -26,7 +26,7 @@ for(var i = 0; i < files.length; i++){
   var newFile = new File(options.rawExport+"/"+fileName+'.tif');
   // if (!rawFile.exists) throw new Exception("File doesn't exist");
   if(!newFile.exists) {
-    var docRef = app.documents.add('3840px', '5760px', 300, "file", NewDocumentMode.RGB /*, undefined, undefined, BitsPerChannelType.SIXTEEN*/);
+    var docRef = app.documents.add('3840px', '5760px', 300, "file", NewDocumentMode.RGB, undefined, undefined, BitsPerChannelType.SIXTEEN);
     placeFile( rawFile );
     SaveTIFF( docRef, newFile);
     docRef.close(SaveOptions.DONOTSAVECHANGES);
