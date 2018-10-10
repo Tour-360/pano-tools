@@ -1,6 +1,6 @@
 {
   "name": "pano-tools",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "",
   "main": "index.js",
   "author": "Denis Borodin <denis@tour-360.ru>",
@@ -24,6 +24,7 @@
     "node-exiftool": "^2.3.0",
     "photoshop": "^0.5.2",
     "read-chunk": "^3.0.0",
-    "readline-sync": "^1.4.9"
+    "readline-sync": "^1.4.9",
+    "terminal-link": "^1.1.0"
   }
 }

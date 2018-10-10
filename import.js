@@ -1,22 +1,17 @@
-var inquirer = require('inquirer');
-
+const inquirer = require('inquirer');
 const fs = require('fs');
 const fse = require('fs-extra');
 const Spinner = require('cli-spinner').Spinner;
 const cliProgress = require('cli-progress');
 const path = require("path");
-const { dirs } = require('./utils.js');
+const { dirs, bar } = require('./utils.js');
 const { stages, otherPhotoFolder } = require('./config.json');
 
 const exiftool = require('node-exiftool')
 const ep = new exiftool.ExiftoolProcess();
+const completeMessage = "Импорт фотографий успешно завершен.";
 
 const rowPath = stages[0];
-const bar = new cliProgress.Bar({
-  format: '[{bar}] | {percentage}% | ETA: {eta_formatted}',
-  clearOnComplete: true
-}, cliProgress.Presets.rect);
-
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
@@ -59,10 +54,10 @@ module.exports = () => {
           let progress = 1;
           bar.start(files.length, progress);
           const tick = () => {
-            bar.update(progress++);
+            bar.update(++progress);
             if(progress == files.length) {
               bar.stop();
-              resolve();
+              resolve(completeMessage);
             }
           }
 

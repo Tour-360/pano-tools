@@ -1,46 +1,40 @@
 const fs = require('fs-extra');
 const cliProgress = require('cli-progress');
-const { exec, spawn } = require('child_process');
+const { spawn } = require('child_process');
 const path = require("path");
 const _ = require('lodash');
 
-const { files, createQueues } = require('./utils.js');
+const { files, createQueues, bar } = require('./utils.js');
 const { stages, execs, bracketing, directions } = require('./config.json');
-
 const enfuse = path.resolve(__dirname + execs.enfuse);
-
-
-const bar = new cliProgress.Bar({
-  format: '[{bar}] | {percentage}% | ETA: {eta_formatted}',
-  clearOnComplete: true
-}, cliProgress.Presets.rect);
-
+const tiffDir = path.resolve(stages[1]);
+const hdrDir = path.resolve(stages[2]);
+const completeMessage = "Объединение снимков в HDR успешно завершено."
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
     const enfuseQueues = [];
-    const tiffDir = path.resolve(stages[1]);
-    const hdrDir = path.resolve(stages[2]);
+
+    !fs.existsSync(hdrDir) && fs.mkdirSync(hdrDir);
 
     const tiffFiles = files(tiffDir, 'tif');
-    const panos = _.chunk(_.chunk(tiffFiles, bracketing), directions);
+    const shotsOnPano = bracketing * directions;
+    !_.isInteger(tiffFiles.length / shotsOnPano) && reject(`Количество исходных файлов должно быть кратно ${shotsOnPano}`);
 
+    const panos = _.chunk(_.chunk(tiffFiles, bracketing), directions);
 
     panos.map((pano, panoId) => {
       pano.map((shots, sideId) => {
-          const newDir = path.resolve(`${hdrDir}/${panoId}`);
-          const newFile = path.resolve(`${newDir}/${sideId+1}.tif`);
+          const newDir = path.resolve(hdrDir, panoId.toString());
+          const newFile = path.resolve(newDir, `${sideId+1}.tif`);
           !fs.existsSync(newDir) && fs.mkdirSync(newDir);
           !fs.existsSync(newFile) && enfuseQueues.push({
             newFile,
-            shots: shots.map(s => path.resolve(tiffDir + "/" + s)),
+            shots: shots.map(s => path.resolve(tiffDir, s)),
           });
       });
     })
 
-    const total = tiffFiles.length / bracketing;
-    let progress = total - enfuseQueues.length;
-    bar.start(total, progress);
 
     const execEnfuse = (callback) => {
       const task = enfuseQueues.shift();
@@ -48,16 +42,25 @@ module.exports = () => {
         const proc = spawn(enfuse, ["-o", task.newFile, ...task.shots]);
         proc.on('close', (code) => {
           execEnfuse(callback);
-          bar.update(progress++);
+          bar.update(++progress);
         });
       } else {
         callback();
       }
     }
 
-    createQueues(execEnfuse, () => {
-      bar.stop();
-      resolve();
-    });
+    if (enfuseQueues.length) {
+      console.log(`Началось создание HDR в папку ${hdrDir}`.bold);
+      const total = tiffFiles.length / bracketing;
+      let progress = total - enfuseQueues.length;
+      bar.start(total, progress);
+
+      createQueues(execEnfuse, () => {
+        bar.stop();
+        resolve(completeMessage);
+      });
+    } else {
+        resolve(completeMessage);
+    }
   })
 }

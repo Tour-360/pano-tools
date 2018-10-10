@@ -2,19 +2,23 @@
 const fs = require('fs-extra');
 const path = require("path");
 const os = require('os');
-var colors = require('colors');
+const colors = require('colors');
 const _ = require('lodash');
+const inquirer = require('inquirer');
 const program = require('commander');
 const readlineSync = require('readline-sync');
 const cliProgress = require('cli-progress');
 const { execFile, exec, spawn, execSync, fork } = require('child_process');
 const package = require('./package.json');
-var chokidar = require('chokidar');
-
+const chokidar = require('chokidar');
 
 const importRow = require('./import.js');
 const prepare = require('./prepare.js');
 const hdr = require('./hdr.js');
+const pano = require('./pano.js');
+const nadirExtract = require('./nadir-extract.js');
+const nadirFill = require('./nadir-fill.js');
+const nadirInsert = require('./nadir-insert.js');
 
 
 const stages = [
@@ -62,7 +66,7 @@ program
   .description('Импорт файлов с внешнего устройства')
   .action(() => {
       importRow().then(r => {
-        console.log("Импорт фотографий успешно завершен.".yellow);
+        console.log(r.green);
       });
   });
 
@@ -72,7 +76,7 @@ program
   .description('Подготовка фотографий к работе, конвертация RAW файлов')
   .action(() => {
       prepare().then(r => {
-        console.log("RAW файлы успешно обработанны.".yellow);
+        console.log(r.green);
       }).catch(console.error);
   });
 
@@ -81,37 +85,83 @@ program
   .description('Объединение снимков в HDR.')
   .action(() => {
       hdr().then(r => {
-        console.log("Объединение снимков в HDR успешно завершено.".yellow)
+        console.log(r.green)
       }).catch(console.error);
   });
 
-// program
-//   .command('watch')
-//   .description('Импорт файлов с внешнего устройства')
-//   .action(() => {
-//       chokidar.watch(stages[1], {ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
-//         console.log(event, path);
-//       });
-//   });
+program
+  .command('pano')
+  .description('Объединение снимков в панорамы')
+  .action(() => {
+      pano().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
 
+program
+  .command('nadir-extract')
+  .description('Извлечение надиров из панорам')
+  .action(() => {
+      nadirExtract().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('nadir-fill')
+  .description('Ретушь надиров')
+  .action(() => {
+      nadirFill().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('nadir-insert')
+  .description('Внедрение надира')
+  .action(() => {
+      nadirInsert().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
 
 program
   .command('start')
-  .description('Start processing')
+  .description('Все этапы обработки кроме импорта')
   .action(() => {
-
-      importRow()
-        .then(() => {
-          console.log("Импорт файлов успешно завершен.".yellow);
-          return prepare();
-        })
-        .then(() => {
-          console.log("Обработка RAW успешно завершена.".yellow);
+      prepare()
+        .then(r => {
+          console.log(r.green);
           return hdr();
         })
-        .then(() => {
-          console.log("Объединение снимков в HDR успешно завершено.".yellow);
-        });
+        .then(r => {
+          console.log(r.green);
+          return pano();
+        })
+        .then(r => {
+          console.log(r.green);
+          return nadirExtract();
+        })
+        .then(r => {
+          console.log(r.green);
+          return inquirer.prompt({
+            type: "confirm",
+            name: "fill",
+            message: 'Ретушировать надиры?',
+            default: false
+          })
+        })
+        .then( ({fill}) => {
+          return (fill ? nadirFill() : false);
+        })
+        .then(r => {
+          r && console.log(r.green);
+          return nadirInsert();
+        })
+        .then(r => {
+          console.log(r.green);
+        })
+        .catch(error => console.log(error.red));
   });
 
 
@@ -119,123 +169,6 @@ program
   .command('other')
   .description('Остальное')
   .action(() => {
-      // console.log(`3. Началась сшифка панорам в папку ${stages[2]}`);
-      // var newTemplate =  fs.readFileSync(__dirname + '/templates/ptgui/equidistant.pts');
-      // var ptguiQueue = [];
-      // dirs(stages[2]).map(panoName => {
-      //   const projectFileName = path.resolve(stages[3] + `/${panoName}.pts`);
-      //   const tiffFileName = path.resolve(stages[3] + `/${panoName}.tif`);
-      //   if (!fs.existsSync(projectFileName)){
-      //     fs.writeFileSync(
-      //       projectFileName,
-      //       newTemplate.toString('utf8').replace(/pano_name/g, panoName)
-      //     );
-      //   }
-
-      //   if (!fs.existsSync(tiffFileName)){
-      //     ptguiQueue.push(projectFileName);
-      //   }
-      // });
-
-      // if (ptguiQueue.length){
-      //   execSync(`open '/Applications/PTGui Pro.app' -n -W --args -batch -x ${ptguiQueue.join(' ')}`);
-      // }
-
-
-
-
-
-
-
-
-      // var newTemplate =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_extract.pts');
-      // var ptguiQueue = [];
-      // fs.readdirSync(stages[3]).filter(f => (/\.(tif)$/i).test(f)).map(panoName => {
-      //   panoName = panoName.split('.')[0];
-
-      //   const projectFileName = path.resolve(stages[4] + `/${panoName}.pts`);
-      //   const tiffFileName = path.resolve(stages[4] + `/${panoName}.tif`);
-
-      //   if (!fs.existsSync(projectFileName)){
-      //     fs.writeFileSync(
-      //       projectFileName,
-      //       newTemplate.toString('utf8').replace(/pano_name/g, panoName)
-      //     );
-      //   }
-
-      //   if (!fs.existsSync(tiffFileName)){
-      //     ptguiQueue.push(projectFileName);
-      //   }
-      // });
-
-      // if (ptguiQueue.length){
-      //   execSync(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.join(' ')}`);
-      // }
-
-
-
-
-
-
-
-
-      // let files = fs.readdirSync(stages[4]).filter(f => (/\.(tif)$/i).test(f));
-      // psQueue = [];
-      // files.map( fileName => {
-      //   fileName = fileName.split('.')[0];
-      //   // !fs.existsSync(stages[4] + '/' + fileName + '.tif') && psQueue.push(fileName);
-      //   psQueue.push(fileName);
-      // });
-      // options = {
-      //   nadirImport: path.resolve(stages[4])
-      // }
-      // fs.writeFileSync(
-      //   // todo: вынести это в отдельную функцию работы с файлом
-      //   os.tmpdir()+"/pano-tools",
-      //   Object.keys(options).map((key) => key + " " + options[key]).join("\n")
-      // );
-
-
-      // psQueue.length && execSync(`open -W ${photoshop} --args ${__dirname}/scripts/nadir_fill.jsx`);
-
-
-
-
-
-
-      var newTemplate =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_insert.pts');
-      var ptguiQueue = [];
-      fs.readdirSync(stages[4]).filter(f => (/\.(tif)$/i).test(f)).map(panoName => {
-        panoName = panoName.split('.')[0];
-
-        const projectFileName = path.resolve(stages[4] + `/${panoName}.pts`);
-        const tiffFileName = path.resolve(stages[5] + `/${panoName}.tif`);
-
-        if (!fs.existsSync(projectFileName)){
-          fs.writeFileSync(
-            projectFileName,
-            newTemplate.toString('utf8').replace(/pano_name/g, panoName)
-          );
-        }
-
-        if (!fs.existsSync(tiffFileName)){
-          ptguiQueue.push(projectFileName);
-        }
-      });
-
-      if (ptguiQueue.length){
-        execSync(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.join(' ')}`);
-      }
-
-
-
-
-
-
-
-
-
-
       execSync(`${exiftool} -tagsfromfile ${__dirname + "/templates/cameraRow/pano_standart.xmp"} -all:all ./${stages[5]}/*.tif -overwrite_original`)
 
       files = fs.readdirSync(stages[5]).filter(f => (/\.(tif)$/i).test(f));
@@ -256,10 +189,6 @@ program
       );
 
       psQueue.length && execSync(`open -W ${photoshop} --args ${__dirname}/scripts/pano_to_jpeg.jsx`);
-
-
-
-
 
 
 

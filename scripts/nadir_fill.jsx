@@ -15,7 +15,7 @@ for (var i = 0; i < ptOptions.length; i++ ) {
 
 
 
-var files = Folder(options.nadirImport).getFiles(/\.(tif|)$/i);
+var files = options.files.split(',');
 
 for(var i = 0; i < files.length; i++){
 	var file = new File(files[i]);
