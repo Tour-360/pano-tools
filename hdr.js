@@ -36,20 +36,18 @@ module.exports = () => {
     })
 
 
-    const execEnfuse = (callback) => {
-      const task = enfuseQueues.shift();
-      if (task) {
-        const proc = spawn(enfuse, ["-o", task.newFile, ...task.shots]);
-        proc.on('close', (code) => {
-          execEnfuse(callback);
-          bar.update(++progress);
-        });
-      } else {
-        callback();
-      }
-    }
-
     if (enfuseQueues.length) {
+      const execEnfuse = (callback) => {
+        const task = enfuseQueues.shift();
+        if (task) {
+          const proc = spawn(enfuse, ["-o", task.newFile, ...task.shots]);
+          proc.on('close', (code) => {
+            execEnfuse(callback);
+            bar.update(++progress);
+          });
+        } else callback();
+      }
+
       console.log(`Началось создание HDR в папку ${hdrDir}`.bold);
       const total = tiffFiles.length / bracketing;
       let progress = total - enfuseQueues.length;

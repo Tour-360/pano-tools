@@ -10,14 +10,6 @@ for (var i = 0; i < ptOptions.length; i++ ) {
  options[values[0]] = values[1];
 }
 
-
-// =============
-
-
-
-
-
-
 var dir = Folder(options.panoImport);
 var files = dir.getFiles(/\.(tif|)$/i);
 for(var i = 0; i < files.length; i++){

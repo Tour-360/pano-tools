@@ -46,7 +46,7 @@ module.exports = () => {
         bar.update(progress++);
       });
 
-      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.join(' ')}`, () => {
+      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.map(p => `'${p}'`).join(' ')}`, () => {
         watcher.close();
         bar.stop();
         resolve(completeMessage);

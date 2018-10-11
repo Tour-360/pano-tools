@@ -2,12 +2,17 @@ const fs = require('fs');
 const os = require('os');
 const path = require("path");
 const cliProgress = require('cli-progress');
+const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 
 
-module.exports.dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.join(p, f)).isDirectory());
+module.exports.dirs = p => fs.readdirSync(p)
+.filter(f => fs.statSync(path.join(p, f)).isDirectory())
+.sort(collator.compare);
+
+
 module.exports.files = (patch, ext) => fs.readdirSync(patch).filter(f => {
   return f.split('.').pop().toLowerCase() == ext.toLowerCase();
-});
+}).sort(collator.compare);
 
 
 module.exports.tempPostOptions = (opts) => {

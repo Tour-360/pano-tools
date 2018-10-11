@@ -1,6 +1,6 @@
 {
   "name": "pano-tools",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "",
   "main": "index.js",
   "author": "Denis Borodin <denis@tour-360.ru>",
@@ -21,10 +21,12 @@
     "inquirer": "^6.2.0",
     "inquirer-select-line": "^1.1.1",
     "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
     "node-exiftool": "^2.3.0",
     "photoshop": "^0.5.2",
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
+    "sanitize-filename": "^1.6.1",
     "terminal-link": "^1.1.0"
   }
 }

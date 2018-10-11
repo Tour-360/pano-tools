@@ -14,7 +14,9 @@ const completeMessage = "RAW файлы успешно обработанны.";
 module.exports = () => {
   return new Promise((resolve, reject) => {
 
+    !fs.existsSync(rawDir) && reject(`Не найдено папки с фотографиями ${rawDir}`);
     const rowFiles = files(rawDir, 'cr2');
+    !rowFiles.length && reject(`Не найдено фотографий в папке ${rawDir}`);
     const psQueue = [];
     var progress = 0;
 

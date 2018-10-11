@@ -12,6 +12,7 @@ const ep = new exiftool.ExiftoolProcess();
 const completeMessage = "Импорт фотографий успешно завершен.";
 
 const rowPath = stages[0];
+const currentDir = "Текущая папка";
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
@@ -19,10 +20,14 @@ module.exports = () => {
       type: 'list',
       message: 'Выбирите устройство с фотографиями:',
       name: 'volme',
-      choices: dirs('/Volumes')
+      choices: [...dirs('/Volumes'), currentDir]
     }]).then(({volme}) => {
-      const pathDCIM = '/Volumes/' + volme + '/DCIM';
-      const folder = pathDCIM + '/' + dirs(pathDCIM).filter(r => ~r.indexOf('100'))[0];
+      let folder = path.resolve();
+      const importFromCurrentDir = volme == currentDir;
+      if (!importFromCurrentDir) {
+        const pathDCIM = '/Volumes/' + volme + '/DCIM';
+        folder = pathDCIM + '/' + dirs(pathDCIM).filter(r => ~r.indexOf('100'))[0];
+      }
 
       var spinner = new Spinner('Загрузка информации из фотографий');
       spinner.setSpinnerString(18);
@@ -66,11 +71,13 @@ module.exports = () => {
             const newFile = ( f.LensID == lens ? rowPath : otherPhotoFolder ) + '/' + fileName;
             fse.mkdirsSync(rowPath);
             fse.mkdirsSync(otherPhotoFolder);
-            fs.existsSync(newFile) ? tick() : fs.copyFile(
+
+            fs.existsSync(newFile) ? tick() : fs[importFromCurrentDir ? 'rename' : 'copyFile'](
               f.SourceFile,
               newFile,
               tick
             );
+
           });
         })
         .then(() => ep.close())

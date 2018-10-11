@@ -39,9 +39,9 @@ module.exports = () => {
       let progress = 0;
       bar.start(panos.length, progress);
       const watcher = chokidar.watch(panoDir, {ignored: '**/*.pts'}).on('add', (filePath) => {
-        bar.update(++progress);
+        bar.update(progress++);
       });
-      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -x ${ptguiQueue.join(' ')}`, () => {
+      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -x ${ptguiQueue.map(p => `'${p}'`).join(' ')}`, () => {
         watcher.close();
         bar.stop();
         resolve(completeMessage);

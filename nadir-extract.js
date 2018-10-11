@@ -13,6 +13,7 @@ var readline = require('readline');
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
+    !fs.existsSync(nadirDir) && fs.mkdirSync(nadirDir);
     const template =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_extract.pts');
     const ptguiQueue = [];
     const panos = files(panoDir, 'tif');
@@ -38,7 +39,6 @@ module.exports = () => {
 
     if (ptguiQueue.length){
       console.log('Идет процесс экспортирования надиров'.bold);
-      !fs.existsSync(nadirDir) && fs.mkdirSync(nadirDir);
 
       bar.start(panos.length, 0);
 
@@ -46,7 +46,7 @@ module.exports = () => {
         bar.update(++progress);
       });
 
-      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.join(' ')}`, () => {
+      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.map(p => `'${p}'`).join(' ')}`, () => {
         watcher.close();
         bar.stop();
         resolve(completeMessage);
