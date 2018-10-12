@@ -9,6 +9,7 @@ const jpegDir = path.resolve(stages[6]);
 const cubeDir = path.resolve(stages[7]);
 const playerDir = path.resolve(stages[8]);
 const queue = [];
+let progress = 0;
 
 const completeMessage = "Конвертация сторон куба для веб-плеера, успешно завершена";
 
@@ -79,7 +80,6 @@ module.exports = () => {
     if (queue.length) {
       console.log("Начался процес конвертации сторон куба для веб плеера");
 
-      let progress = 0;
       bar.start(queue.length, progress);
       createQueues(convert, () => {
         bar.stop();
