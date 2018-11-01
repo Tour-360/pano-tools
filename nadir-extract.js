@@ -22,10 +22,10 @@ module.exports = () => {
     panos.map(panoName => {
       panoName = panoName.split('.')[0];
 
-      const projectFileName = path.resolve(nadirDir, `${panoName}.pts`);
-      const tiffFileName = path.resolve(nadirDir, `${panoName}.tif`);
+      const projectFileName = path.resolve(nadirDir, panoName + '.pts');
+      const tiffFileName = path.resolve(nadirDir, panoName + '.tif');
 
-      if (!fs.existsSync(projectFileName)){
+      if (!fs.existsSync(tiffFileName)){
         fs.writeFileSync(
           projectFileName,
           template.toString('utf8').replace(/pano_name/g, panoName)
@@ -56,28 +56,3 @@ module.exports = () => {
     }
   })
 }
-
-
-// var newTemplate =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_extract.pts');
-// var ptguiQueue = [];
-// fs.readdirSync(stages[3]).filter(f => (/\.(tif)$/i).test(f)).map(panoName => {
-//   panoName = panoName.split('.')[0];
-
-//   const projectFileName = path.resolve(stages[4] + `/${panoName}.pts`);
-//   const tiffFileName = path.resolve(stages[4] + `/${panoName}.tif`);
-
-//   if (!fs.existsSync(projectFileName)){
-//     fs.writeFileSync(
-//       projectFileName,
-//       newTemplate.toString('utf8').replace(/pano_name/g, panoName)
-//     );
-//   }
-
-//   if (!fs.existsSync(tiffFileName)){
-//     ptguiQueue.push(projectFileName);
-//   }
-// });
-
-// if (ptguiQueue.length){
-//   execSync(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.join(' ')}`);
-// }

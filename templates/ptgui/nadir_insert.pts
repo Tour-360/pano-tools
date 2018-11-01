@@ -108,7 +108,7 @@ o w1 h1 y0 r0 p0 v360 a0 b0 c0 f4 d0 e0 g0 t0
 #-viewpoint 0 0 0 0 0
 #-exposureparams 0 0 0 0
 o f4 y0 r0 p0 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 2318 2318 "pano_name.tif"
+#-imgfile 2318 2318 "../4_Nadir/pano_name.tif"
 #-metadata -1 -1 -1 0000-00-00T00:00:00 3*16 0 -1 65535 -1 * * * curve 15.29705850889136 * T 0 1538477180547288
 #-viewpoint 0 0 0 0 0
 #-exposureparams 0 0 0 0
