@@ -14,6 +14,8 @@ const jpeg = require('./jpeg.js');
 const cube = require('./cube.js');
 const player = require('./player.js');
 const web = require('./web.js');
+const video = require('./video.js');
+const deleteDirs = require('./delete.js');
 
 program.version(package.version, '-v, --version');
 
@@ -35,7 +37,7 @@ program
   .action(() => {
       importRow().then(r => {
         console.log(r.green);
-      });
+      }).catch(console.error);
   });
 
 
@@ -127,6 +129,24 @@ program
       web().then(r => {
         console.log(r.green);
       }).catch(console.error);
+  });
+
+program
+  .command('video')
+  .description('Создание видео из панорамы')
+  .action((file) => {
+      video(file).then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('delete')
+  .description('Удаление временных рабочих каталогов')
+  .action((file) => {
+    deleteDirs(file).then(r => {
+      console.log(r.green);
+    }).catch(console.error);
   });
 
 

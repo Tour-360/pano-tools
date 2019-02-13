@@ -22,10 +22,14 @@ module.exports = () => {
       name: 'volme',
       choices: [...dirs('/Volumes'), currentDir]
     }]).then(({volme}) => {
+
       let folder = path.resolve();
       const importFromCurrentDir = volme == currentDir;
       if (!importFromCurrentDir) {
         const pathDCIM = '/Volumes/' + volme + '/DCIM';
+        if(!fs.existsSync(pathDCIM)) {
+          return reject('Ошибка: в выбраном месте нет папки DCIM с фотографиями');
+        }
         folder = pathDCIM + '/' + dirs(pathDCIM).filter(r => ~r.indexOf('100'))[0];
       }
 
