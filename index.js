@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const fs = require('fs');
 const program = require('commander');
 const inquirer = require('inquirer');
 const package = require('./package.json');
@@ -14,8 +15,12 @@ const jpeg = require('./jpeg.js');
 const cube = require('./cube.js');
 const player = require('./player.js');
 const web = require('./web.js');
+const exif = require('./exif.js');
 const video = require('./video.js');
 const deleteDirs = require('./delete.js');
+
+const { stages, execs } = require('./config.json');
+
 
 program.version(package.version, '-v, --version');
 
@@ -127,6 +132,15 @@ program
   .description('Компоновка виртуального тура для веб')
   .action(() => {
       web().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('exif')
+  .description('Вшивание exif в jpeg файлы')
+  .action(() => {
+      exif().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

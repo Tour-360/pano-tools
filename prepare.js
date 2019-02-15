@@ -21,6 +21,7 @@ module.exports = () => {
     var progress = 0;
 
     rowFiles.map( fileName => {
+      console.log(fileName);
       const baseName = fileName.split('.')[0];
       const newXmpTemplate = rawDir + "/" + baseName + ".xmp";
       const newTiffFile = tiffDir + "/" + baseName + ".tif";
@@ -33,6 +34,7 @@ module.exports = () => {
       !fs.existsSync(tiffDir) && fs.mkdirSync(tiffDir);
 
       tempPostOptions({rawImport: rawDir, rawExport: tiffDir});
+
       bar.start(rowFiles.length, progress);
       const watcher = chokidar.watch(tiffDir).on('add', (filePath) => {
         bar.update(++progress);
