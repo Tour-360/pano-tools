@@ -15,8 +15,8 @@
   "bracketing": 3,
   "directions": 4,
   "execs": {
-    "enfuse": "/bin/enfuse/enfuse-openmp",
-    "exiftool": "/bin/exiftool/exiftool",
+    "enfuse": "bin/enfuse/enfuse-openmp",
+    "exiftool": "bin/exiftool/exiftool",
     "photoshop": "'/Applications/Adobe Photoshop CC 2018/Adobe Photoshop CC 2018.app'"
   }
 }

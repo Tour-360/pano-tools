@@ -15,6 +15,7 @@ const jpeg = require('./jpeg.js');
 const cube = require('./cube.js');
 const player = require('./player.js');
 const web = require('./web.js');
+const demo = require('./demo.js');
 const exif = require('./exif.js');
 const video = require('./video.js');
 const deleteDirs = require('./delete.js');
@@ -132,6 +133,15 @@ program
   .description('Компоновка виртуального тура для веб')
   .action(() => {
       web().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('demo')
+  .description('Создания страницы демонстрации проекта')
+  .action(() => {
+      demo().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

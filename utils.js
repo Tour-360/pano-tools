@@ -11,7 +11,8 @@ module.exports.dirs = p => fs.readdirSync(p)
 
 
 module.exports.files = (patch, ext) => fs.readdirSync(patch).filter(f => {
-  return f.split('.').pop().toLowerCase() == ext.toLowerCase();
+  const file = f.split('.').pop();
+  return (ext ? (file.toLowerCase() == ext.toLowerCase()) : true);
 }).sort(collator.compare);
 
 

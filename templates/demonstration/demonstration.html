@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PROJECT_NAME</title>
+  <style>
+    body {
+      margin: 20px auto;
+      margin-bottom: 100px;
+      width: calc(100% - 40px);
+      max-width: 800px;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      font-size: 80px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      margin: 3em 0 .5em;
+    }
+
+    h1 {
+      margin-top: 1em;
+    }
+
+    iframe {
+      margin: 1.5em 0 2em -100px;
+      width: calc(100% + 200px);
+      max-width: 100vw;
+      height: 50vw;
+      max-height: 600px;
+      display: block;
+      border: 0;
+    }
+
+    @media (max-width: 1000px) {
+      iframe {
+        margin: 1.5em 0 2em -20px;
+        width: calc(100% + 40px);
+      }
+    }
+
+    a {
+      color: rgb(0, 128, 255);
+      outline: none;
+      text-decoration: underline;
+      text-decoration-color: rgba(0, 128, 255, .5);
+      text-decoration-style: dashed;
+      text-underline-position: under;
+      transition: color.1s ease;
+      cursor: pointer;
+    }
+
+    a:hover {
+      transition: none;
+      color: rgb(255, 54, 0);
+      text-decoration-color: rgba(255, 54, 0, .5);
+    }
+
+    p, ul, ol {
+      line-height: 1.6em;
+      margin: 1em 0;
+      max-width: 50em;
+    }
+
+    code {
+      word-wrap: break-word;
+      display: block;
+      font-family: Menlo,Monaco,Courier New,Courier,monospace;
+      padding: 1.2em;
+      margin: 1.2em 0;
+      background-color: rgba(0,0,0,.05);
+      white-space: normal;
+      line-height: 2em;
+    }
+
+    .logo {
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo:hover {
+      color: inherit;
+    }
+
+    .logo img {
+      display: block;
+      margin-right: .5em;
+    }
+
+    .file span {
+      opacity: .5;
+    }
+
+    .zip:before {
+      content: '';
+      display: inline-block;
+      height: 1em;
+      width: 1em;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: .5;
+      vertical-align: middle;
+      margin-right: .5em;
+
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NDguMjkxIiBoZWlnaHQ9IjU0OC4yOTEiPjxwYXRoIGQ9Ik00ODYuMjAxIDE5Ni4xMjFoLTEzLjE2NnYtNjMuNTI1YzAtLjM5Ni0uMDYyLS43OTUtLjExNS0xLjE5Ni0uMDIxLTIuNTIzLS44MjUtNS0yLjU1Mi02Ljk2NEwzNjQuNjU3IDMuNjc3Yy0uMDMzLS4wMzEtLjA2NC0uMDQyLS4wODUtLjA3NS0uNjMtLjcwNC0xLjM2NC0xLjI5LTIuMTQzLTEuNzk2LS4yMjktLjE1NC0uNDYxLS4yODMtLjcwMi0uNDE4YTExLjIyIDExLjIyIDAgMCAwLTIuMTIxLS44OTJjLS4yLS4wNTUtLjM3OS0uMTM2LS41NzctLjE4OEExMC42ODQgMTAuNjg0IDAgMCAwIDM1Ni41NjIgMEg5Ni43NTdDODQuODk0IDAgNzUuMjU2IDkuNjQ5IDc1LjI1NiAyMS41MDJ2MTc0LjYxM0g2Mi4wOTJjLTE2Ljk3MSAwLTMwLjczMiAxMy43NTYtMzAuNzMyIDMwLjczM1YzODYuNjZjMCAxNi45NjggMTMuNzYxIDMwLjczMSAzMC43MzIgMzAuNzMxaDEzLjE2NFY1MjYuNzljMCAxMS44NTQgOS42MzggMjEuNTAxIDIxLjUwMSAyMS41MDFoMzU0Ljc3NmMxMS44NTMgMCAyMS41MDEtOS42NDcgMjEuNTAxLTIxLjUwMVY0MTcuMzkySDQ4Ni4yYzE2Ljk2NiAwIDMwLjcyOS0xMy43NjQgMzAuNzI5LTMwLjczMVYyMjYuODU0Yy4wMDEtMTYuOTc3LTEzLjc2Mi0zMC43MzMtMzAuNzI4LTMwLjczM3pNOTYuNzU3IDIxLjUwN2gyNDkuMDU0djExMC4wMWMwIDUuOTM5IDQuODE3IDEwLjc1IDEwLjc1MSAxMC43NWg5NC45NzJ2NTMuODYxSDk2Ljc1N1YyMS41MDd6bTIyNi41NTQgMjAyLjEzMXYxNjAuNTQ1aC0zNi40NDdWMjIzLjYzOGgzNi40NDd6bS0xNzcuMDAyIDMwLjAxMXYtMzAuMDExaDExNi40NzR2MjAuOTY3bC03NC43ODkgMTA4LjYxOHYuOTQ0aDc1Ljk4NXYzMC4wMTZIMTM5LjE2NXYtMTkuNTM3bDc2LjQ2NS0xMTAuMDM5di0uOTU4aC02OS4zMjF6bTMwNS4yMjUgMjY3LjMxOUg5Ni43NTdWNDE3LjM5MmgzNTQuNzc2djEwMy41NzZ6bTMuNzQyLTIxMC4zODJjLTEyLjM4NCAxMS42NzEtMzAuNzI0IDE2LjkwMy01Mi4xNjQgMTYuOTAzLTQuNzc1IDAtOS4wNS0uMjMtMTIuMzg4LS43MDl2NTcuNDAySDM1NC43NnYtMTU4LjRjMTEuMTkyLTEuOTE0IDI2LjkwOS0zLjMzNiA0OS4wNjEtMy4zMzYgMjIuMzk5IDAgMzguMzQ5IDQuMjg0IDQ5LjA3NyAxMi44NjEgMTAuMjM2IDguMDk3IDE3LjE0NSAyMS40MzggMTcuMTQ1IDM3LjE2MS4wMDQgMTUuNzItNS4yMzkgMjkuMDU4LTE0Ljc2NyAzOC4xMTh6Ii8+PHBhdGggZD0iTTQwNS43MzggMjQ5LjgzOGMtNy40MDEgMC0xMi40MDUuNzE3LTE1LjAxNCAxLjQzNnY0Ny4zOTdjMy4wODYuNzE0IDYuOTA4Ljk1NiAxMi4xNTIuOTU2IDE5LjI4NiAwIDMxLjIwMy05Ljc3NSAzMS4yMDMtMjYuMjAxLjAwMS0xNC43NzEtMTAuMjQyLTIzLjU4OC0yOC4zNDEtMjMuNTg4eiIvPjwvc3ZnPg==);
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>PROJECT_NAME</h1>
+  <p>Спасибо, что для создания виртуального тура вы выбрали именно нас. Пожалуйств оставте отзыв о нашей работа на <a target="_blank" href="https://yandex.ru/maps/org/tour_360_ru/83334047999">странице Яндекса</a>.</p>
+
+
+  <!-- <h2>Файлы для загрузки</h2> -->
+  <p>Рекомендуем вам, загрузить к себе следующие архивы:</p>
+  <p>
+    <span class="file">
+      <a class="zip" href="ZIP_PANORAMS" download>Архив с панорамами</a>
+      <span>(ZIP_PANORAMS_SIZE)</span>
+    </span>
+    <br />
+    <span class="file">
+      <a class="zip" href="ZIP_TOUR" download>Архив с туром для сайта</a>
+      <span>(ZIP_TOUR_SIZE)</span>
+    </span>
+  </p>
+
+  <h2>Виртуальный тур</h2>
+  <iframe src="index.html"></iframe>
+  <p>Кода для вставки тура на сайт</p>
+
+  <code>
+    &lt;iframe src="//tour-360.ru/projects/PROJECT_NAME/" width="640" height="480" frameborder="no" scrolling="no" allowfullscreen&gt;&lt;/iframe&gt;
+  </code>
+
+  <h2>Информация о туре</h2>
+  <ul>
+    <li>Дата съемки: SHOT_DATE</li>
+    <li>Дата публикации: PUBLISH_DATE</li>
+    <li>Количество панорам: PANO_AMOUNT</li>
+  </ul>
+</body>
+</html>
