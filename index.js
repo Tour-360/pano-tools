@@ -156,10 +156,23 @@ program
   });
 
 program
-  .command('video')
+  .command('video <file>')
+  .option('-w, --width [value]', 'Width (default - 1080)')
+  .option('-h, --height [value]', 'Height (default - 1920)')
+  .option('-t, --time [value]', 'Time in seconds (default - 8)')
+  .option('-f, --fps [value]', 'Frame per second (default - 30)')
+  .option('-s, --start [value]', 'Start point (default - 0)')
+  .option('-end, --end [value]', 'End point (default - 360)')
   .description('Создание видео из панорамы')
-  .action((file) => {
-      video(file).then(r => {
+  .action((file, cmd) => {
+      video(file, {
+        height: (cmd.height || 1920 ),
+        width: (cmd.width || 1080 ),
+        time: (cmd.time || 8 ),
+        fps: (cmd.fps || 30 ),
+        start: (cmd.start || 0 ),
+        end: (cmd.end || 360 )
+      }).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

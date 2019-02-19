@@ -17,7 +17,6 @@ const projectDir = path.resolve(webDir, projectName);
 
 const demoPagePath = path.resolve(projectDir + '/demonstration.html');
 
-
 module.exports = () => {
   return new Promise((resolve, reject) => {
 
@@ -58,11 +57,7 @@ module.exports = () => {
   }
   const zipTourSize = filesize(fs.statSync(zipTourPath).size);
 
-
-
-
-
-  if(true || !fs.existsSync(demoPagePath)) {
+  if(fs.existsSync(demoPagePath)) {
     !fs.existsSync(webDir) && reject('Каталог ' + webDir + ' не создан');
 
     const page = fs.readFileSync(__dirname + '/templates/demonstration/demonstration.html')
