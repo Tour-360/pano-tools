@@ -6,7 +6,7 @@ const _ = require('lodash');
 
 const { files, createQueues, bar } = require('./utils.js');
 const { stages, execs, bracketing, directions } = require('./config.json');
-const enfuse = path.resolve(__dirname + execs.enfuse);
+const enfuse = path.resolve(__dirname, execs.enfuse);
 const tiffDir = path.resolve(stages[1]);
 const hdrDir = path.resolve(stages[2]);
 const completeMessage = "Объединение снимков в HDR успешно завершено."

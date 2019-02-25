@@ -39,7 +39,7 @@ module.exports = () => {
           queue.push({
             type: "convert",
             size: "256x128",
-            quality: "70",
+            quality: "95",
             input: path.resolve(jpegDir, panoName + '.jpg'),
             output: path.resolve(panoFolder, 'thumbnail', 'mini.jpg')
           })

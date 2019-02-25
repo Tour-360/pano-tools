@@ -41,8 +41,6 @@ module.exports = () => {
   date.getDate()].join('.');
 
 
-
-
   const zipPanoramsPath = path.resolve(projectDir + '/panorams.zip');
   if(!fs.existsSync(zipPanoramsPath)) {
     execSync(`zip -rj ${webDir}/${projectName}/panorams.zip ` + jpegDir);
@@ -57,7 +55,7 @@ module.exports = () => {
   }
   const zipTourSize = filesize(fs.statSync(zipTourPath).size);
 
-  if(fs.existsSync(demoPagePath)) {
+  if(!fs.existsSync(demoPagePath)) {
     !fs.existsSync(webDir) && reject('Каталог ' + webDir + ' не создан');
 
     const page = fs.readFileSync(__dirname + '/templates/demonstration/demonstration.html')

@@ -18,6 +18,7 @@ const web = require('./web.js');
 const demo = require('./demo.js');
 const exif = require('./exif.js');
 const video = require('./video.js');
+const playerOptim = require('./optim.js');
 const deleteDirs = require('./delete.js');
 
 const { stages, execs } = require('./config.json');
@@ -129,6 +130,15 @@ program
   });
 
 program
+  .command('player-optim')
+  .description('Оптимизация изображений веб-плеера')
+  .action(() => {
+      playerOptim().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
   .command('web')
   .description('Компоновка виртуального тура для веб')
   .action(() => {
@@ -189,8 +199,9 @@ program
 
 program
   .command('start')
+  .option('-y, --yes', 'Пропустить все вопросы')
   .description('Все этапы обработки кроме импорта')
-  .action(() => {
+  .action((cmd) => {
       prepare()
         .then(r => {
           console.log(r.green);
@@ -206,15 +217,14 @@ program
         })
         .then(r => {
           console.log(r.green);
-          return inquirer.prompt({
+          return !cmd.yes ? inquirer.prompt({
             type: "confirm",
             name: "fill",
             message: 'Ретушировать надиры?',
             default: false
-          })
-        })
-        .then( ({fill}) => {
-          return (fill ? nadirFill() : false);
+          }).then( ({fill}) => {
+            return (fill ? nadirFill() : false);
+          }) : nadirFill();
         })
         .then(r => {
           r && console.log(r.green);
@@ -226,6 +236,10 @@ program
         })
         .then(r => {
           console.log(r.green);
+          return exif();
+        })
+        .then(r => {
+          console.log(r.green);
           return cube();
         })
         .then(r => {
@@ -234,7 +248,15 @@ program
         })
         .then(r => {
           console.log(r.green);
+          return playerOptim();
+        })
+        .then(r => {
+          console.log(r.green);
           return web();
+        })
+        .then(r => {
+          console.log(r.green);
+          return demo();
         })
         .then(r => {
           console.log(r.green);

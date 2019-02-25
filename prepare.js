@@ -21,7 +21,6 @@ module.exports = () => {
     var progress = 0;
 
     rowFiles.map( fileName => {
-      console.log(fileName);
       const baseName = fileName.split('.')[0];
       const newXmpTemplate = rawDir + "/" + baseName + ".xmp";
       const newTiffFile = tiffDir + "/" + baseName + ".tif";

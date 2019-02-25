@@ -5,10 +5,9 @@ const { files, bar } = require('./utils.js');
 const { stages, execs } = require('./config.json');
 const ptguiQueue = [];
 const panoFiles = [];
-
-
 const jpegDir = path.resolve(stages[6]);
 const cubeDir = path.resolve(stages[7]);
+const playerDir = path.resolve(stages[8]);
 
 const completeMessage = "Конвертация панорам в стороны куба успешно завершена";
 
@@ -38,6 +37,7 @@ module.exports = () => {
         panoFiles.map(panoFile => {
           fs.unlink(panoFile);
         })
+
         resolve(completeMessage);
       });
     } else {

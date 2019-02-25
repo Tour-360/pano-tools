@@ -39,8 +39,6 @@ module.exports = () => {
             bar.update(++progress);
           });
 
-          console.log(`open -W ${execs.photoshop} --args ${__dirname}/scripts/pano_to_jpeg.jsx`);
-
           exec(`open -W ${execs.photoshop} --args ${__dirname}/scripts/pano_to_jpeg.jsx`, () => {
             watcher.close();
             bar.stop();
