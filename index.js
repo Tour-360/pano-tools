@@ -3,7 +3,6 @@ const fs = require('fs');
 const program = require('commander');
 const inquirer = require('inquirer');
 const package = require('./package.json');
-
 const importRow = require('./import.js');
 const prepare = require('./prepare.js');
 const hdr = require('./hdr.js');
@@ -20,6 +19,7 @@ const exif = require('./exif.js');
 const video = require('./video.js');
 const playerOptim = require('./optim.js');
 const deleteDirs = require('./delete.js');
+const serve = require('./serve.js');
 
 const { stages, execs } = require('./config.json');
 
@@ -161,6 +161,20 @@ program
   .description('Вшивание exif в jpeg файлы')
   .action(() => {
       exif().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('serve')
+  .option('-o, --open', 'Open in browser')
+  .option('-p, --port [port]', 'Port, default: 8080')
+  .description('Запуск сервера для разработки')
+  .action((cmd) => {
+      serve({
+        port: cmd.port || 8080,
+        open: cmd.open
+      }).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
