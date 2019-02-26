@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs-extra");
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const { files, bar } = require('./utils.js');
 const { stages, execs } = require('./config.json');
 const ptguiQueue = [];
@@ -22,10 +22,28 @@ module.exports = () => {
         fs.mkdirSync(panoFolder);
         const panoFile = path.resolve(panoFolder, 'pano.jpg');
         panoFiles.push(panoFile);
-        fs.copySync(path.resolve(jpegDir, panoName + ".jpg"), panoFile);
+        const jpegPath = path.resolve(jpegDir, panoName + ".jpg");
+        fs.copySync(jpegPath, panoFile);
+        let image = execSync(`exiftool '${jpegPath}' -s -s  -ImageWidth -ImageHeight`)
+          .toString('utf8')
+          .split('\n')
+          .map(s => s.split(': ')[1]);
+
+        image = {
+          width: image[0],
+          height: image[1]
+        }
+
         for (var i = 0; i < 6; i ++) {
+          let templatePath = path.resolve(__dirname,  "templates/ptgui/cube/",  i + ".pts");
           var ptsPath = path.resolve(panoFolder, i + ".pts");
-          fs.copySync(path.resolve(__dirname,  "templates/ptgui/cube/",  i + ".pts"), ptsPath );
+          const template =  fs.readFileSync(templatePath);
+          fs.writeFileSync(
+            ptsPath,
+            template.toString('utf8')
+              .replace(/IMAGE_WIDTH/g, image.width)
+              .replace(/IMAGE_HEIGHT/g, image.height)
+          );
           ptguiQueue.push(ptsPath);
         }
       }

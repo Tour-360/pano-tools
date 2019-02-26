@@ -101,7 +101,7 @@ m g1 i0 f0
 #-dummyimage
 # The following line contains a 'dummy image' containing some global parameters for the project
 o w1 h1 y0 r0 p0 v360 a0 b0 c0 f4 d0 e0 g0 t0
-#-imgfile 7284 3642 "pano.jpg"
+#-imgfile IMAGE_WIDTH IMAGE_HEIGHT "pano.jpg"
 #-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 1 -1 * * * curve -1
 #-viewpoint 0 0 0 0 0
 #-exposureparams 0 0 0 0
