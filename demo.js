@@ -26,7 +26,7 @@ module.exports = () => {
 
   try {
     const rowFilePath = path.resolve( rowDir , files(rowDir)[0]);
-    shotDate = execSync(exiftool + ' ' + rowFilePath + ' -ExifIFD:DateTimeOriginal')
+    shotDate = execSync(`${exiftool} '${rowFilePath}' -ExifIFD:DateTimeOriginal`)
       .toString('utf8')
       .split(': ')[1]
       .split(' ')[0]
@@ -43,7 +43,7 @@ module.exports = () => {
 
   const zipPanoramsPath = path.resolve(projectDir + '/panorams.zip');
   if(!fs.existsSync(zipPanoramsPath)) {
-    execSync(`zip -rj ${webDir}/${projectName}/panorams.zip ` + jpegDir);
+    execSync(`zip -rj '${webDir}/${projectName}/panorams.zip' ` + jpegDir);
   }
   const zipPanoramsSize = filesize(fs.statSync(zipPanoramsPath).size);
 
@@ -51,7 +51,7 @@ module.exports = () => {
 
   const zipTourPath = path.resolve(projectDir + '/tour.zip');
   if(!fs.existsSync(zipTourPath)) {
-    execSync(`cd ${webDir}/${projectName} && zip -r tour.zip ./ -x ./*.zip -x demonstration.html`);
+    execSync(`cd '${webDir}/${projectName}' && zip -r tour.zip ./ -x ./*.zip -x demonstration.html`);
   }
   const zipTourSize = filesize(fs.statSync(zipTourPath).size);
 
