@@ -43,7 +43,7 @@ module.exports = () => {
 
   const zipPanoramsPath = path.resolve(projectDir + '/panorams.zip');
   if(!fs.existsSync(zipPanoramsPath)) {
-    execSync(`zip -rj '${webDir}/${projectName}/panorams.zip' ` + jpegDir);
+    execSync(`zip -rj '${webDir}/${projectName}/panorams.zip' '${jpegDir}'`);
   }
   const zipPanoramsSize = filesize(fs.statSync(zipPanoramsPath).size);
 
