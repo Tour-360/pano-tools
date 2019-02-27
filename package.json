@@ -6,7 +6,8 @@
   "author": "Denis Borodin <denis@tour-360.ru>",
   "license": "ISC",
   "bin": {
-    "pt": "index.js"
+    "pt": "index.js",
+    "pano-tools": "index.js"
   },
   "dependencies": {
     "chokidar": "^2.0.4",
