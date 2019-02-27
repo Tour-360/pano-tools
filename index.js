@@ -186,7 +186,7 @@ program
   .option('-t, --time [value]', 'Time in seconds (default - 8)')
   .option('-f, --fps [value]', 'Frame per second (default - 30)')
   .option('-s, --start [value]', 'Start point (default - 0)')
-  .option('-end, --end [value]', 'End point (default - 360)')
+  .option('-e, --end [value]', 'End point (default - 360)')
   .description('Создание видео из панорамы')
   .action((file, cmd) => {
       video(file, {

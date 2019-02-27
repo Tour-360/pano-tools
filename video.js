@@ -41,7 +41,7 @@ module.exports = (fileName, options) => {
     const { start, end, fps, time } = options;
     const chunk = (end - start ) / (time * fps);
 
-    for (var i = start; i < end; i += chunk) {
+    for (var i = parseInt(start); i < parseInt(end); i += chunk) {
       projectFileName = path.resolve(videoDir, 'video_' + pad(i.toFixed(4), 9) + '.pts');
 
       fs.writeFileSync(
@@ -70,7 +70,7 @@ module.exports = (fileName, options) => {
 
       console.log("Сохранение видео");
 
-      exec(`ffmpeg -framerate ${fps} -pattern_type glob -i '${videoDir}/*.jpg' -c:v libx264 -r ${fps} '${fileDir}/${basename}.mp4'`, () => {
+      exec(`ffmpeg -framerate ${fps} -pattern_type glob -i '${videoDir}/*.jpg' -c:v libx264 -pix_fmt yuv420p -r ${fps} '${fileDir}/${basename}.mp4'`, () => {
         resolve(`Видео ${basename}.mp4 готово`);
       });
     });
