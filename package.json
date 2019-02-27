@@ -31,9 +31,7 @@
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
     "sanitize-filename": "^1.6.1",
-    "terminal-link": "^1.1.0"
-  },
-  "devDependencies": {
+    "terminal-link": "^1.1.0",
     "imagemin-keep-folder": "^5.3.2"
   }
 }
