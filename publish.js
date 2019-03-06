@@ -1,5 +1,4 @@
 module.exports = () => {
-  const scp = require('scp');
   const path = require("path");
   const { execSync, exec } = require('child_process');
   const { getProject } = require('./utils.js');

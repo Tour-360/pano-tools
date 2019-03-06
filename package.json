@@ -33,7 +33,6 @@
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
     "sanitize-filename": "^1.6.1",
-    "scp": "0.0.3",
     "terminal-link": "^1.1.0"
   }
 }
