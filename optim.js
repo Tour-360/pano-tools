@@ -11,7 +11,7 @@ module.exports = () => {
     imagemin([path.resolve(playerDir, '**/*.jpg')], {
       plugins: [
         imageminMozjpeg({
-          quality: 72,
+          quality: 80,
           progressive: false
         }),
       ]
