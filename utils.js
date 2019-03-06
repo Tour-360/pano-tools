@@ -32,6 +32,15 @@ module.exports.createQueues = (func, callback) => {
   })
 }
 
+module.exports.getProject = (func, callback) => {
+  return JSON.parse(
+    fs.readFileSync(
+      path.resolve('project.json')
+    )
+    .toString('utf8')
+  );
+}
+
 module.exports.bar = new cliProgress.Bar({
   format: '[{bar}] | {percentage}% | Осталось: {eta_formatted}',
   clearOnComplete: true

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const path = require("path");
 const program = require('commander');
 const inquirer = require('inquirer');
 const package = require('./package.json');
@@ -19,7 +20,9 @@ const exif = require('./exif.js');
 const video = require('./video.js');
 const playerOptim = require('./optim.js');
 const deleteDirs = require('./delete.js');
+const youtube = require('./youtube.js');
 const serve = require('./serve.js');
+const publish = require('./publish.js');
 
 const { stages, execs } = require('./config.json');
 
@@ -27,14 +30,31 @@ const { stages, execs } = require('./config.json');
 program.version(package.version, '-v, --version');
 
 program
-  .command('init <name>')
+  .command('init [name]')
+  .option('-n, --name [name]', 'Project name')
+  .option('-f, --folder [folder]', 'Folder name')
   .description('Инициализация проекта, создание рабочей директории')
-  .action((name) => {
-    if (!fs.existsSync(name)){
-      fs.mkdirSync(name);
-      stages.map(folder => fs.mkdirSync(name + '/' + folder));
+  .action((name, cmd) => {
+    projectJson = JSON.stringify({
+      name: name || cmd.name,
+      folder: cmd.folder
+    }, null, 2);
+
+    if (name) {
+      if (!fs.existsSync(name)){
+        fs.mkdirSync(name);
+        stages.map(folder => fs.mkdirSync(name + '/' + folder));
+        console.log("Каталог проекта создан".green)
+      } else {
+        console.log('Проект уже существует'.green);
+        fs.writeFileSync(path.resolve(name, 'project.json'), projectJson);
+      }
     } else {
-      console.log('Проект уже существует');
+      stages.map(folder => {
+        !fs.existsSync(folder) && fs.mkdirSync(folder);
+        fs.writeFileSync('project.json', projectJson);
+      });
+      console.log("Каталоги созданы".green)
     }
   })
 
@@ -149,9 +169,14 @@ program
 
 program
   .command('demo')
+  .option('-n, --name [name]', 'Project name')
+  .option('-g, --google [google]', 'url on google map iFrame')
   .description('Создания страницы демонстрации проекта')
-  .action(() => {
-      demo().then(r => {
+  .action((cmd) => {
+      demo({
+        name: (typeof cmd.name == 'string' && cmd.name),
+        google: cmd.google
+      }).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
@@ -166,6 +191,15 @@ program
   });
 
 program
+  .command('youtube')
+  .description('Создание видео для YouTube')
+  .action(() => {
+      youtube().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
   .command('serve')
   .option('-o, --open', 'Open in browser')
   .option('-p, --port [port]', 'Port, default: 8080')
@@ -175,6 +209,15 @@ program
         port: cmd.port || 8080,
         open: cmd.open
       }).then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('publish')
+  .description('Публикация проекта на сервере')
+  .action(() => {
+      publish().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
