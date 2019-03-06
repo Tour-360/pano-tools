@@ -10,18 +10,10 @@ module.exports = () => {
   return new Promise((resolve, reject) => {
     const projectFolder = project.folder || project.name;
     const path = `/var/www/tour-360.ru/projects/${projectFolder}`;
-    execSync(`ssh server@tour-360.ru 'mkdir -p ${path}'`);
-    scp.send({
-      file: webDir + '/*',
-      user: 'server',
-      host: 'tour-360.ru',
-      path: path
-    }, function (err) {
-      if (err) reject(err);
-      else {
-        exec('open http://tour-360.ru/projects/' + projectFolder);
-        resolve('Проект успешно опубликован');
-      }
+    execSync(`ssh server@tour-360.ru 'mkdir -p "${path}"'`);
+    exec(`scp -r -P 22 '${webDir}/'* server@tour-360.ru:/var/www/tour-360.ru/projects/${projectFolder}`, err => {
+      if(!err) resolve('Проект успешно опубликован');
+      else reject(err);
     });
   });
 }

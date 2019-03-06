@@ -321,4 +321,15 @@ program
         .catch(error => console.log(error));
   });
 
+program
+  .command('*')
+  .action(() => {
+    console.log('Не верно введена команда'.red);
+  })
+
 program.parse(process.argv);
+
+
+if(program.args.length === 0) {
+  program.help();
+}
