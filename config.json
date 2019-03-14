@@ -11,6 +11,23 @@
     "8_Player",
     "9_Web"
   ],
+  "presets": {
+    "samyang8": {
+      "directions": 7,
+      "bracketing": 3,
+      "nadirFill": 32
+    },
+    "sigma8": {
+      "directions": 4,
+      "bracketing": 3,
+      "nadirFill": 28
+    },
+    "canon17-40": {
+      "directions": 18,
+      "bracketing": 3,
+      "nadirFill": 28
+    }
+  },
   "otherPhotoFolder": "Other_photo",
   "bracketing": 3,
   "directions": 4,

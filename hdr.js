@@ -1,18 +1,23 @@
-const fs = require('fs-extra');
-const cliProgress = require('cli-progress');
-const { spawn } = require('child_process');
-const path = require("path");
-const _ = require('lodash');
-
-const { files, createQueues, bar } = require('./utils.js');
-const { stages, execs, bracketing, directions } = require('./config.json');
-const enfuse = path.resolve(__dirname, execs.enfuse);
-const tiffDir = path.resolve(stages[1]);
-const hdrDir = path.resolve(stages[2]);
-const completeMessage = "Объединение снимков в HDR успешно завершено."
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
+    const fs = require('fs-extra');
+    const cliProgress = require('cli-progress');
+    const { spawn } = require('child_process');
+    const path = require("path");
+    const _ = require('lodash');
+
+    const { files, createQueues, bar, getProject } = require('./utils.js');
+
+    const { stages, execs, presets } = require('./config.json');
+    const enfuse = path.resolve(__dirname, execs.enfuse);
+    const tiffDir = path.resolve(stages[1]);
+    const hdrDir = path.resolve(stages[2]);
+    const completeMessage = "Объединение снимков в HDR успешно завершено."
+
+    const project = getProject();
+    const preset = presets[project.preset];
+    const { bracketing, directions } = preset;
     const enfuseQueues = [];
 
     !fs.existsSync(hdrDir) && fs.mkdirSync(hdrDir);
@@ -34,7 +39,6 @@ module.exports = () => {
           });
       });
     })
-
 
     if (enfuseQueues.length) {
       const execEnfuse = (callback) => {

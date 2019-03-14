@@ -1,19 +1,20 @@
-const fs = require('fs-extra');
-const path = require("path");
-const { exec } = require('child_process');
-const chokidar = require("chokidar");
-const cliProgress = require('cli-progress');
-
-const { dirs, bar } = require('./utils.js');
-const { stages, execs } = require('./config.json');
-const completeMessage = "Объединение снимков в панорамы успешно завершено.";
-
-const hdrDir = path.resolve(stages[2]);
-const panoDir = path.resolve(stages[3]);
-
 module.exports = () => {
   return new Promise((resolve, reject) => {
-    const template =  fs.readFileSync(__dirname + '/templates/ptgui/equidistant.pts');
+    const fs = require('fs-extra');
+    const path = require("path");
+    const { exec } = require('child_process');
+    const chokidar = require("chokidar");
+    const cliProgress = require('cli-progress');
+
+    const { dirs, bar, getProject } = require('./utils.js');
+    const project = getProject();
+    const { stages, execs } = require('./config.json');
+    const completeMessage = "Объединение снимков в панорамы успешно завершено.";
+
+    const hdrDir = path.resolve(stages[2]);
+    const panoDir = path.resolve(stages[3]);
+
+    const template =  fs.readFileSync(__dirname + '/templates/ptgui/'+project.preset+'.pts');
     const panos = dirs(hdrDir);
     const ptguiQueue = [];
 

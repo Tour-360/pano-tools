@@ -18,9 +18,14 @@ for (var i = 0; i < ptOptions.length; i++ ) {
 var files = options.files.split(',');
 
 for(var i = 0; i < files.length; i++){
-	var file = new File(files[i]);
-	app.open( file );
-	makeCircle(829,829,660,660,true)
+    var file = new File(files[i]);
+    app.open( file );
+
+    var imageWidth = parseInt(app.activeDocument.width.toString().replace(' px', ''));
+    var size = Math.ceil(imageWidth / 100 * options.size);
+    var position = Math.ceil(imageWidth / 2 - size / 2);
+    makeCircle(position,position,size,size,true)
+    // makeCircle(829,829,660,660,true)
 	contentAwareFill()
     SaveTIFF(activeDocument, file);
 	activeDocument.close(SaveOptions.DONOTSAVECHANGES);

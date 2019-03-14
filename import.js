@@ -1,21 +1,21 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const fse = require('fs-extra');
-const Spinner = require('cli-spinner').Spinner;
-const cliProgress = require('cli-progress');
-const path = require("path");
-const { dirs, bar } = require('./utils.js');
-const { stages, otherPhotoFolder } = require('./config.json');
-
-const exiftool = require('node-exiftool')
-const ep = new exiftool.ExiftoolProcess();
-const completeMessage = "Импорт фотографий успешно завершен.";
-
-const rowPath = stages[0];
-const currentDir = "Текущая папка";
-
 module.exports = () => {
   return new Promise((resolve, reject) => {
+    const inquirer = require('inquirer');
+    const fs = require('fs');
+    const fse = require('fs-extra');
+    const Spinner = require('cli-spinner').Spinner;
+    const cliProgress = require('cli-progress');
+    const path = require("path");
+    const { dirs, bar } = require('./utils.js');
+    const { stages, otherPhotoFolder } = require('./config.json');
+
+    const exiftool = require('node-exiftool')
+    const ep = new exiftool.ExiftoolProcess();
+    const completeMessage = "Импорт фотографий успешно завершен.";
+
+    const rowPath = stages[0];
+    const currentDir = "Текущая папка";
+
     inquirer.prompt([{
       type: 'list',
       message: 'Выбирите устройство с фотографиями:',

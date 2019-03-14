@@ -23,8 +23,7 @@ const deleteDirs = require('./delete.js');
 const youtube = require('./youtube.js');
 const serve = require('./serve.js');
 const publish = require('./publish.js');
-
-const { stages, execs } = require('./config.json');
+const { stages, presets, execs } = require('./config.json');
 
 
 program.version(package.version, '-v, --version');
@@ -35,27 +34,35 @@ program
   .option('-f, --folder [folder]', 'Folder name')
   .description('Инициализация проекта, создание рабочей директории')
   .action((name, cmd) => {
-    projectJson = JSON.stringify({
-      name: name || cmd.name,
-      folder: cmd.folder
-    }, null, 2);
+    inquirer.prompt([{
+      type: 'list',
+      message: 'Выберите присет:',
+      name: 'preset',
+      choices: Object.keys(presets)
+    }]).then(({preset}) => {
+      projectJson = JSON.stringify({
+        name: (name || cmd.name || "Без имени"),
+        folder: (cmd.folder || "dirname"),
+        preset: preset
+      }, null, 2);
 
-    if (name) {
-      if (!fs.existsSync(name)){
-        fs.mkdirSync(name);
-        stages.map(folder => fs.mkdirSync(name + '/' + folder));
-        console.log("Каталог проекта создан".green)
+      if (name) {
+        if (!fs.existsSync(name)){
+          fs.mkdirSync(name);
+          stages.map(folder => fs.mkdirSync(name + '/' + folder));
+          console.log("Каталог проекта создан".green)
+        } else {
+          console.log('Проект уже существует'.green);
+          fs.writeFileSync(path.resolve(name, 'project.json'), projectJson);
+        }
       } else {
-        console.log('Проект уже существует'.green);
-        fs.writeFileSync(path.resolve(name, 'project.json'), projectJson);
+        stages.map(folder => {
+          !fs.existsSync(folder) && fs.mkdirSync(folder);
+          fs.writeFileSync('project.json', projectJson);
+        });
+        console.log("Каталоги созданы".green)
       }
-    } else {
-      stages.map(folder => {
-        !fs.existsSync(folder) && fs.mkdirSync(folder);
-        fs.writeFileSync('project.json', projectJson);
-      });
-      console.log("Каталоги созданы".green)
-    }
+    });
   })
 
 program
@@ -313,7 +320,7 @@ program
         })
         .then(r => {
           console.log(r.green);
-          return demo();
+          return demo({});
         })
         .then(r => {
           console.log(r.green);
