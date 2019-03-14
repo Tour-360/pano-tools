@@ -24,7 +24,8 @@ const youtube = require('./youtube.js');
 const serve = require('./serve.js');
 const publish = require('./publish.js');
 const { stages, presets, execs } = require('./config.json');
-
+const updateNotifier = require('update-notifier');
+updateNotifier({pkg: package}).notify();
 
 program.version(package.version, '-v, --version');
 
