@@ -8,7 +8,7 @@
 #-vfov 180
 #-resolution 300
 #-fixaspect 1
-#-outputfile 
+#-outputfile
 #-ccdcrop 1
 #-hasbeenoptimized 0
 #-hvcpmode 1
@@ -129,7 +129,7 @@ o f0 y30 r0 p45 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
 #-viewpoint 0 0 0 0 0
 #-exposureparams -0.0008378983022467707 -0.001485751596524347 0 -0.127898689471301
 o f0 y90 r0 p45 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3840 5760 "../2_HDR/0/6.tif"
+#-imgfile 3840 5760 "../2_HDR/pano_name/6.tif"
 #-metadata -1 -1 -1 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1552556308000000
 #-viewpoint 0 0 0 0 0
 #-exposureparams 0.0001038625465365302 0.0009419740415040012 0 -0.04148201525537937
