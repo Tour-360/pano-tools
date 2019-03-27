@@ -9,8 +9,10 @@ const prepare = require('./prepare.js');
 const hdr = require('./hdr.js');
 const pano = require('./pano.js');
 const nadirExtract = require('./nadir-extract.js');
+const zenitExtract = require('./zenit-extract.js');
 const nadirFill = require('./nadir-fill.js');
 const nadirInsert = require('./nadir-insert.js');
+const nadirZenitInsert = require('./nadir-zenit-insert.js');
 const jpeg = require('./jpeg.js');
 const cube = require('./cube.js');
 const player = require('./player.js');
@@ -113,6 +115,15 @@ program
   });
 
 program
+  .command('zenit-extract')
+  .description('Извлечение зенита из панорам')
+  .action(() => {
+      zenitExtract().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
   .command('nadir-fill')
   .description('Ретушь надиров')
   .action(() => {
@@ -126,6 +137,14 @@ program
   .description('Внедрение надира')
   .action(() => {
       nadirInsert().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+program
+  .command('nadir-zenit-insert')
+  .description('Внедрение надира и зенита')
+  .action(() => {
+      nadirZenitInsert().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

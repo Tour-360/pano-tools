@@ -3,15 +3,15 @@
 #-encoding utf8
 #-pathseparator /
 #-fileversion 49
-#-previewwidth 1130
-#-previewheight 565
+#-previewwidth 1126
+#-previewheight 563
 #-vfov 180
 #-resolution 300
 #-fixaspect 1
-#-outputfile 
-#-ccdcrop 1.61
+#-outputfile
+#-ccdcrop 1
 #-hasbeenoptimized 0
-#-hvcpmode 0
+#-hvcpmode 1
 #-jpegparameters 100 0
 #-tiffparameters 16bit packbits alpha_assoc
 #-psdparameters 8bit packbits layered
@@ -26,28 +26,26 @@
 #-tonemapv2settings PTGTM 1 0.5 20 20 0 0 2 1 0.15 0
 #-fusesettings 0.5 0 0.2 0 0
 #-cameracurve 3.441228 -0.551975 0.294423 -0.09563199999999999 0.07213899999999999
-#-vignettingparams -0.3126121759942336 0.6607128247203289 -2.054018094332934 3.75072894766269 -2.560740159228515
+#-vignettingparams
 #-wbexposure 0 0 0
-#-pmoptexposuremode finetune
+#-pmoptexposuremode auto
 #-pmoptvignettingmode enabled
-#-pmoptwbmode enabled
+#-pmoptwbmode disabled
 #-pmoptflaremode disabled
 #-pmoptcameracurvemode auto
-#-exposurecorrection 1
+#-exposurecorrection 0
 #-tonemapldrpanorama 0
-#-blendweight 100 100 100 100 100 100 100
-#-optviewpoint 0000001
+#-blendweight 100 100
+#-optviewpoint 00
 #-useexif0
 #-batchbuilder_useexif 0
 #-stitcher ptgui
 #-blender ptgui
-#-blenderfeather 0
+#-blenderfeather -0.6000000000000001
 #-optimizer ptgui
-#-interpolator default
-#-autocpdone
-#-imgrotate4444444
-#-linkpitch
-#-linkroll
+#-interpolator lanczos4
+#-simpleoptimizer
+#-imgrotate44
 #-cpinactive
 #-imginactive
 #-linktoprevious
@@ -61,20 +59,20 @@
 #-alignsettings_straighten 1
 #-alignsettings_fit 1
 #-alignsettings_chooseprojection 1
-#-alignsettings_setoptimumsize 0
+#-alignsettings_setoptimumsize 1
 #-alignsettings_limitsize 500
 #-alignsettings_optimizeexposure 1
 #-hdrsettings_defaultlinkmode nolink
 #-hdrsettings_donotask 0
-#-batchsettings_align 1
+#-batchsettings_align 0
 #-batchsettings_stitch 1
 #-batchsettings_stitchonlyifcontrolpoints 1
 #-defaultprojectfilenamemode firstsourceimage
-#-defaultprojectfilename_custom "Panorama"
+#-defaultprojectfilename_custom " Panorama"
 #-defaultprojectfoldermode sourcefolder
 #-defaultprojectfolder_custom ""
-#-defaultpanoramafilenamemode asproject
-#-defaultpanoramafilename_custom ""
+#-defaultpanoramafilenamemode custom
+#-defaultpanoramafilename_custom "../5_Pano_Nadir/pano_name"
 #-defaultpanoramafoldermode projectfolder
 #-defaultpanoramafolder_custom ""
 #-userelativesourceimagepaths 1
@@ -86,7 +84,7 @@
 #-applytemplate_panoramasettings 1
 #-applytemplate_projectsettings 1
 #-applytemplate_optimizer 1
-#-globalcrop 0 0 0 0 0 -0.007204861111111112 -0.003038194444444444 0.3207465277777778
+#-globalcrop 0 0 0 0 0 0 0 0.5
 #-theoreticalhfov -1
 #-rect_compression_x 0
 #-rect_compression_y 0
@@ -98,50 +96,30 @@
 #-rectifisheye_compression 1
 #-iccprofile AAACMEFEQkUCEAAAbW50clJHQiBYWVogB88ABgADAAAAAAAAYWNzcEFQUEwAAAAAbm9uZQAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1BREJFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKY3BydAAAAPwAAAAyZGVzYwAAATAAAABrd3RwdAAAAZwAAAAUYmtwdAAAAbAAAAAUclRSQwAAAcQAAAAOZ1RSQwAAAdQAAAAOYlRSQwAAAeQAAAAOclhZWgAAAfQAAAAUZ1hZWgAAAggAAAAUYlhZWgAAAhwAAAAUdGV4dAAAAABDb3B5cmlnaHQgMTk5OSBBZG9iZSBTeXN0ZW1zIEluY29ycG9yYXRlZAAAAGRlc2MAAAAAAAAAEUFkb2JlIFJHQiAoMTk5OCkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAADzUQABAAAAARbMWFlaIAAAAAAAAAAAAAAAAAAAAABjdXJ2AAAAAAAAAAECMwAAY3VydgAAAAAAAAABAjMAAGN1cnYAAAAAAAAAAQIzAABYWVogAAAAAAAAnBgAAE+lAAAE/FhZWiAAAAAAAAA0jQAAoCwAAA+VWFlaIAAAAAAAACYxAAAQLwAAvpw=
 # Panorama settings:
-p w12644 h6322 f2 v360 u0 n"TIFF"
+p wIMAGE_WIDTH hIMAGE_HEIGHT f2 v360 u0 n"TIFF"
 m g0 i0
 
 # input images:
 #-dummyimage
 # The following line contains a 'dummy image' containing some global parameters for the project
-o w1 h1 y0 r0 p0 v98.39030566039943 a0.01334674982888138 b0.007632136152276064 c0.003407553603256543 f3 d9.09828290789774 e-55.48956042659829 g-16.41511818169612 t-0.6317570816863749
-#-imgfile 3456 5184 "../2_HDR/pano_name/1.tif"
-#-metadata -1 -1 100 2018-09-08T10:27:35 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401503000000
+o w1 h1 y0 r0 p0 v360 a0 b0 c0 f4 d0 e0 g0 t0
+#-imgfile IMAGE_WIDTH IMAGE_HEIGHT "../3_Pano/pano_name.tif"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1538468777880283
 #-viewpoint 0 0 0 0 0
-#-exposureparams 0.0955935893791679 -0.1356427771971112 0 0.05314777641723219
-o f3 y0 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/2.tif"
-#-metadata -1 -1 100 2018-09-08T10:27:47 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401503000000
+#-exposureparams 0 0 0 0
+o f4 y0 r0 p0 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile NADIR_SIZE NADIR_SIZE "../4_Nadir/pano_name.tif"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*16 0 -1 65535 -1 * * * curve 15.29705850889136 * T 0 1538477180547288
 #-viewpoint 0 0 0 0 0
-#-exposureparams 0.07075538251458832 -0.09020240164955934 0 0.03121988586578809
-o f3 y-60 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/3.tif"
-#-metadata -1 -1 100 2018-09-08T10:28:01 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401497000000
+#-exposureparams 0 0 0 0
+o f0 y0 r0 p-90 v90 a0 b0 c0 d=0 e=0 g=0 t=0
+#-imgfile NADIR_SIZE NADIR_SIZE "../4_Zenit/pano_name.tif"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*16 0 -1 65535 -1 * * * curve 15.29705850889136 * T 0 1538477180547288
 #-viewpoint 0 0 0 0 0
-#-exposureparams -0.1037757626558604 0.1505690606464988 0 -0.008669823785515772
-o f3 y-120 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/4.tif"
-#-metadata -1 -1 100 2018-09-08T10:28:21 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401523000000
-#-viewpoint 0 0 0 0 0
-#-exposureparams -0.07723824743576642 0.1048461057930661 0 -0.1328361053913642
-o f3 y180 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/5.tif"
-#-metadata -1 -1 100 2018-09-08T10:28:31 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401533000000
-#-viewpoint 0 0 0 0 0
-#-exposureparams 0.01100350941197326 0.003934398479767976 0 0.184201410537429
-o f3 y120 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/6.tif"
-#-metadata -1 -1 100 2018-09-08T10:28:39 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401532000000
-#-viewpoint 0 0 0 0 0
-#-exposureparams 0.1056406640075679 -0.1557596925280202 0 0.03237617745109508
-o f3 y60 r0 p-4 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
-#-imgfile 3456 5184 "../2_HDR/pano_name/7.tif"
-#-metadata -1 -1 100 2018-09-08T10:28:57 4*16 0 0 65535 -1 * * * curve 50 * T 0 1552401545000000
-#-viewpoint 0 0 0 0 0
-#-exposureparams -0.1019791352216705 0.122255306455358 0 -0.1594393210946642
-o f3 y0 r0 p90 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-exposureparams 0 0 0 0
+o f0 y0 r0 p90 v90 a0 b0 c0 d=0 e=0 g=0 t=0
 
 # Control points:
 
 # optimizer:
-v v a b c d e g t y1 r1 p1 y2 r2 p2 y3 r3 p3 y4 r4 p4 y5 r5 p5 y6 r6 p6 r0 p0
+v v b v2 a2 b2 c2 y2 r2 p2
