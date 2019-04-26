@@ -27,6 +27,11 @@
       "directions": 18,
       "bracketing": 3,
       "nadirFill": 28
+    },
+    "canon8-15_10": {
+      "directions": 7,
+      "bracketing": 3,
+      "nadirFill": 32
     }
   },
   "otherPhotoFolder": "Other_photo",

@@ -1,0 +1,147 @@
+# ptGui project file
+
+#-encoding utf8
+#-pathseparator /
+#-fileversion 49
+#-previewwidth 1130
+#-previewheight 565
+#-vfov 180
+#-resolution 300
+#-fixaspect 1
+#-outputfile
+#-ccdcrop 1.61
+#-hasbeenoptimized 0
+#-hvcpmode 1
+#-jpegparameters 100 0
+#-tiffparameters 16bit packbits alpha_assoc
+#-psdparameters 8bit packbits layered
+#-qtvrparameters 800 600 1 1000 70 0 0 -180 180 0 -90 90 90 10 120 1
+#-honorexiforientation 1
+#-exrparameters noalpha
+#-hdroutputhdrblended
+#-hdroutputtonemapped
+#-hdrfileformat hdr
+#-hdrmethod fuse
+#-hdrpsdparameters float none layered
+#-tonemapv2settings PTGTM 1 0.5 20 20 0 0 2 1 0.15 0
+#-fusesettings 0.5 0 0.2 0 0
+#-cameracurve 3.441228 -0.551975 0.294423 -0.09563199999999999 0.07213899999999999
+#-vignettingparams -0.003661728108959992 0.00838533528941598 0.000897454594883804 -0.006813495205274963 -0.01200656541922186
+#-wbexposure 0 0 0
+#-pmoptexposuremode finetune
+#-pmoptvignettingmode enabled
+#-pmoptwbmode enabled
+#-pmoptflaremode disabled
+#-pmoptcameracurvemode auto
+#-exposurecorrection 1
+#-tonemapldrpanorama 0
+#-blendweight 100 100 100 100 100 100 100
+#-optviewpoint 0000001
+#-useexif0
+#-batchbuilder_useexif 0
+#-stitcher ptgui
+#-blender ptgui
+#-blenderfeather 0
+#-optimizer ptgui
+#-interpolator default
+#-autocpdone
+#-imgrotate4444444
+#-linkpitch
+#-linkroll
+#-cpinactive
+#-imginactive
+#-linktoprevious
+#-previewinactive
+#-outputcrop 0 1 0 1
+#-location default
+#-viewingdirection default
+#-alignsettings_generatecp 1
+#-alignsettings_optimize 1
+#-alignsettings_optimizeprealign 1
+#-alignsettings_straighten 1
+#-alignsettings_fit 1
+#-alignsettings_chooseprojection 1
+#-alignsettings_setoptimumsize 0
+#-alignsettings_limitsize 500
+#-alignsettings_optimizeexposure 1
+#-hdrsettings_defaultlinkmode nolink
+#-hdrsettings_donotask 0
+#-batchsettings_align 0
+#-batchsettings_stitch 1
+#-batchsettings_stitchonlyifcontrolpoints 1
+#-defaultprojectfilenamemode firstsourceimage
+#-defaultprojectfilename_custom "Panorama"
+#-defaultprojectfoldermode sourcefolder
+#-defaultprojectfolder_custom ""
+#-defaultpanoramafilenamemode asproject
+#-defaultpanoramafilename_custom ""
+#-defaultpanoramafoldermode projectfolder
+#-defaultpanoramafolder_custom ""
+#-userelativesourceimagepaths 1
+#-optimizeraskreinitialize 1
+#-applytemplate_lens 1
+#-applytemplate_imageparams 1
+#-applytemplate_crop 1
+#-applytemplate_mask 1
+#-applytemplate_panoramasettings 1
+#-applytemplate_projectsettings 1
+#-applytemplate_optimizer 1
+#-globalcrop 0 0 0 0 0 -0.007204861111111112 -0.003038194444444444 0.3207465277777778
+#-theoreticalhfov -1
+#-rect_compression_x 0
+#-rect_compression_y 0
+#-cylindrical_compression_y 0
+#-transverse_cylindrical_compression_x 0
+#-vedutismo_compression_x 1
+#-transverse_vedutismo_compression_y 1
+#-stereographic_compression 1
+#-rectifisheye_compression 1
+#-iccprofile AAACMEFEQkUCEAAAbW50clJHQiBYWVogB88ABgADAAAAAAAAYWNzcEFQUEwAAAAAbm9uZQAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1BREJFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKY3BydAAAAPwAAAAyZGVzYwAAATAAAABrd3RwdAAAAZwAAAAUYmtwdAAAAbAAAAAUclRSQwAAAcQAAAAOZ1RSQwAAAdQAAAAOYlRSQwAAAeQAAAAOclhZWgAAAfQAAAAUZ1hZWgAAAggAAAAUYlhZWgAAAhwAAAAUdGV4dAAAAABDb3B5cmlnaHQgMTk5OSBBZG9iZSBTeXN0ZW1zIEluY29ycG9yYXRlZAAAAGRlc2MAAAAAAAAAEUFkb2JlIFJHQiAoMTk5OCkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAADzUQABAAAAARbMWFlaIAAAAAAAAAAAAAAAAAAAAABjdXJ2AAAAAAAAAAECMwAAY3VydgAAAAAAAAABAjMAAGN1cnYAAAAAAAAAAQIzAABYWVogAAAAAAAAnBgAAE+lAAAE/FhZWiAAAAAAAAA0jQAAoCwAAA+VWFlaIAAAAAAAACYxAAAQLwAAvpw=
+# Panorama settings:
+p w14176 h7088 f2 v360 u0 n"TIFF"
+m g0 i0
+
+# input images:
+#-dummyimage
+# The following line contains a 'dummy image' containing some global parameters for the project
+o w1 h1 y0 r0 p0 v87.7423761958531 a0.00384833461316785 b-0.03013662873471992 c-0.002382743122086634 f3 d-10.23207338114925 e12.99080882774986 g0.0854789038105524 t-1.44852490024245
+#-imgfile 3456 5184 "../2_HDR/pano_name/1.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556281956886319
+#-viewpoint 0 0 0 0 0
+#-exposureparams 6.897939486946797e-05 0.009980659395645596 0 0.06109844783416169
+o f3 y-90 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/2.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556281962034638
+#-viewpoint 0 0 0 0 0
+#-exposureparams -0.0007567958236344561 0.004946450389912068 0 0.007453413990606771
+o f3 y-150 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/3.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556281964611390
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0.001715035801379023 -0.0008601947677374607 0 -0.00788076104601497
+o f3 y150 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/4.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556282005336935
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0.001154032354182909 -0.008205163973464037 0 -0.09791492739176756
+o f3 y90 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/5.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556282013603063
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0.0002991968381751171 -0.007244612399005822 0 -0.04514817143489176
+o f3 y30 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/6.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556282013600561
+#-viewpoint 0 0 0 0 0
+#-exposureparams -0.007145047925439968 0.0132653037744542 0 0.08899271681275624
+o f3 y-30 r0 p-3.5 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 3456 5184 "../2_HDR/pano_name/7.tif"
+#-metadata -1 -1 100 0000-00-00T00:00:00 4*16 0 -1 -1 -1 * * * curve -1 * T 0 1556282087750586
+#-viewpoint -0.001038348322489617 -0.0008772990702306032 -0.001970812094598078 -0.3741959208120501 0.1320157588648236
+#-exposureparams 0.004664599360467752 -0.01188244241980469 0 -0.006600718764850329
+o f3 y0 r0 p89.99996124958523 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+
+# Control points:
+
+# optimizer:
+v v a b c d e g t y1 r1 p1 y2 r2 p2 y3 r3 p3 y4 r4 p4 y5 r5 p5 y6 r6 p6 r0 p0
