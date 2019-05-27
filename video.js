@@ -13,6 +13,10 @@ const pad = (str, max) => {
   return str.length < max ? pad("0" + str, max) : str;
 }
 
+pxToFow = (panoSize, size) => {
+  return Math.atan( size / panoSize * Math.PI) * (180 / Math.PI) * 2;
+}
+
 module.exports = (fileName, options) => {
   return new Promise((resolve, reject) => {
     const template =  fs.readFileSync(__dirname + '/templates/ptgui/video.pts');
@@ -51,6 +55,8 @@ module.exports = (fileName, options) => {
           .replace(/IMAGE_HEIGHT/g, image.height)
           .replace(/VIDEO_WIDTH/g, options.width)
           .replace(/VIDEO_HEIGHT/g, options.height)
+          .replace(/FOW_WIDTH/g, pxToFow(image.width, options.width))
+          .replace(/FOW_HEIGHT/g, pxToFow(image.width, options.height))
           .replace(/PANO_NAME/g, filePath)
           .replace(/BIAS/g, -i)
       );

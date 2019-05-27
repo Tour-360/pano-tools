@@ -21,10 +21,11 @@ module.exports = () => {
     .open()
     .then(() => ep.readMetadata(nadirDir, ['Software']))
     .then(r => {
+      console.log(r.data);
       const psQueue = [];
       ep.close();
       return r.data
-        .filter(r => !~r.Software.indexOf("Photoshop"))
+        .filter(r => !(r.Software && ~r.Software.indexOf("Photoshop")))
         .map(r => r.SourceFile);
     }).then(files => {
       if (files.length) {

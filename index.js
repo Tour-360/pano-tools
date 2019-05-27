@@ -25,6 +25,8 @@ const deleteDirs = require('./delete.js');
 const youtube = require('./youtube.js');
 const serve = require('./serve.js');
 const publish = require('./publish.js');
+const gps = require('./gps.js');
+const mark = require('./mark.js');
 const { stages, presets, execs } = require('./config.json');
 const updateNotifier = require('update-notifier');
 updateNotifier({pkg: package}).notify();
@@ -218,6 +220,17 @@ program
   });
 
 program
+  .command('mark')
+  .option('-t, --template [value]', 'watermark template')
+  .option('-s, --size [value]', 'watermark size')
+  .description('Нанесение вотермарка на надир')
+  .action(cmd => {
+      mark(cmd.template, cmd.size).then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
   .command('youtube')
   .description('Создание видео для YouTube')
   .action(() => {
@@ -276,6 +289,15 @@ program
   .description('Удаление временных рабочих каталогов')
   .action((file) => {
     deleteDirs(file).then(r => {
+      console.log(r.green);
+    }).catch(console.error);
+  });
+
+program
+  .command('gps')
+  .description('Внедрение в файлы данных gps')
+  .action((file) => {
+    gps(file).then(r => {
       console.log(r.green);
     }).catch(console.error);
   });
