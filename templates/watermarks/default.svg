@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024">
+<defs>
+     <path d="M320,512a192,192 0 1,1 384,0a192,192 0 1,1 -384,0" id="path" />
+    <style>
+        text {
+            font-family: Helvetica;
+            font-weight: 900;
+            font-size: 24px;
+            <!-- text-transform: uppercase; -->
+            letter-spacing: 3px;
+            fill: white;
+        }
+    </style>§
+</defs>
+
+<circle fill="none" stroke="rgba(0,0,0,0.8)" cx="512" cy="512" r="192" stroke-width="45"/>
+<text dy="8" transform="rotate(0 512 512)">
+    <textPath xlink:href="#path" startOffset="50%" text-anchor="middle" >
+        Съемка панорам и создание виртуальных туров　Tour-360.ru　+7 495 015 83 60
+    </textPath>
+</text>
+
+</svg>
