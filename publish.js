@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = ({open}) => {
   const path = require("path");
   const { execSync, exec, spawn } = require('child_process');
   const { getProject } = require('./utils.js');
@@ -9,8 +9,6 @@ module.exports = () => {
   return new Promise((resolve, reject) => {
     const projectFolder = project.folder || project.name;
     const path = `/var/www/tour-360.ru/projects/${projectFolder}`;
-    execSync(`ssh server@tour-360.ru 'mkdir -p "${path}"'`);
-
     const rsync = exec(`rsync --progress -ru -L --iconv=utf-8 '${webDir}/'* server@tour-360.ru:/var/www/tour-360.ru/projects/${projectFolder}`);
 
     rsync.stdout.on('data', function (data) {
@@ -23,7 +21,9 @@ module.exports = () => {
 
     rsync.on('exit', function (code) {
       if (code == 0) {
-        resolve('Проект успешно опубликован')
+        const url = `https://tour-360.ru/projects/${projectFolder}`;
+        resolve(`Проект доступен по ссылке: ${url}`);
+        open && exec('open ' + url);
       } else {
         reject(err);
       }

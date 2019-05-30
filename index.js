@@ -255,9 +255,12 @@ program
 
 program
   .command('publish')
+  .option('-o, --open', 'Open in browser')
   .description('Публикация проекта на сервере')
-  .action(() => {
-      publish().then(r => {
+  .action((cmd) => {
+      publish({
+        open: cmd.open
+      }).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
