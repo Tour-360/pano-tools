@@ -27,8 +27,10 @@ const serve = require('./serve.js');
 const publish = require('./publish.js');
 const gps = require('./gps.js');
 const mark = require('./mark.js');
+const watch = require('./watch.js');
 const { stages, presets, execs } = require('./config.json');
 const updateNotifier = require('update-notifier');
+
 updateNotifier({pkg: package}).notify();
 
 program.version(package.version, '-v, --version');
@@ -192,6 +194,24 @@ program
   .description('Компоновка виртуального тура для веб')
   .action(() => {
       web().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('watch-tiff')
+  .description('Следить за наполнением каталога ' + stages[1])
+  .action(() => {
+      watch(path.resolve(stages[0]), path.resolve(stages[1])).then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('watch-jpeg')
+  .description('Следить за наполнением каталога ' + stages[6])
+  .action(() => {
+      watch(path.resolve(stages[5]), path.resolve(stages[6])).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
