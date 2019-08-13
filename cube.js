@@ -34,6 +34,8 @@ module.exports = () => {
           height: image[1]
         }
 
+        const size = Math.pow(2, Math.round(Math.log(image.width / Math.PI) / Math.log(2)));
+
         for (var i = 0; i < 6; i ++) {
           let templatePath = path.resolve(__dirname,  "templates/ptgui/cube/",  i + ".pts");
           var ptsPath = path.resolve(panoFolder, i + ".pts");
@@ -43,6 +45,7 @@ module.exports = () => {
             template.toString('utf8')
               .replace(/IMAGE_WIDTH/g, image.width)
               .replace(/IMAGE_HEIGHT/g, image.height)
+              .replace(/EXPORT_SIZE/g, size)
           );
           ptguiQueue.push(ptsPath);
         }
