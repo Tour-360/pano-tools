@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require("path");
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const { dirs, createQueues, bar } = require('./utils.js');
 const { stages, execs } = require('./config.json');
 const mkdirp = require('mkdirp');
@@ -20,10 +20,20 @@ module.exports = () => {
     if (panos.length) {
       panos.map(panoName => {
         const panoFolder = path.resolve(playerDir, panoName);
+        const cubeFolder = path.resolve(cubeDir, panoName);
+
+        let cubeSize = parseInt(execSync(`exiftool '${cubeFolder}/0.jpg' -s -s  -ImageWidth`)
+          .toString('utf8')
+          .split('\n')
+          .map(s => s.split(': ')[1])[0]);
+
+        let lowSize = cubeSize / 2;
+        let standardSize = cubeSize;
+
         if (!fs.existsSync(panoFolder)){
           [
-            { name: "low", size: "1024x1024", quality: "60" },
-            { name: "standard", size: "2048x2048", quality: "85" },
+            { name: "low", size: lowSize + "x" + lowSize, quality: "60" },
+            { name: "standard", size: standardSize + "x" + standardSize, quality: "85" },
           ].map(props => {
             const folder = path.resolve(panoFolder, props.name);
             for (var i = 0; i < 6; i ++) {

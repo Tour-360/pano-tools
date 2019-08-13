@@ -94,7 +94,7 @@
 #-stereographic_compression 1
 #-rectifisheye_compression 1
 # Panorama settings:
-p w2048 h2048 f0 v90 u20 n"JPEG g0 q100"
+p wEXPORT_SIZE hEXPORT_SIZE f0 v90 u20 n"JPEG g0 q100"
 m g1 i0 f0
 
 # input images:
