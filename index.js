@@ -10,6 +10,7 @@ const hdr = require('./hdr.js');
 const pano = require('./pano.js');
 const nadirExtract = require('./nadir-extract.js');
 const zenitExtract = require('./zenit-extract.js');
+const zenitExtractWide= require('./zenit-extract-wide.js');
 const nadirFill = require('./nadir-fill.js');
 const nadirInsert = require('./nadir-insert.js');
 const nadirZenitInsert = require('./nadir-zenit-insert.js');
@@ -123,6 +124,15 @@ program
   .description('Извлечение зенита из панорам')
   .action(() => {
       zenitExtract().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('zenit-extract-wide')
+  .description('Извлечение ширрокоугольного зенита из панорам')
+  .action(() => {
+      zenitExtractWide().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

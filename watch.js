@@ -11,7 +11,8 @@ module.exports = (fromDir, toDir, msg) => {
     console.log(`Началось отслеживание каталога ${toDir}`.bold);
     bar.start(fromFiles.length+1, progress);
     const watcher = chokidar.watch(toDir).on('change', (filePath) => {
-      bar.update(++progress);
+      progress = files(toDir).length
+      bar.update(progress);
       if (progress >= fromFiles.length) {
         bar.stop();
         watcher.close();
