@@ -32,6 +32,11 @@
       "directions": 7,
       "bracketing": 3,
       "nadirFill": 32
+    },
+    "dji": {
+      "directions": 34,
+      "bracketing": 1,
+      "nadirFill": 32
     }
   },
   "otherPhotoFolder": "Other_photo",

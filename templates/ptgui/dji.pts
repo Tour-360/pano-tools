@@ -1,0 +1,280 @@
+# ptGui project file
+
+#-encoding utf8
+#-pathseparator /
+#-fileversion 49
+#-previewwidth 2048
+#-previewheight 1024
+#-vfov 180
+#-resolution 300
+#-fixaspect 1
+#-outputfile 
+#-ccdcrop 2.727272727272727
+#-hasbeenoptimized 0
+#-hvcpmode 1
+#-jpegparameters 100 0
+#-tiffparameters 16bit packbits alpha_assoc
+#-psdparameters 8bit packbits layered
+#-qtvrparameters 800 600 1 1000 70 0 0 -180 180 0 -90 90 90 10 120 1
+#-honorexiforientation 1
+#-exrparameters noalpha
+#-hdroutputhdrblended
+#-hdroutputtonemapped
+#-hdrfileformat hdr
+#-hdrmethod fuse
+#-hdrpsdparameters float none layered
+#-tonemapv2settings PTGTM 1 0.5 20 20 0 0 2 1 0.15 0
+#-fusesettings 0.5 0 0.2 0 0
+#-cameracurve 3.441228 -0.551975 0.294423 -0.09563199999999999 0.07213899999999999
+#-vignettingparams 
+#-wbexposure 0 0 0
+#-pmoptexposuremode finetune
+#-pmoptvignettingmode enabled
+#-pmoptwbmode enabled
+#-pmoptflaremode disabled
+#-pmoptcameracurvemode auto
+#-exposurecorrection 1
+#-tonemapldrpanorama 0
+#-blendweight 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100
+#-optviewpoint 0000000000000000000000000000000000
+#-useexif1
+#-batchbuilder_useexif 0
+#-stitcher ptgui
+#-blender ptgui
+#-blenderfeather 0
+#-optimizer ptgui
+#-interpolator default
+#-autocpdone
+#-imgrotate4444444444444444444444444444444444
+#-cpinactive
+#-imginactive
+#-linktoprevious
+#-previewinactive
+#-outputcrop 0 1 0 1
+#-location default
+#-viewingdirection default
+#-alignsettings_generatecp 1
+#-alignsettings_optimize 1
+#-alignsettings_optimizeprealign 1
+#-alignsettings_straighten 1
+#-alignsettings_fit 1
+#-alignsettings_chooseprojection 0
+#-alignsettings_setoptimumsize 0
+#-alignsettings_limitsize 500
+#-alignsettings_optimizeexposure 1
+#-hdrsettings_defaultlinkmode nolink
+#-hdrsettings_donotask 0
+#-batchsettings_align 1
+#-batchsettings_stitch 1
+#-batchsettings_stitchonlyifcontrolpoints 0
+#-defaultprojectfilenamemode firstsourceimage
+#-defaultprojectfilename_custom "Panorama"
+#-defaultprojectfoldermode sourcefolder
+#-defaultprojectfolder_custom ""
+#-defaultpanoramafilenamemode asproject
+#-defaultpanoramafilename_custom ""
+#-defaultpanoramafoldermode projectfolder
+#-defaultpanoramafolder_custom ""
+#-userelativesourceimagepaths 1
+#-optimizeraskreinitialize 1
+#-applytemplate_lens 1
+#-applytemplate_imageparams 1
+#-applytemplate_crop 1
+#-applytemplate_mask 1
+#-applytemplate_panoramasettings 1
+#-applytemplate_projectsettings 1
+#-applytemplate_optimizer 1
+#-globalcrop 0 0 0 0 0 -0.007204861111111112 -0.003038194444444444 0.3207465277777778
+#-theoreticalhfov 73.75218360864059
+#-rect_compression_x 0
+#-rect_compression_y 0
+#-cylindrical_compression_y 0
+#-transverse_cylindrical_compression_x 0
+#-vedutismo_compression_x 1
+#-transverse_vedutismo_compression_y 1
+#-stereographic_compression 1
+#-rectifisheye_compression 1
+#-iccprofile AAACMEFEQkUCEAAAbW50clJHQiBYWVogB88ABgADAAAAAAAAYWNzcEFQUEwAAAAAbm9uZQAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1BREJFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKY3BydAAAAPwAAAAyZGVzYwAAATAAAABrd3RwdAAAAZwAAAAUYmtwdAAAAbAAAAAUclRSQwAAAcQAAAAOZ1RSQwAAAdQAAAAOYlRSQwAAAeQAAAAOclhZWgAAAfQAAAAUZ1hZWgAAAggAAAAUYlhZWgAAAhwAAAAUdGV4dAAAAABDb3B5cmlnaHQgMTk5OSBBZG9iZSBTeXN0ZW1zIEluY29ycG9yYXRlZAAAAGRlc2MAAAAAAAAAEUFkb2JlIFJHQiAoMTk5OCkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAADzUQABAAAAARbMWFlaIAAAAAAAAAAAAAAAAAAAAABjdXJ2AAAAAAAAAAECMwAAY3VydgAAAAAAAAABAjMAAGN1cnYAAAAAAAAAAQIzAABYWVogAAAAAAAAnBgAAE+lAAAE/FhZWiAAAAAAAAA0jQAAoCwAAA+VWFlaIAAAAAAAACYxAAAQLwAAvpw=
+# Panorama settings:
+p w23124 h11562 f2 v360 u0 n"TIFF"
+m g0 i0
+
+# input images:
+#-dummyimage
+# The following line contains a 'dummy image' containing some global parameters for the project
+o w1 h1 y0 r0 p0 v73.11925781694349 a0.003053078539336256 b-0.008993058511714291 c0.01043044316292876 f0 d-5.178104651004343 e14.87428043901584 g1.298415888493526 t0.916183362090399
+#-imgfile 5464 3640 "../2_HDR/pano_name/1.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:19 3*16 0 0 65535 -1 55.66800091666666 37.67049741666666 151.503 curve 8.800000000000001 * T 0 1591620124900312
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-170.8236498513031 r-0.2390269319349038 p-89.58307292439967 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/2.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:21 3*16 0 0 65535 -1 55.66800091666666 37.67049702833334 151.503 curve 8.800000000000001 * T 0 1591620125841206
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-170.8191544772894 r-0.0454041877976839 p-59.6956965532478 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/3.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:23 3*16 0 0 65535 -1 55.66800025 37.67049733333333 151.503 curve 8.800000000000001 * T 0 1591620141342645
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-170.6804538384556 r-0.02848812798120491 p-24.60408617346891 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/4.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:25 3*16 0 0 65535 -1 55.66800041666666 37.67049788833334 151.503 curve 8.800000000000001 * T 0 1591620141782850
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-170.3787659670688 r0.2453623476547758 p25.54209147790694 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/5.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:26 3*16 0 0 65535 -1 55.66799897166667 37.67049733333333 151.503 curve 8.800000000000001 * T 0 1591620158451223
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-149.3505554730774 r0.1598270941813383 p0.5391165224342275 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/6.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:28 3*16 0 0 65535 -1 55.66799702833333 37.67049786166667 151.503 curve 8.800000000000001 * T 0 1591620157567672
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-129.6236139327051 r0.1404649507094287 p-24.85022097000519 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/7.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:29 3*16 0 0 65535 -1 55.66799622166667 37.67049716666666 151.503 curve 8.800000000000001 * T 0 1591620172476538
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-130.685736177934 r0.5185334685508531 p25.26409020541155 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/8.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:31 3*16 0 0 65535 -1 55.667996695 37.67049652833333 151.403 curve 8.800000000000001 * T 0 1591620172479744
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-110.2023998268512 r-0.02235729317572645 p-60.06170327210057 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/9.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:32 3*16 0 0 65535 -1 55.66799561166667 37.67049663833333 151.503 curve 8.800000000000001 * T 0 1591620187059851
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-110.9797482390823 r0.3136926383918421 p-0.169405797315818 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/10.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:34 3*16 0 0 65535 -1 55.667995805 37.67049636166666 151.503 curve 8.800000000000001 * T 0 1591620186798051
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-89.38657350256216 r-0.09302306341214639 p-25.24856293630443 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/11.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:36 3*16 0 0 65535 -1 55.66799625 37.6704985 151.503 curve 8.800000000000001 * T 0 1591620201163299
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-90.76918638646724 r0.3927460155998166 p24.70345232726331 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/12.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:37 3*16 0 0 65535 -1 55.66799675 37.670498055 151.603 curve 8.800000000000001 * T 0 1591620201808341
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-69.55807239301036 r-0.148301946451113 p-0.1025778935754715 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/13.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:39 3*16 0 0 65535 -1 55.667997 37.67049941666667 151.603 curve 8.800000000000001 * T 0 1591620220739465
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-48.55668609073975 r-1.440088061573615 p-60.43854564411811 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/14.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:40 3*16 0 0 65535 -1 55.66799772166667 37.6705005 151.503 curve 8.800000000000001 * T 0 1591620221083455
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-50.42667416472491 r-0.6945125718557694 p-25.71417117364029 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/15.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:42 3*16 0 0 65535 -1 55.66799777833333 37.670500305 151.403 curve 8.800000000000001 * T 0 1591620236215515
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-50.41499269028068 r-0.1126215102049733 p24.737108423197 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/16.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:44 3*16 0 0 65535 -1 55.66799872166666 37.670499555 151.303 curve 8.800000000000001 * T 0 1591620236603774
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-28.77459515831888 r-0.634146792458381 p-0.1182421577660762 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/17.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:45 3*16 0 0 65535 -1 55.66800002833333 37.67049783333334 151.203 curve 8.800000000000001 * T 0 1591620251111840
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-8.335305053258194 r-0.8753914167201338 p-25.11211121191645 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/18.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:47 3*16 0 0 65535 -1 55.66800152833333 37.670497555 151.303 curve 8.800000000000001 * T 0 1591620250967554
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y-10.14289293698549 r-0.5423089576266875 p25.01541688520683 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/19.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:48 3*16 0 0 65535 -1 55.668001555 37.670496055 151.403 curve 8.800000000000001 * T 0 1591620263904193
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y12.49994002229746 r-1.424430773633928 p-59.8134923129511 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/20.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:50 3*16 0 0 65535 -1 55.66800247166667 37.67049563833334 151.403 curve 8.800000000000001 * T 0 1591620265488161
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y10.21543573549218 r-0.6845640775911761 p0.05887427233517423 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/21.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:52 3*16 0 0 65535 -1 55.66800191666667 37.670495 151.403 curve 8.800000000000001 * T 0 1591620278783837
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y31.70869690412624 r-0.7093659789327107 p-24.71271626089532 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/22.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:53 3*16 0 0 65535 -1 55.66800091666666 37.670494445 151.303 curve 8.800000000000001 * T 0 1591620279352557
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y30.15878041804264 r-0.6031494564535076 p25.40134504697271 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/23.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:55 3*16 0 0 65535 -1 55.66799933333333 37.67049425 151.503 curve 8.800000000000001 * T 0 1591620292746962
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y51.96797541088598 r-0.6177051312292572 p0.6825046256868175 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/24.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:57 3*16 0 0 65535 -1 55.66799786166666 37.67049352833333 151.403 curve 8.800000000000001 * T 0 1591620292586729
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y72.52724612267386 r-1.084930184784012 p-59.54475498017991 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/25.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:30:58 3*16 0 0 65535 -1 55.66799797166667 37.67049361166666 151.403 curve 8.800000000000001 * T 0 1591620307510249
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y70.44635386675064 r-0.5951519952497492 p-24.42168997105736 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/26.tif"
+#-metadata 8 0.01666666666666667 100 0000-00-00T00:00:00 3*16 0 0 65535 -1 55.667997945 37.670494055 151.503 curve 8.800000000000001 * T 0 1591620307654963
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y70.12703147864491 r-0.3309447576927997 p25.80359792623525 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/27.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:02 3*16 0 0 65535 -1 55.667998195 37.670494555 151.503 curve 8.800000000000001 * T 0 1591620324202481
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y91.41694259208924 r-0.3063094567761199 p0.9491648589337839 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/28.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:03 3*16 0 0 65535 -1 55.66799833333334 37.670495695 151.503 curve 8.800000000000001 * T 0 1591620324576382
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y111.296391450442 r-0.1736703915498201 p-24.16507308179189 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/29.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:05 3*16 0 0 65535 -1 55.66799972166667 37.67049736166667 151.603 curve 8.800000000000001 * T 0 1591620339441590
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y109.9614212783804 r0.1685822826071652 p25.89196328699944 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/30.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:06 3*16 0 0 65535 -1 55.66799858333334 37.67049852833333 151.703 curve 8.800000000000001 * T 0 1591620339689073
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y130.1868214505008 r0.1095605193067457 p-59.29405955778437 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/31.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:08 3*16 0 0 65535 -1 55.667998555 37.67049886166667 151.503 curve 8.800000000000001 * T 0 1591620354644239
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y129.5888822990203 r0.2081911164025315 p0.5484150773780813 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/32.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:10 3*16 0 0 65535 -1 55.667997 37.67049927833333 151.403 curve 8.800000000000001 * T 0 1591620354455283
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y150.5616219689992 r0.1995485156648436 p-24.53859481931852 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/33.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:11 3*16 0 0 65535 -1 55.66799666666667 37.67049827833333 151.403 curve 8.800000000000001 * T 0 1591620368908134
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y149.6949127247511 r0.5855110080978809 p25.56194160877894 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+#-imgfile 5464 3640 "../2_HDR/pano_name/34.tif"
+#-metadata 8 0.01666666666666667 100 2020-06-07T18:31:13 3*16 0 0 65535 -1 55.667996195 37.670498445 151.303 curve 8.800000000000001 * T 0 1591620369414806
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+o f0 y170.4675667652499 r0.3323242717887638 p0.6344154233661926 v=0 a=0 b=0 c=0 d=0 e=0 g=0 t=0
+
+# Control points:
+
+# optimizer:
+v v a b c d e g t y2 r2 p2 y3 r3 p3 y4 r4 p4 y5 r5 p5 y6 r6 p6 y7 r7 p7 y8 r8 p8 y9 r9 p9 y10 r10 p10 y11 r11 p11 y12 r12 p12 y13 r13 p13 y14 r14 p14 y15 r15 p15 y16 r16 p16 y17 r17 p17 y18 r18 p18 y19 r19 p19 y20 r20 p20 y21 r21 p21 y22 r22 p22 y23 r23 p23 y24 r24 p24 y25 r25 p25 y26 r26 p26 y27 r27 p27 y28 r28 p28 y29 r29 p29 y30 r30 p30 y31 r31 p31 y32 r32 p32 y33 r33 p33 y34 r34 p34
