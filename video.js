@@ -5,6 +5,7 @@ const { exec, execSync } = require('child_process');
 const { bar } = require('./utils.js');
 
 const { stages } = require('./config.json');
+const exiftool = path.resolve(__dirname, execs.exiftool);
 
 const jpegDir = path.resolve(stages[6]);
 
@@ -26,7 +27,7 @@ module.exports = (fileName, options) => {
     const videoDir = path.resolve(fileDir, basename);
     let   progress = 0;
 
-    let image = execSync(`exiftool ${filePath} -s -s  -ImageWidth -ImageHeight`)
+    let image = execSync(`${exiftool} ${filePath} -s -s  -ImageWidth -ImageHeight`)
       .toString('utf8')
       .split('\n')
       .map(s => s.split(': ')[1]);

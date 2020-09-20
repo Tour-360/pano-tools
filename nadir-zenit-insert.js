@@ -8,6 +8,7 @@ const { stages, execs } = require('./config.json');
 const panoDir = path.resolve(stages[3]);
 const nadirDir = path.resolve(stages[4]);
 const panoNadirDir = path.resolve(stages[5]);
+const exiftool = path.resolve(__dirname, execs.exiftool);
 
 const template =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_zenit_insert.pts');
 const ptguiQueue = [];
@@ -26,7 +27,7 @@ module.exports = () => {
       const projectFileName = path.resolve(nadirDir, panoName + ".pts");
       const tiffFileName = path.resolve(panoNadirDir, panoName + ".tif");
 
-      let image = execSync(`exiftool '${panoFIle}' -s -s  -ImageWidth -ImageHeight`)
+      let image = execSync(`${exiftool} '${panoFIle}' -s -s  -ImageWidth -ImageHeight`)
         .toString('utf8')
         .split('\n')
         .map(s => s.split(': ')[1]);

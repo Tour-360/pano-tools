@@ -7,7 +7,7 @@ const ptguiQueue = [];
 const panoFiles = [];
 const jpegDir = path.resolve(stages[6]);
 const cubeDir = path.resolve(stages[7]);
-const playerDir = path.resolve(stages[8]);
+const exiftool = path.resolve(__dirname, execs.exiftool);
 
 const completeMessage = "Конвертация панорам в стороны куба успешно завершена";
 
@@ -24,7 +24,7 @@ module.exports = () => {
         panoFiles.push(panoFile);
         const jpegPath = path.resolve(jpegDir, panoName + ".jpg");
         fs.copySync(jpegPath, panoFile);
-        let image = execSync(`exiftool '${jpegPath}' -s -s  -ImageWidth -ImageHeight`)
+        let image = execSync(`${exiftool} '${jpegPath}' -s -s  -ImageWidth -ImageHeight`)
           .toString('utf8')
           .split('\n')
           .map(s => s.split(': ')[1]);

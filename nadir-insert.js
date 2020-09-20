@@ -10,6 +10,7 @@ const nadirDir = path.resolve(stages[4]);
 const panoNadirDir = path.resolve(stages[5]);
 
 const template =  fs.readFileSync(__dirname + '/templates/ptgui/nadir_insert.pts');
+const exiftool = path.resolve(__dirname, execs.exiftool);
 const ptguiQueue = [];
 let progress = 0;
 
@@ -26,7 +27,7 @@ module.exports = () => {
       const projectFileName = path.resolve(nadirDir, panoName + ".pts");
       const tiffFileName = path.resolve(panoNadirDir, panoName + ".tif");
 
-      let image = execSync(`exiftool '${panoFIle}' -s -s  -ImageWidth -ImageHeight`)
+      let image = execSync(`${exiftool} '${panoFIle}' -s -s  -ImageWidth -ImageHeight`)
         .toString('utf8')
         .split('\n')
         .map(s => s.split(': ')[1]);

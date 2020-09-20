@@ -8,7 +8,8 @@ const { stages, execs } = require('./config.json');
 const panoDir = path.resolve(stages[3]);
 const nadirDir = path.resolve(stages[10]);
 const completeMessage = "Зениты успешно экспортированы";
-var readline = require('readline');
+
+const exiftool = path.resolve(__dirname, execs.exiftool);
 
 
 module.exports = () => {
@@ -25,7 +26,7 @@ module.exports = () => {
       const projectFileName = path.resolve(nadirDir, panoName + '.pts');
       const tiffFileName = path.resolve(nadirDir, panoName + '.tif');
 
-      let image = execSync(`exiftool '${PanoPath}' -s -s  -ImageWidth -ImageHeight`)
+      let image = execSync(`${exiftool} '${PanoPath}' -s -s  -ImageWidth -ImageHeight`)
         .toString('utf8')
         .split('\n')
         .map(s => s.split(': ')[1]);
