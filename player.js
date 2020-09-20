@@ -11,6 +11,8 @@ const playerDir = path.resolve(stages[8]);
 const queue = [];
 let progress = 0;
 
+const exiftool = path.resolve(__dirname, execs.exiftool);
+
 const completeMessage = "Конвертация сторон куба для веб-плеера, успешно завершена";
 
 module.exports = () => {
@@ -22,7 +24,7 @@ module.exports = () => {
         const panoFolder = path.resolve(playerDir, panoName);
         const cubeFolder = path.resolve(cubeDir, panoName);
 
-        let cubeSize = parseInt(execSync(`exiftool '${cubeFolder}/0.jpg' -s -s  -ImageWidth`)
+        let cubeSize = parseInt(execSync(`${exiftool} '${cubeFolder}/0.jpg' -s -s  -ImageWidth`)
           .toString('utf8')
           .split('\n')
           .map(s => s.split(': ')[1])[0]);
@@ -77,7 +79,7 @@ module.exports = () => {
         const {type, size, quality, input, output} = task;
 
         mkdirp(path.dirname(output), () => {
-          if (type == "convert") {
+          if (type === "convert") {
             exec(`convert -resize ${size} -quality ${quality} -format jpg '${input}' '${output}'`, step);
           } else {
             exec(`montage -mode concatenate -tile 6x -resize ${size} -quality ${quality} -format jpg '${input}' '${output}'`, step);
