@@ -29,6 +29,7 @@ const publish = require('./publish.js');
 const gps = require('./gps.js');
 const mark = require('./mark.js');
 const watch = require('./watch.js');
+const watch2 = require('./watch2.js');
 const { stages, presets, execs } = require('./config.json');
 const updateNotifier = require('update-notifier');
 
@@ -213,6 +214,15 @@ program
   .description('Следить за наполнением каталога ' + stages[1])
   .action(() => {
       watch(path.resolve(stages[0]), path.resolve(stages[1])).then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('watch-lr')
+  .description('Следить за наполнением каталога ' + stages[1])
+  .action(() => {
+      watch2().then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
