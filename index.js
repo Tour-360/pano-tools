@@ -219,11 +219,11 @@ program
   });
 
 program
-  .command('watch-lr')
-  .command('init [length]')
+  .command('watch-lr [amount]')
   .description('Следить за наполнением каталога ' + stages[1])
-  .action((length) => {
-      watch2(length).then(r => {
+  .action((amount) => {
+      console.log(amount);
+      watch2(amount).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
