@@ -8,9 +8,11 @@ module.exports = () => {
     const path = require("path");
     const { dirs, bar } = require('./utils.js');
     const { stages, otherPhotoFolder } = require('./config.json');
+    const { execs } = require('./config.json');
+    const exiftoolBin = path.resolve(__dirname, execs.exiftool);
 
     const exiftool = require('node-exiftool')
-    const ep = new exiftool.ExiftoolProcess();
+    const ep = new exiftool.ExiftoolProcess(exiftoolBin);
     const completeMessage = "Импорт фотографий успешно завершен.";
 
     const rowPath = stages[0];

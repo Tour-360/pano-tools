@@ -44,7 +44,7 @@ program
   .action((name, cmd) => {
     inquirer.prompt([{
       type: 'list',
-      message: 'Выберите присет:',
+      message: 'Выберите пресет:',
       name: 'preset',
       choices: Object.keys(presets)
     }]).then(({preset}) => {

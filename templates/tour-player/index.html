@@ -1,32 +1,17 @@
 <!doctype html>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
-        <link rel="stylesheet" href="https://tour-360.ru/tour-player/2.2.1/tour-player.css">
-        <script src="https://tour-360.ru/tour-player/2.2.1/tour-player.js"></script>
-        <title>PROJECT_NAME</title>
-        <style>
-            /* Цвет информационных маркеров */
-            #markers .button {
-                /*background: #f6e50a;*/
-            }
-
-            /* Цвет полосы загрузки */
-            #control-panel .progress-bar .value {
-                /*background: #f6e50a;*/
-            }
-        </style>
-    </head>
-    <body>
-        <script>
-        Tour.init(false, {
-            gallery: true,
-            controlPanel: false
-        });
-        Tour.on('load', function(data) {
-            // this.controls.autoRotate()
-        })
-        </script>
-    </body>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+<!--    <link rel="stylesheet" href="https://tour-360.ru/tour-player/2.2.5/tour-player.css">-->
+    <link rel="stylesheet" href="libs/tour-player/2.2.5/tour-player.css">
+    <link rel="stylesheet" href="css/main.css">
+<!--    <script src="https://tour-360.ru/tour-player/2.2.5/tour-player.js"></script>-->
+    <script src="libs/tour-player/2.2.5/tour-player.js"></script>
+    <title>PROJECT_NAME</title>
+  </head>
+  <body>
+    <div id="tour-player"></div>
+    <script src="js/tour.js"></script>
+  </body>
 </html>

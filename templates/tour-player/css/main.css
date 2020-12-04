@@ -1,0 +1,16 @@
+/* Цвет информационных маркеров */
+#markers .button {
+  /*background: #f6e50a;*/
+}
+
+/* Цвет полосы загрузки */
+#control-panel .progress-bar .value {
+  /*background: #f6e50a;*/
+}
+
+#tour-player {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}

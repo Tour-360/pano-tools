@@ -27,7 +27,7 @@ module.exports = (fileName, options) => {
     const videoDir = path.resolve(fileDir, basename);
     let   progress = 0;
 
-    let image = execSync(`${exiftool} ${filePath} -s -s  -ImageWidth -ImageHeight`)
+    let image = execSync(`${exiftool} '${filePath}' -s -s  -ImageWidth -ImageHeight`)
       .toString('utf8')
       .split('\n')
       .map(s => s.split(': ')[1]);

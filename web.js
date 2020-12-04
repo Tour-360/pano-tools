@@ -2,6 +2,7 @@
 
 module.exports = () => {
   const fs = require('fs');
+  const fse = require('fs-extra');
   const path = require("path");
   const { dirs, bar, getProject } = require('./utils.js');
   const { stages, execs } = require('./config.json');
@@ -18,11 +19,14 @@ module.exports = () => {
   }
 
   return new Promise((resolve, reject) => {
-    if(!fs.existsSync(indexPagePath)) {
-      !fs.existsSync(webDir) && fs.mkdirSync(webDir);
+    if (!fs.existsSync(indexPagePath)) {
+      // !fs.existsSync(webDir) && fs.mkdirSync(webDir);
+
+
+      fse.copySync(path.resolve(__dirname, 'templates/tour-player/'), projectDir);
+      fs.symlinkSync(path.resolve(playerDir), projectDir + '/panorams');
       // !fs.existsSync(projectDir) && fs.mkdirSync(projectDir);
 
-      fs.symlinkSync(path.resolve(playerDir), projectDir + '/panorams');
       const indexPage = fs.readFileSync(__dirname + '/templates/tour-player/index.html')
         .toString('utf8').replace(/PROJECT_NAME/g, projectName);
 
@@ -40,7 +44,7 @@ module.exports = () => {
         });
       });
 
-      fs.writeFileSync(projectDir + '/manifest.json', JSON.stringify(manifest, null, 2));
+      fs.writeFileSync(projectDir + '/tour.json', JSON.stringify(manifest, null, 2));
 
       // fs.writeFileSync(webDir + '/sftp-config.json', JSON.stringify({
       //   "type": "sftp",
@@ -56,9 +60,7 @@ module.exports = () => {
       //       "\\.DS_Store"
       //   ],
       // }, null, 2));
-
       resolve("Версия для веба успешно создана")
-
     } else {
       resolve("Версия для веба уже существует")
     }

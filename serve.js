@@ -8,8 +8,15 @@ module.exports = ({port, open}) => {
   return new Promise((resolve, reject) => {
     const app = express();
     app.use(express.static(webDir));
-    app.listen(port);
-    resolve('Сервер доступен по адресу: localhost:'+port);
-    open && exec('open http://localhost:'+port);
+    app.listen(port, () => {
+      resolve('Сервер доступен по адресу: localhost:'+port);
+      open && exec('open http://localhost:'+port);
+    }).on('error', function(err) {
+      if (err.code === "EADDRINUSE") {
+        reject('Serve уже запущен')
+      } else {
+        reject(err);
+      }
+    });
   });
 }
