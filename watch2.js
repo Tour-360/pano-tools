@@ -7,10 +7,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-module.exports = () => {
+module.exports = (length) => {
   const fromDir = path.resolve(stages[0]);
   const toDir = path.resolve(stages[1]);
-  const fromFilesLength = files(fromDir, 'cr2').length;
+  const fromFilesLength = length || files(fromDir, 'cr2').length;
   return new Promise(async (resolve, reject) => {
     let currentProgress = 0;
     while (currentProgress < fromFilesLength) {

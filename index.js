@@ -220,9 +220,10 @@ program
 
 program
   .command('watch-lr')
+  .command('init [length]')
   .description('Следить за наполнением каталога ' + stages[1])
-  .action(() => {
-      watch2().then(r => {
+  .action((length) => {
+      watch2(length).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
