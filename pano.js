@@ -6,7 +6,7 @@ module.exports = () => {
     const chokidar = require("chokidar");
     const cliProgress = require('cli-progress');
 
-    const { dirs, bar, getProject } = require('./utils.js');
+    const { dirs, bar, getProject, ifExistSync } = require('./utils.js');
     const project = getProject();
     const { stages, execs } = require('./config.json');
     const completeMessage = "Объединение снимков в панорамы успешно завершено.";
@@ -18,19 +18,19 @@ module.exports = () => {
     const panos = dirs(hdrDir);
     const ptguiQueue = [];
 
-    !fs.existsSync(panoDir) && fs.mkdirSync(panoDir);
+    !ifExistSync(panoDir) && fs.mkdirSync(panoDir);
 
     panos.map(panoName => {
       const projectFileName = path.resolve(panoDir, `${panoName}.pts`);
       const tiffFileName = path.resolve(panoDir, `${panoName}.tif`);
-      if (!fs.existsSync(projectFileName)) {
+      if (!ifExistSync(projectFileName)) {
         fs.writeFileSync(
           projectFileName,
           template.toString('utf8').replace(/pano_name/g, panoName)
         );
       }
 
-      if (!fs.existsSync(tiffFileName)){
+      if (!ifExistSync(tiffFileName)){
         ptguiQueue.push(projectFileName);
       }
     });

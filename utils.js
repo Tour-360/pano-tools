@@ -23,6 +23,14 @@ module.exports.tempPostOptions = (opts) => {
   );
 }
 
+module.exports.ifExistSync = (path) => {
+  try {
+    return !!fs.statSync(path);
+  } catch (e) {
+    return false;
+  }
+}
+
 
 module.exports.createQueues = (func, callback) => {
   const cpus = (os.cpus().length - 1) || 1;
