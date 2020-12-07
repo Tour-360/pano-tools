@@ -1,6 +1,6 @@
 {
   "name": "pano-tools",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "description": "",
   "main": "index.js",
   "author": "Denis Borodin <denis@tour-360.ru>",
