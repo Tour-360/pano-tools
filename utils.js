@@ -31,6 +31,27 @@ module.exports.ifExistSync = (path) => {
   }
 }
 
+module.exports.average = (nums) => {
+  if (!nums.length) {
+    return 0;
+  }
+  return nums.reduce((a, b) => (a + b)) / nums.length;
+}
+
+
+module.exports.chunk = (array, size) => {
+  const chunked_arr = [];
+  for (let i = 0; i < array.length; i++) {
+    const last = chunked_arr[chunked_arr.length - 1];
+    if (!last || last.length === size) {
+      chunked_arr.push([array[i]]);
+    } else {
+      last.push(array[i]);
+    }
+  }
+  return chunked_arr;
+}
+
 
 module.exports.createQueues = (func, callback) => {
   const cpus = (os.cpus().length - 1) || 1;

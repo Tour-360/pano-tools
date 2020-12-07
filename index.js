@@ -8,6 +8,7 @@ const importRow = require('./import.js');
 const prepare = require('./prepare.js');
 const hdr = require('./hdr.js');
 const pano = require('./pano.js');
+const check = require('./check.js');
 const nadirExtract = require('./nadir-extract.js');
 const zenitExtract = require('./zenit-extract.js');
 const zenitExtractWide= require('./zenit-extract-wide.js');
@@ -112,6 +113,15 @@ program
   });
 
 program
+  .command('pano-check')
+  .description('Check pano stitch')
+  .action(() => {
+      check().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
   .command('nadir-extract')
   .description('Извлечение надиров из панорам')
   .action(() => {
@@ -155,6 +165,7 @@ program
         console.log(r.green);
       }).catch(console.error);
   });
+
 program
   .command('nadir-zenit-insert')
   .description('Внедрение надира и зенита')
