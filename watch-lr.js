@@ -15,8 +15,8 @@ module.exports = (length) => {
     let currentProgress = 0;
     while (currentProgress < fromFilesLength) {
       currentProgress = files(toDir, 'tif').length;
-      await sleep(5000);
       console.log(`${currentProgress}/${fromFilesLength}`);
+      await sleep(5000);
     }
     resolve(`Каталог ${toDir} наполнен`);
   })

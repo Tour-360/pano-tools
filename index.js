@@ -29,7 +29,7 @@ const publish = require('./publish.js');
 const gps = require('./gps.js');
 const mark = require('./mark.js');
 const watch = require('./watch.js');
-const watch2 = require('./watch2.js');
+const watchLr = require('./watch-lr.js');
 const { stages, presets, execs } = require('./config.json');
 const updateNotifier = require('update-notifier');
 
@@ -219,11 +219,11 @@ program
   });
 
 program
-  .command('watch-lr [amount]')
+  .command('watch-lr')
+  .option('-a, --amount [amount]', 'Amount files')
   .description('Следить за наполнением каталога ' + stages[1])
-  .action((amount) => {
-      console.log(amount);
-      watch2(amount).then(r => {
+  .action((cmd) => {
+      watchLr(cmd.amount).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });
