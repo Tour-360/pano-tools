@@ -83,7 +83,7 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
 
     console.log(
       file,
-      `[${cpList.length}]`[cpList.length < 20 ? 'red' : 'white'],
+      `[${cpList.length}]`[cpList.length < 20 ? 'red' : cpList.length < 30 ? 'yellow' : 'white'],
       averageDistance.toString()[{
         warning: 'yellow',
         good: 'green',
