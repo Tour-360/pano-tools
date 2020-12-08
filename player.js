@@ -60,8 +60,16 @@ module.exports = () => {
             type: "montage",
             size: "128x",
             quality: "30",
-            input: path.resolve(cubeDir, panoName, '*.jpg'),
+            input: path.resolve(cubeDir, panoName, '?.jpg'),
             output: path.resolve(panoFolder, 'thumbnail', '0.jpg')
+          })
+
+          queue.push({
+            type: "convert",
+            size: "256x256",
+            quality: "80",
+            input: [path.resolve(cubeDir, panoName, 'ultra_wide_nadir' + '.jpg')],
+            output: path.resolve(panoFolder, 'thumbnail', 'uwn.jpg')
           })
         }
       })

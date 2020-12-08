@@ -36,7 +36,7 @@ module.exports = () => {
 
         const size = Math.pow(2, Math.round(Math.log(image.width / Math.PI) / Math.log(2)));
 
-        for (var i = 0; i < 6; i ++) {
+        ['0', '1','2','3','4','5','ultra_wide_nadir'].forEach((i) => {
           let templatePath = path.resolve(__dirname,  "templates/ptgui/cube/",  i + ".pts");
           var ptsPath = path.resolve(panoFolder, i + ".pts");
           const template =  fs.readFileSync(templatePath);
@@ -45,10 +45,10 @@ module.exports = () => {
             template.toString('utf8')
               .replace(/IMAGE_WIDTH/g, image.width)
               .replace(/IMAGE_HEIGHT/g, image.height)
-              .replace(/EXPORT_SIZE/g, size)
+              .replace(/EXPORT_SIZE/g, i === 'ultra_wide_nadir' ? 256 : size)
           );
           ptguiQueue.push(ptsPath);
-        }
+        });
       }
     })
 
