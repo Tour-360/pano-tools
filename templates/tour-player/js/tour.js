@@ -3,6 +3,7 @@ Tour.init('#tour-player', {
   nadirControl: true,
   gallery: true,
   // arrowsDistance: 30,
-}).then(() => {
-  console.log(1);
-});
+})
+// .then(() => {
+//   console.log(1);
+// });
