@@ -54,6 +54,7 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
       .map(cp => cp.join(' ').replace('# Control Point', ''));
 
     const direction = {};
+    const directionStrict = {};
 
     cpList.forEach(p => {
       const param = p.split(' ');
@@ -61,12 +62,28 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
       const N = param[2].substr(1);
       direction[n] = (n || 0)+1;
       direction[N] = (N || 0)+1;
+
+      const [d1, d2] = [n, N].sort((a,b) => a - b);
+      if (!directionStrict[d1]) directionStrict[d1] = {};
+      directionStrict[d1][d2] = (directionStrict[d1][d2] || 0) + 1;
     });
 
 
     const directionValues = Object.values(direction);
     const success = directionValues.length >= preset.directions &&
       Math.min(...directionValues) >= 5 // Колличество точек на сторону >= 5
+
+    const dCheck = (D1, D2) => {
+      const [d1, d2] = [D1, D2].sort((a,b) => a - b);
+      return directionStrict?.[d1]?.[d2];
+    }
+
+    const successStrict = [
+      dCheck(1,4), dCheck(1,2), // 1
+      dCheck(2,1), dCheck(2,3), // 2
+      dCheck(3,2), dCheck(3,4), // 3
+      dCheck(4,3), dCheck(4,1), // 4
+    ].every(d => d >= 3);
 
     const distances = cpList.map(p => parseFloat(p.split(' ').pop())) || [];
     const averageDistance = average(distances).toFixed(3);
@@ -89,7 +106,8 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
         good: 'green',
         bad: 'red',
       }[distanceStatus]],
-      success ? 'success'.green : 'fail'.red
+      success ? 'success'.green : 'fail'.red,
+      successStrict ? 'success'.green : 'fail'.red
     );
 
     status[success ? (distanceStatus === 'warning' ? 'warning' : 'success') : 'fail']++;
