@@ -2,11 +2,32 @@
 const { files, bar, chunk, average, getProject } = require('./utils.js');
 const path = require("path");
 const fs = require("fs");
+const tag = require('osx-tag');
 const { stages, presets, execs } = require('./config.json');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+const addTags = (path, tags) => new Promise((resolve, reject) => {
+  tag.addTags(path, tags, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve();
+    }
+  });
+});
+
+const removeTags = (path, tags) => new Promise((resolve, reject) => {
+  tag.removeTags(path, tags, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve();
+    }
+  });
+});
 
 module.exports = (length) => new Promise(async (resolve, reject) => {
   const panoramsDir = path.resolve(stages[3]);
@@ -74,7 +95,7 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
       Math.min(...directionValues) >= 5 // Колличество точек на сторону >= 5
 
     const dCheck = (D1, D2) => {
-      const [d1, d2] = [D1, D2].sort((a,b) => a - b);
+      const [d1, d2] = [D1, D2].sort((a, b) => a - b);
       return directionStrict?.[d1]?.[d2];
     }
 
@@ -90,9 +111,9 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
     const minDistance = Math.min(...distances).toFixed(3);
     const maxDistance = Math.max(...distances).toFixed(3);
 
-    if (averageDistance > 1.8 || cpList.length === 0) {
+    if (averageDistance > 1.8 || cpList.length === 0 || !success) {
       distanceStatus = 'bad';
-    } else if ( averageDistance <= 1.8 && averageDistance > 1) {
+    } else if ( averageDistance <= 1.8 && averageDistance > 1 || !successStrict) {
       distanceStatus = 'warning';
     } else if (averageDistance <= 1) {
       distanceStatus = 'good';
@@ -107,10 +128,18 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
         bad: 'red',
       }[distanceStatus]],
       success ? 'success'.green : 'fail'.red,
-      successStrict ? 'success'.green : 'fail'.red
+      successStrict ? 'success'.green : 'warning'.yellow
     );
 
+
     status[success ? (distanceStatus === 'warning' ? 'warning' : 'success') : 'fail']++;
+
+    // addTags(filePath.replace(/(\s+)/g, '\\$1'), [status]).then(() => {
+    //   console.log('success');
+    // }).catch((e) => {
+    //   console.log('error', e);
+    // });
+
   });
 
   console.log('---------[stats]---------'.gray);

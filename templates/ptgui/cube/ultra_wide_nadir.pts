@@ -5,7 +5,7 @@
 #-fileversion 36
 #-previewwidth 26
 #-previewheight 26
-#-vfov 150
+#-vfov 143.130102
 #-resolution 300
 #-fixaspect 1
 #-outputfile
@@ -15,7 +15,7 @@
 #-jpegparameters 100 0
 #-tiffparameters 8bit packbits alpha_assoc
 #-psdparameters 8bit packbits layered
-#-qtvrparameters 800 600 1 1000 70 0 0 -180 180 0 -90 150 150 10 120 1
+#-qtvrparameters 800 600 1 1000 70 0 0 -180 180 0 -90 143.130102 143.130102 10 120 1
 #-honorexiforientation 1
 #-exrparameters noalpha
 #-hdroutputhdrblended
@@ -94,7 +94,7 @@
 #-stereographic_compression 1
 #-rectifisheye_compression 1
 # Panorama settings:
-p wEXPORT_SIZE hEXPORT_SIZE f0 v150 u20 n"JPEG g0 q100"
+p wEXPORT_SIZE hEXPORT_SIZE f0 v143.130102 u20 n"JPEG g0 q100"
 m g1 i0 f0
 
 # input images:

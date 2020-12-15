@@ -54,7 +54,7 @@ module.exports = () => {
               template.toString('utf8')
                 .replace(/IMAGE_WIDTH/g, image.width)
                 .replace(/IMAGE_HEIGHT/g, image.height)
-                .replace(/EXPORT_SIZE/g, i === 'ultra_wide_nadir' ? 256 : size)
+                .replace(/EXPORT_SIZE/g, i === 'ultra_wide_nadir' ? 756 : size)
             );
           }
           ptguiQueue.push(ptsPath);
