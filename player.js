@@ -66,8 +66,8 @@ module.exports = () => {
 
           queue.push({
             type: "convert",
-            size: "256x256",
-            quality: "80",
+            size: "756x756",
+            quality: "78",
             input: [path.resolve(cubeDir, panoName, 'ultra_wide_nadir' + '.jpg')],
             output: path.resolve(panoFolder, 'thumbnail', 'uwn.jpg')
           })
