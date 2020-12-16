@@ -2,32 +2,12 @@
 const { files, bar, chunk, average, getProject } = require('./utils.js');
 const path = require("path");
 const fs = require("fs");
-const tag = require('osx-tag');
 const { stages, presets, execs } = require('./config.json');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const addTags = (path, tags) => new Promise((resolve, reject) => {
-  tag.addTags(path, tags, (err) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve();
-    }
-  });
-});
-
-const removeTags = (path, tags) => new Promise((resolve, reject) => {
-  tag.removeTags(path, tags, (err) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve();
-    }
-  });
-});
 
 module.exports = (length) => new Promise(async (resolve, reject) => {
   const panoramsDir = path.resolve(stages[3]);
@@ -133,13 +113,6 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
 
 
     status[success ? (distanceStatus === 'warning' ? 'warning' : 'success') : 'fail']++;
-
-    // addTags(filePath.replace(/(\s+)/g, '\\$1'), [status]).then(() => {
-    //   console.log('success');
-    // }).catch((e) => {
-    //   console.log('error', e);
-    // });
-
   });
 
   console.log('---------[stats]---------'.gray);

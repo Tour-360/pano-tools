@@ -31,7 +31,6 @@
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
     "node-exiftool": "^2.3.0",
-    "osx-tag": "^0.4.2",
     "photoshop": "^0.5.2",
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
