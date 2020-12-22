@@ -11,6 +11,17 @@ const exiftool = path.resolve(__dirname, execs.exiftool);
 
 const completeMessage = "Конвертация панорам в стороны куба успешно завершена";
 
+Object.defineProperty(Array.prototype, 'chunk', {
+  value: function(chunkSize) {
+    var array = this;
+    return [].concat.apply([],
+      array.map(function(elem, i) {
+        return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+      })
+    );
+  }
+});
+
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
@@ -63,15 +74,38 @@ module.exports = () => {
     })
 
     if (ptguiQueue.length){
-      console.log(`Конвертация ${ptguiQueue.length} панорам в стороны куба`.bold);
-      console.log(`Внимание! количество обрабатываемых сторон очень велико, программа сделает только первые 1000, для того что бы сделать остальные повторите команду`.red)
-      exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.splice(0,1000).map(p => `'${p}'`).join(' ')}`, () => {
-        panoFiles.splice(0,1000).map(panoFile => {
-          fs.unlink(panoFile);
-        })
+      console.log(`Конвертация ${ptguiQueue.length} стороны куба`.bold);
 
-        resolve(completeMessage);
-      });
+      const chunkSize = 500;
+      const ptguiQueueChunked = ptguiQueue.chunk(chunkSize);
+
+      if (ptguiQueueChunked.length > 1){
+        console.log(`
+Внимание!
+Стороны куба будут обрабатываться в программе PTGui ${ptguiQueueChunked.length} раз(a)
+не более чем по ${chunkSize} изображений за раз. Дождитесь завершения программы, не закрывайте PTGui`.yellow
+        );
+      }
+
+      for (var i = 0; i < ptguiQueueChunked.length; i++) {
+        execSync(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueueChunked[i].map(p => `'${p}'`).join(' ')}`);
+      }
+
+      panoFiles.map(panoFile => {
+        fs.unlink(panoFile);
+      })
+
+      resolve(completeMessage);
+
+
+      // // console.log(`Внимание! количество обрабатываемых сторон очень велико, программа сделает только первые 1000, для того что бы сделать остальные повторите команду`.red)
+      // exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueue.splice(0,1000).map(p => `'${p}'`).join(' ')}`, () => {
+      //   panoFiles.splice(0,1000).map(panoFile => {
+      //     fs.unlink(panoFile);
+      //   })
+      //
+      //   resolve(completeMessage);
+      // });
     } else {
       resolve(completeMessage);
     }

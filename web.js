@@ -7,7 +7,9 @@ module.exports = () => {
   const { dirs, bar, getProject } = require('./utils.js');
   const { stages, execs } = require('./config.json');
   const project = getProject();
-  const projectName = project.name || path.basename(path.resolve());
+  const projectDirName = path.basename(path.resolve());
+  const projectName = project.name || /\(([^)]+)\)/.exec(projectDirName)?.[1] ||
+    projectDirName.split('_').splice(-1)[0];
   const playerDir = path.resolve(stages[8]);
   const webDir = path.resolve(stages[9]);
   const projectDir = path.resolve(webDir);
@@ -15,7 +17,15 @@ module.exports = () => {
   const indexPagePath = path.resolve(projectDir + '/index.html');
 
   const manifest = {
-    panorams: []
+    panorams: [],
+    name: projectName,
+    floors: [
+      {
+        height: 300,
+        title: "First floor",
+        plan: null
+      }
+    ]
   }
 
   return new Promise((resolve, reject) => {
@@ -35,7 +45,9 @@ module.exports = () => {
         indexPage
       );
 
-      dirs(playerDir).map(panoName => {
+      const playerDirs = dirs(playerDir);
+
+      playerDirs.map(panoName => {
         manifest.panorams.push({
           id: panoName,
           title: panoName,
@@ -43,6 +55,10 @@ module.exports = () => {
           markers: []
         });
       });
+
+      if (playerDirs.lenght) {
+        manifest.start = playerDirs[0];
+      }
 
       fs.writeFileSync(projectDir + '/tour.json', JSON.stringify(manifest, null, 2));
 

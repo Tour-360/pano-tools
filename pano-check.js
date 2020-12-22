@@ -118,7 +118,6 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
   console.log('---------[stats]---------'.gray);
 
 
-
   const processed = status.all - status.notProcessed;
 
   const percent = (processed / status.all * 100).toFixed(0);
