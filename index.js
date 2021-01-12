@@ -19,6 +19,7 @@ const jpeg = require('./jpeg.js');
 const cube = require('./cube.js');
 const player = require('./player.js');
 const web = require('./web.js');
+const playerUpdate = require('./player-update.js');
 const demo = require('./demo.js');
 const exif = require('./exif.js');
 const video = require('./video.js');
@@ -216,6 +217,16 @@ program
   .description('Компоновка виртуального тура для веб')
   .action(() => {
       web().then(r => {
+        console.log(r.green);
+      }).catch(console.error);
+  });
+
+program
+  .command('player-update')
+  .option('-p, --path [path]', 'File path')
+  .description('Обновление верисии плеера на актуальную')
+  .action((cmd) => {
+      playerUpdate(cmd.path).then(r => {
         console.log(r.green);
       }).catch(console.error);
   });

@@ -10,6 +10,7 @@
     "pano-tools": "index.js"
   },
   "dependencies": {
+    "basic-ftp": "^4.6.3",
     "body-parser": "^1.19.0",
     "chokidar": "^3.4.2",
     "cli-progress": "^2.1.0",
@@ -29,6 +30,7 @@
     "imagemin-mozjpeg": "^8.0.0",
     "inquirer": "^6.2.0",
     "inquirer-select-line": "^1.1.1",
+    "jsdom": "^16.4.0",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
     "node-exiftool": "^2.3.0",
