@@ -57,6 +57,14 @@ module.exports = () => {
           })
 
           queue.push({
+            type: "convert",
+            size: "1024x512",
+            quality: "72",
+            input: path.resolve(jpegDir, panoName + '.jpg'),
+            output: path.resolve(panoFolder, 'thumbnail', 'equidistant.jpg')
+          })
+
+          queue.push({
             type: "montage",
             size: "128x",
             quality: "30",
