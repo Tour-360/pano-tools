@@ -2,14 +2,15 @@
   "name": "pano-tools",
   "version": "0.8.12",
   "description": "",
-  "main": "index.js",
+  "main": "_index.js",
   "author": "Denis Borodin <denis@tour-360.ru>",
   "license": "ISC",
   "bin": {
-    "pt": "index.js",
-    "pano-tools": "index.js"
+    "pt": "_index.js",
+    "pano-tools": "_index.js"
   },
   "dependencies": {
+    "active-win": "^6.2.0",
     "basic-ftp": "^4.6.3",
     "body-parser": "^1.19.0",
     "chokidar": "^3.4.2",
@@ -20,8 +21,10 @@
     "exif": "^0.6.0",
     "exiftool": "0.0.3",
     "express": "^4.16.4",
+    "extractd": "^1.1.9",
     "filesize": "^4.1.2",
     "fs-extra": "^9.0.1",
+    "glob-promise": "^3.4.0",
     "html-escaper": "^1.0.1",
     "image-size": "^0.7.4",
     "imagemagick": "^0.1.3",
@@ -34,11 +37,14 @@
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
     "node-exiftool": "^2.3.0",
+    "node-notifier": "^9.0.0",
     "photoshop": "^0.5.2",
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
     "sanitize-filename": "^1.6.1",
     "terminal-link": "^1.1.0",
-    "update-notifier": "^2.5.0"
+    "update-notifier": "^2.5.0",
+    "vorpal": "^1.12.0",
+    "yargs": "^16.2.0"
   }
 }

@@ -1,16 +1,22 @@
-// const chokidar = require("chokidar");
-const { files, bar, chunk, average, getProject } = require('./utils.js');
+const { files, chunk, average, getProject } = require('../utils.js');
 const path = require("path");
 const fs = require("fs");
-const { stages, presets, execs } = require('./config.json');
+const { stages, presets } = require('../config.json');
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+exports.command = 'pano-check'
+exports.desc = 'Проверить качество сшивки'
+exports.builder = {
+  jpeg: {
+    alias: 'j',
+    desc: `Проверить панорамы сшитые из jpeg'ов`,
+    type: 'boolean',
+    default: false,
+  }
 }
 
 
-module.exports = (length) => new Promise(async (resolve, reject) => {
-  const panoramsDir = path.resolve(stages[3]);
+exports.handler = async ({ jpeg }) => {
+  const panoramsDir = path.resolve(jpeg ? stages[6] : stages[3]);
 
   const list = files(panoramsDir, 'pts');
 
@@ -125,5 +131,4 @@ module.exports = (length) => new Promise(async (resolve, reject) => {
   status.success && console.log(`Success: ${status.success}`.green);
   status.warning && console.log(`Warning: ${status.warning}`.yellow);
   status.fail && console.log(`Fail: ${status.fail}`.red);
-})
-
+}

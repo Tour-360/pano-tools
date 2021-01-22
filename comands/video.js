@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require("path");
 const chokidar = require("chokidar");
 const { exec, execSync } = require('child_process');
-const { bar } = require('./utils.js');
+const { bar } = require('../utils.js');
 
-const { stages, execs } = require('./config.json');
+const { stages, execs } = require('../config.json');
 const exiftool = path.resolve(__dirname, execs.exiftool);
 
 const jpegDir = path.resolve(stages[6]);

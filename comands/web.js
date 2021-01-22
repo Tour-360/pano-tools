@@ -1,10 +1,19 @@
-module.exports = () => new Promise(async (resolve, reject) => {
-  const fs = require('fs');
-  const ftp = require("basic-ftp");
-  const fse = require('fs-extra');
-  const path = require("path");
-  const { dirs, bar, getProject } = require('./utils.js');
-  const { stages, execs } = require('./config.json');
+const fs = require('fs');
+const ftp = require("basic-ftp");
+const fse = require('fs-extra');
+const Spinner = require('cli-spinner').Spinner;
+const path = require("path");
+const { dirs, bar, getProject, notification } = require('../utils.js');
+const { stages, execs } = require('../config.json');
+
+exports.comand = 'web';
+exports.desc = 'Компоновка виртуального тура для веб';
+
+exports.handler = async () => {
+  const spinner = new Spinner(`-`);
+  spinner.setSpinnerString(18);
+  spinner.start();
+
   const project = getProject();
   const projectDirName = path.basename(path.resolve());
   const projectName = project.name || /\(([^)]+)\)/.exec(projectDirName)?.[1] ||
@@ -32,11 +41,13 @@ module.exports = () => new Promise(async (resolve, reject) => {
 
     !fs.existsSync(projectDir) && fs.mkdirSync(projectDir);
 
-    fse.copySync(path.resolve(__dirname, 'templates/web/'), projectDir);
+    fse.copySync(path.resolve(__dirname, '../templates/web/'), projectDir);
 
     fs.symlinkSync(path.resolve(playerDir), path.resolve(projectDir, 'panorams'));
 
     try {
+      spinner.text = `Получения номера последней версии tour-player`;
+
       const client = new ftp.Client()
       await client.access({ host: 'tour-360.ru' });
       const versionList = (await client.list('/tour-player'))
@@ -44,14 +55,16 @@ module.exports = () => new Promise(async (resolve, reject) => {
         .filter(f => /([0-9]*)\.([0-9]*)\.([0-9]*)/.test(f));
 
       const latest = versionList[versionList.length - 1];
-      console.log(`Download Tour-player v${latest}`);
+
+      spinner.text = `Загрузка Tour-player ${('v'+latest.bold).bold.yellow}`;
       const tourPlayerDir = path.resolve(projectDir, 'libs', 'tour-player', latest);
       fse.ensureDirSync(tourPlayerDir);
       await client.downloadToDir(tourPlayerDir, `/tour-player/${latest}`);
       await client.close();
 
 
-      const indexPage = fs.readFileSync(__dirname + '/templates/web/index.html')
+      spinner.text = `Создание веб-страниц и стилей и скриптов`;
+      const indexPage = fs.readFileSync(path.resolve(__dirname + '/../templates/web/index.html'))
         .toString('utf8')
         .replace(/PROJECT_NAME/g, projectName)
         .replace(/PLAYER_VERSION/g, latest);
@@ -63,7 +76,8 @@ module.exports = () => new Promise(async (resolve, reject) => {
 
 
     } catch (e) {
-      reject("Ошибка получения файлов плеера с сервера");
+      spinner.stop(true);
+      notification.error("Ошибка получения файлов плеера с сервера");
       throw e;
     }
 
@@ -84,22 +98,10 @@ module.exports = () => new Promise(async (resolve, reject) => {
 
     fs.writeFileSync(projectDir + '/tour.json', JSON.stringify(manifest, null, 2));
 
-    // fs.writeFileSync(webDir + '/sftp-config.json', JSON.stringify({
-    //   "type": "sftp",
-    //   "upload_on_save": true,
-    //   "host": "tour-360.ru",
-    //   "user": "server",
-    //   "password": "",
-    //   "remote_path": "/var/www/tour-360.ru/projects",
-    //   "ignore_regexes": [
-    //       "sftp-config(-alt\\d?)?\\.json",
-    //       "sftp-settings\\.json",
-    //       "\\.git/",
-    //       "\\.DS_Store"
-    //   ],
-    // }, null, 2));
-    resolve("Версия для веба успешно создана")
+    spinner.stop(true);
+    notification.success("Версия для веба успешно создана");
   } else {
-    resolve("Версия для веба уже существует")
+    spinner.stop(true);
+    notification.warning("Версия для веба уже существует");
   }
-});
+};

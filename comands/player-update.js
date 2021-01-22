@@ -1,18 +1,27 @@
-const { files, bar } = require('./utils.js');
+const { files, bar } = require('../utils.js');
 const fse = require('fs-extra');
 const { JSDOM } = require("jsdom");
 const path = require("path");
-const { stages, presets, execs } = require('./config.json');
+const { notification } = require('../utils');
+const { stages, presets, execs } = require('../config.json');
 const ftp = require("basic-ftp");
 
-module.exports = (indexPath) => {
 
-  return new Promise(async (resolve, reject) => {
+exports.command = 'player-update';
+exports.desc = 'Обновление верисии плеера на актуальную';
+exports.builder = {
+  path: {
+    alias: 'p',
+    desc: 'File path'
+  }
+};
+
+
+exports.handler = async ({ path: indexPath }) => {
     const webDir = path.resolve(stages[9]);
     if (!indexPath) {
       indexPath = path.resolve(webDir, 'index.html');
     }
-
 
     try {
       const client = new ftp.Client();
@@ -22,14 +31,13 @@ module.exports = (indexPath) => {
         .filter(f => /([0-9]*)\.([0-9]*)\.([0-9]*)/.test(f));
 
       const latest = versionList[versionList.length - 1];
-      console.log(`Download Tour-player v${latest}`);
+      notification.info(`Download Tour-player v${latest}`);
       const tourPlayerDir = path.resolve(webDir, 'libs', 'tour-player', latest);
       fse.ensureDirSync(tourPlayerDir);
       await client.downloadToDir(tourPlayerDir, `/tour-player/${latest}`);
       await client.close();
 
-      console.log(`Обновление ссылок на файл плеера в файле ${indexPath}`);
-
+      notification.info(`Обновление ссылок на файл плеера в файле ${indexPath}`);
 
       const html = fse.readFileSync(indexPath).toString('utf8');
 
@@ -52,20 +60,16 @@ module.exports = (indexPath) => {
           dom.serialize()
         );
 
-        resolve(`Update tour-player ${oldVersion} -> ${latest}`);
+        notification.success(`Update tour-player ${oldVersion} -> ${latest}`);
 
       } else {
-        reject(`Ошибка парсинга html`);
+        notification.error('Ошибка парсинга html');
       }
 
     } catch (e) {
-      reject("Ошибка получения файлов плеера с сервера");
+      notification.error('Ошибка получения файлов плеера с сервера');
       throw e;
     }
-
-
-
-  })
 }
 
 
