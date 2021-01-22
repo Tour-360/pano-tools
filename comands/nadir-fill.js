@@ -7,19 +7,16 @@ const ep = new exiftool.ExiftoolProcess();
 const { files, bar, tempPostOptions, notification, getProject } = require('../utils.js');
 const { stages, execs, presets } = require('../config.json');
 
-const nadirDir = path.resolve(stages[4]);
-let progress = 0;
-const project = getProject();
-const nadirFill = presets[project.preset].nadirFill;
-
-
-
-
 exports.command = 'nadir-fill'
 exports.desc = 'Ретушь надиров'
 exports.builder = {};
 
 exports.handler = () => {
+  const nadirDir = path.resolve(stages[4]);
+  let progress = 0;
+  const project = getProject();
+  const nadirFill = presets[project.preset].nadirFill;
+
   ep
   .open()
   .then(() => ep.readMetadata(nadirDir, ['Software']))

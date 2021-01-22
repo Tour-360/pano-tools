@@ -7,20 +7,20 @@ const _ = require('lodash');
 
 const { files, createQueues, bar, getProject } = require('../utils.js');
 
-const { stages, execs, presets } = require('../config.json');
-const enfuse = path.resolve(__dirname, '../', execs.enfuse);
-const tiffDir = path.resolve(stages[1]);
-const hdrDir = path.resolve(stages[2]);
-
-const project = getProject();
-const preset = presets[project.preset];
-const { bracketing, directions } = preset;
-
 exports.command = 'hdr'
 exports.desc = 'Объединение снимков в HDR.'
 exports.builder = {};
 
 exports.handler = async () => {
+  const { stages, execs, presets } = require('../config.json');
+  const enfuse = path.resolve(__dirname, '../', execs.enfuse);
+  const tiffDir = path.resolve(stages[1]);
+  const hdrDir = path.resolve(stages[2]);
+
+  const project = getProject();
+  const preset = presets[project.preset];
+  const { bracketing, directions } = preset;
+
   const enfuseQueues = [];
 
   !fs.existsSync(hdrDir) && fs.mkdirSync(hdrDir);

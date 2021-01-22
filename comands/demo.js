@@ -8,7 +8,6 @@ const exiftool = path.resolve(__dirname, execs.exiftool);
 const rowDir = path.resolve(stages[0]);
 const jpegDir = path.resolve(stages[6]);
 const webDir = path.resolve(stages[9]);
-const project = getProject();
 
 
 exports.command = 'demo [options]'
@@ -25,6 +24,7 @@ exports.builder = {
 }
 
 exports.handler = (options) => {
+  const project = getProject();
   const projectName = options.name || project.name || path.basename(path.resolve());
   const projectDir = path.resolve(webDir);
   const demoPagePath = path.resolve(projectDir + '/demo.html');

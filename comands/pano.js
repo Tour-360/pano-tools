@@ -6,22 +6,23 @@ const cliProgress = require('cli-progress');
 const { notification } = require('../utils');
 
 const { dirs, bar, getProject, ifExistSync } = require('../utils.js');
-const project = getProject();
-const { stages, execs } = require('../config.json');
-
-
-exports.command = 'pano'
-exports.desc = 'Объединение снимков в панорамы'
-exports.builder = {
-  jpeg: {
-    alias: 'j',
-    desc: 'Конвертация из папки ' + stages[2] + '_JPEG в папку ' + stages[6],
-    type: 'boolean',
-    default: false,
-  }
-};
 
 exports.handler = ({ jpeg }) => {
+  const project = getProject();
+  const { stages, execs } = require('../config.json');
+
+
+  exports.command = 'pano'
+  exports.desc = 'Объединение снимков в панорамы'
+  exports.builder = {
+    jpeg: {
+      alias: 'j',
+      desc: 'Конвертация из папки ' + stages[2] + '_JPEG в папку ' + stages[6],
+      type: 'boolean',
+      default: false,
+    }
+  };
+
   const hdrDir = path.resolve(stages[2] + (jpeg ? '_JPEG' : ''));
   const panoDir = path.resolve(jpeg ? stages[6] : stages[3]);
 

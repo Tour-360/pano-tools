@@ -5,9 +5,6 @@ const { getProject, bar, notification } = require('../utils.js');
 const { stages } = require('../config.json');
 const Spinner = require('cli-spinner').Spinner;
 const glob = require('glob-promise');
-const webDir = path.resolve(stages[9]);
-const project = getProject();
-
 exports.comand = 'publish';
 exports.desc = 'Публикация проекта на сервере';
 exports.builder = {
@@ -26,6 +23,8 @@ exports.builder = {
 };
 
 exports.handler = async ({open, display}) => {
+  const webDir = path.resolve(stages[9]);
+  const project = getProject();
 
   const spinner = new Spinner(`Получение списка файлов для публикации`);
   spinner.setSpinnerString(18);
