@@ -42,6 +42,8 @@
     "read-chunk": "^3.0.0",
     "readline-sync": "^1.4.9",
     "sanitize-filename": "^1.6.1",
+    "semver": "^7.3.4",
+    "semver-diff": "^3.1.1",
     "semver-sort": "0.0.4",
     "terminal-link": "^1.1.0",
     "update-notifier": "^2.5.0",
