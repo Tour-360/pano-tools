@@ -2,12 +2,12 @@
   "name": "pano-tools",
   "version": "1.0.1",
   "description": "",
-  "main": "_index.js",
+  "main": "index.js",
   "author": "Denis Borodin <denis@tour-360.ru>",
   "license": "ISC",
   "bin": {
-    "pt": "_index.js",
-    "pano-tools": "_index.js"
+    "pt": "index.js",
+    "pano-tools": "index.js"
   },
   "dependencies": {
     "active-win": "^6.2.0",
