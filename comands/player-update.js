@@ -1,3 +1,4 @@
+var semverSort = require('semver-sort');
 const { files, bar } = require('../utils.js');
 const fse = require('fs-extra');
 const { JSDOM } = require("jsdom");
@@ -26,11 +27,14 @@ exports.handler = async ({ path: indexPath }) => {
     try {
       const client = new ftp.Client();
       await client.access({ host: 'tour-360.ru' });
-      const versionList = (await client.list('/tour-player'))
+      const versionList = semverSort.asc(
+        (await client.list('/tour-player'))
         .map(f => f.name)
-        .filter(f => /([0-9]*)\.([0-9]*)\.([0-9]*)/.test(f));
+        .filter(f => /([0-9]*)\.([0-9]*)\.([0-9]*)/.test(f))
+      );
 
       const latest = versionList[versionList.length - 1];
+
       notification.info(`Download Tour-player v${latest}`);
       const tourPlayerDir = path.resolve(webDir, 'libs', 'tour-player', latest);
       fse.ensureDirSync(tourPlayerDir);

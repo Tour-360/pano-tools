@@ -1,7 +1,7 @@
 const { files, bar, notification } = require('../utils.js');
 const fs = require('fs-extra');
 const path = require("path");
-const { stages, presets, execs } = require('../config.json');
+const { stages } = require('../config.json');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -13,28 +13,54 @@ exports.builder = {
   amount: {
     alias: 'a',
     desc: 'Amount files',
+  },
+  import: {
+    alias: 'i',
+    default: stages[0],
+    desc: 'Import folder',
+  },
+  export: {
+    alias: 'e',
+    default: stages[1],
+    desc: 'Export folder',
+  },
+  'import-format': {
+    alias: 'f',
+    default: 'cr2',
+    desc: 'Import format'
+  },
+  'export-format': {
+    alias: 'l',
+    default: 'tif',
+    desc: 'Export format'
   }
 };
 
-exports.handler = async ({ amount }) => {
-  const fromDir = path.resolve(stages[0]);
-  const toDir = path.resolve(stages[1]);
+exports.handler = async ({
+   amount,
+   import: importPatch,
+   export: exportPatch,
+   'import-format': importFormat,
+   'export-format': exportFormat
+}) => {
+  const fromDir = path.resolve(importPatch);
+  const toDir = path.resolve(exportPatch);
   try {
     await fs.mkdirp(toDir);
   } catch (e) {
-    notification.error('Не удалось создать папку ' + toDir);
+    await notification.error('Не удалось создать папку ' + toDir);
     return process.exit(1);
   }
-  const fromFilesLength = amount || files(fromDir, 'cr2').length;
+  const fromFilesLength = amount || files(fromDir, importFormat).length;
   let currentProgress = 0;
   bar.start(fromFilesLength);
   while (currentProgress < fromFilesLength) {
-    currentProgress = files(toDir, 'tif').length;
+    currentProgress = files(toDir, exportFormat).length;
     bar.update(currentProgress);
     await sleep(5000);
   }
   bar.stop();
-  notification.success('Все tiff файлы экспортированы');
+  await notification.success(`Все ${exportFormat} файлы экспортированы`);
 }
 
 
