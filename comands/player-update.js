@@ -43,7 +43,7 @@ exports.handler = async ({ file: indexPath, diff }) => {
 
 
       const oldPath = script.src.split('/');
-      const oldVersion = '2.2.0' || oldPath[oldPath.length - 2];
+      const oldVersion = oldPath[oldPath.length - 2];
 
       const semver = {
         major: ['release', 'prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch', 'build'],
