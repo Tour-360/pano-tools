@@ -28,6 +28,7 @@ exports.builder = {
 
 
 exports.handler = async ({ file: indexPath, diff }) => {
+    notification.info('Обновление версии плеера');
     if (!indexPath) {
       indexPath = path.resolve(webDir);
     }
@@ -44,6 +45,8 @@ exports.handler = async ({ file: indexPath, diff }) => {
 
       const oldPath = script.src.split('/');
       const oldVersion = oldPath[oldPath.length - 2];
+
+      console.log("Current version:".bold, oldVersion.yellow.bold);
 
       const semver = {
         major: ['release', 'prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch', 'build'],
@@ -72,19 +75,13 @@ exports.handler = async ({ file: indexPath, diff }) => {
 
         const latest = versionList[versionList.length - 1];
 
-        notification.info(`Download Tour-player v${latest}`);
+        console.log(`Download Tour-player`.bold, latest.toString().yellow.bold);
         const tourPlayerDir = path.resolve(webDir, 'libs', 'tour-player', latest);
         fse.ensureDirSync(tourPlayerDir);
         await client.downloadToDir(tourPlayerDir, `/tour-player/${latest}`);
         await client.close();
 
-        notification.info(`Обновление ссылок на файл плеера в файле ${indexPath}`);
-
-        const html = fse.readFileSync(indexPath).toString('utf8');
-
-        const dom = new JSDOM(html);
-        const document = dom?.window?.document;
-
+        console.log(`Обновление ссылок на файл плеера в файле ${indexPath}`);
 
         css.href = `libs/tour-player/${latest}/tour-player.css`;
         script.src = `libs/tour-player/${latest}/tour-player.js`;
@@ -94,16 +91,16 @@ exports.handler = async ({ file: indexPath, diff }) => {
           dom.serialize()
         );
 
-        notification.success(`Update tour-player ${oldVersion} -> ${latest}`);
+        await notification.success(`Update tour-player ${oldVersion} -> ${latest}`);
 
       } catch (e) {
-        notification.error('Ошибка получения файлов плеера с сервера');
+        await notification.error('Ошибка получения файлов плеера с сервера');
         throw e;
       }
 
 
     } else {
-      notification.error('Ошибка парсинга html');
+      await notification.error('Ошибка парсинга html');
     }
 }
 

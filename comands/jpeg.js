@@ -24,6 +24,8 @@ exports.builder = {
 };
 
 exports.handler = async ({ folder }) => {
+  console.log("Экспорт панорам в Jpeg".bold);
+
   const panos = files(folder ? path.resolve(folder) : panoDir, 'tif');
   panos.map( fileName => {
     fileName = fileName.split('.')[0]
@@ -32,7 +34,6 @@ exports.handler = async ({ folder }) => {
   });
 
   if (psQueue.length) {
-    console.log("Идет экспорт панорам в Jpeg".bold);
     !fs.existsSync(jpegDir) && fs.mkdirSync(jpegDir);
 
     bar.start(panos.length);
@@ -48,6 +49,10 @@ exports.handler = async ({ folder }) => {
     bar.stop();
     notification.success("Jpeg'и успешно созданы");
   } else {
-    notification.warning("Нет исходных файлов для создания Jpeg");
+    if (panos.length) {
+      notification.warning("Все Jpeg'и уже были созданы ранее");
+    } else {
+      notification.warning("Нет исходных файлов для создания Jpeg");
+    }
   }
 }

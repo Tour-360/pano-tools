@@ -4,12 +4,19 @@ const { exec, execSync } = require('child_process');
 const { dirs, createQueues, bar, notification } = require('../utils.js');
 const { stages, execs } = require('../config.json');
 const mkdirp = require('mkdirp');
+const Spinner = require('cli-spinner').Spinner;
 
+
+// TODO: Если много панорам очень долго виснит при анализе, спинер не крутиться
+// TODO: переделать очередь на async await
 
 exports.comand = 'player';
 exports.desc = 'Конвертация изображений сторон куба для веб-плеера';
 
 exports.handler = async () => {
+  notification.info("Конвертации сторон куба для веб плеера");
+  const spinner = new Spinner('Подсчет панорам и создание файлов и каталогов');
+  spinner.start()
   const jpegDir = path.resolve(stages[6]);
   const cubeDir = path.resolve(stages[7]);
   const playerDir = path.resolve(stages[8]);
@@ -106,14 +113,14 @@ exports.handler = async () => {
 
 
   if (queue.length) {
-    notification.info("Начался процес конвертации сторон куба для веб плеера");
-
+    spinner.stop();
     bar.start(queue.length, progress);
     createQueues(convert, () => {
       bar.stop();
       notification.success("Конвертация сторон куба для веб-плеера, успешно завершена")
     });
   } else {
+    spinner.stop();
     if (panos.length) {
       notification.success("Конвертация сторон куба для веб-плеера уже была произведена ранее");
     } else {

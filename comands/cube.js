@@ -12,6 +12,10 @@ const jpegDir = path.resolve(stages[6]);
 const cubeDir = path.resolve(stages[7]);
 const exiftool = path.resolve(__dirname, '../', execs.exiftool);
 
+
+// TODO: Добавить спинер переделать очереди на async await
+// TODO: Вотчер работает не правильно (по afp рисует разу 100% и пишет отрицательное время)
+
 Object.defineProperty(Array.prototype, 'chunk', {
   value: function(chunkSize) {
     var array = this;
@@ -83,10 +87,11 @@ exports.handler = async () => {
     const ptguiQueueChunked = ptguiQueue.chunk(chunkSize);
 
     if (ptguiQueueChunked.length > 1){
-      console.log(`
+      notification.warning(`
 Внимание!
-Стороны куба будут обрабатываться в программе PTGui ${ptguiQueueChunked.length} раз(a)
-не более чем по ${chunkSize} изображений за раз. Дождитесь завершения программы, не закрывайте PTGui`.yellow
+Стороны куба будут обрабатываться в программе PTGui
+За ${ptguiQueueChunked.length} раз(a) не более чем по ${chunkSize} изображений за раз.
+Дождитесь завершения программы, не закрывайте PTGui`
       );
     }
 
@@ -114,7 +119,6 @@ exports.handler = async () => {
         watcher.close();
         bar.stop();
         notification.success('Конвертация панорам в стороны куба успешно завершена');
-        process.exit(0);
 
       } catch (e) {
         watcher.close();
@@ -122,6 +126,7 @@ exports.handler = async () => {
         notification.error('Ощибка конвертации панорам в стороны куба');
         process.exit(1);
       }
+      process.exit(0);
     }
   } else {
     console.log("Нет файлов для обработки".yellow);
