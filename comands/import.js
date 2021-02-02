@@ -7,7 +7,7 @@ const path = require("path");
 const { dirs, bar, notification } = require('../utils.js');
 const { stages, otherPhotoFolder } = require('../config.json');
 const { execs } = require('../config.json');
-const exiftoolBin = path.resolve(__dirname, execs.exiftool);
+const exiftoolBin = path.resolve(__dirname, '..', execs.exiftool);
 
 const exiftool = require('node-exiftool')
 const ep = new exiftool.ExiftoolProcess(exiftoolBin);
@@ -52,7 +52,7 @@ exports.handler = async () => {
           const files = r.data;
           const lenses = Array.from(new Set(files.map(e=>e.LensID))).filter(e => e);
           if (lenses.length == 1) {
-            resolve({files, lens: lenses[0]})
+            return resolve({files, lens: lenses[0]})
           } else {
             inquirer.prompt([{
               type: 'list',
@@ -60,7 +60,7 @@ exports.handler = async () => {
               name: 'lens',
               choices: lenses
             }]).then(({lens}) => {
-              resolve({files, lens});
+              return resolve({files, lens});
             });
           }
         });
@@ -93,6 +93,5 @@ exports.handler = async () => {
       .then(() => ep.close())
       .catch(console.error)
   });
-
 };
 

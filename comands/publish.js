@@ -51,7 +51,7 @@ exports.handler = async ({open, display}) => {
       if (data.toString().includes('sending incremental file list')) {
         spinner.text = 'Анализ измененных файлов на сервере';
         spinner.start(true);
-      } else {x
+      } else {
         if (!uploading) {
           uploading = true;
           bar.start(totalSize);
