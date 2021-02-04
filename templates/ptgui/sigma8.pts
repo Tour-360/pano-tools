@@ -86,7 +86,7 @@
 #-applytemplate_panoramasettings 1
 #-applytemplate_projectsettings 1
 #-applytemplate_optimizer 1
-#-globalcrop 0 0 0 0 0 -0.007204861111111112 -0.003038194444444444 0.3207465277777778
+#-globalcrop 0 0 0 0 0 -0.002690972222222222 -0.001822916666666667 0.3216145833333334
 #-theoreticalhfov 180
 #-rect_compression_x 0
 #-rect_compression_y 0
