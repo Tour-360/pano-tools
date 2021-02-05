@@ -1,3 +1,6 @@
+const semverSort = require('semver-sort');
+const semverDiff = require('semver-diff');
+const semverValid = require('semver/functions/valid')
 const fs = require('fs');
 const ftp = require("basic-ftp");
 const fse = require('fs-extra');
@@ -50,9 +53,12 @@ exports.handler = async () => {
 
       const client = new ftp.Client()
       await client.access({ host: 'tour-360.ru' });
-      const versionList = (await client.list('/tour-player'))
-        .map(f => f.name)
-        .filter(f => /([0-9]*)\.([0-9]*)\.([0-9]*)/.test(f));
+      const versionList = semverSort.asc(
+        (await client.list('/tour-player'))
+          .map(f => f.name)
+          .filter(newVersion => semverValid(newVersion)
+          )
+      );
 
       const latest = versionList[versionList.length - 1];
 
