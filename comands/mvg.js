@@ -103,32 +103,32 @@ exports.handler = async () => {
       'openMVG_main_SfMInit_ImageListing',
       '-i /dataset/  -o /result/ -c 7 -f 1'
     );
-  //   console.log('2/5'.green);
-  //   await openMVG(
-  //     'openMVG_main_ComputeFeatures',
-  //     '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
-  //   );
-  //   console.log('3/5'.green);
-  //   await openMVG(
-  //     'openMVG_main_ComputeMatches',
-  //     '-i /result/sfm_data.json  -o /result/ -g a'
-  //   );
-  //   console.log('4/5'.green);
-  //   try {
-  //     await openMVG(
-  //       'openMVG_main_IncrementalSfM',
-  //       '-i /result/sfm_data.json -m /result/ -o /result/'
-  //     );
-  //   } catch (e) {}
-  //   console.log('5/5'.green);
-  //   await openMVG(
-  //     'openMVG_main_ConvertSfM_DataFormat',
-  //     'binary -i /result/sfm_data.bin -o /result/sfm_data.json -V -I -E'
-  //   );
-  //
-  //
-  //   await updatePanoPosition();
-  //   await notification.success('Done!');
+    console.log('2/5'.green);
+    await openMVG(
+      'openMVG_main_ComputeFeatures',
+      '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
+    );
+    console.log('3/5'.green);
+    await openMVG(
+      'openMVG_main_ComputeMatches',
+      '-i /result/sfm_data.json  -o /result/ -g a'
+    );
+    console.log('4/5'.green);
+    try {
+      await openMVG(
+        'openMVG_main_IncrementalSfM',
+        '-i /result/sfm_data.json -m /result/ -o /result/'
+      );
+    } catch (e) {}
+    console.log('5/5'.green);
+    await openMVG(
+      'openMVG_main_ConvertSfM_DataFormat',
+      'binary -i /result/sfm_data.bin -o /result/sfm_data.json -V -I -E'
+    );
+
+
+    await updatePanoPosition();
+    await notification.success('Done!');
 
   } catch (e) {
     console.log('ERROR'.red, e);
