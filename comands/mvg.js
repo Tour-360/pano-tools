@@ -12,7 +12,14 @@ const fs = require('fs').promises;
 
 exports.command = 'mvg'
 exports.desc = 'Создание SfM при помощи openMVG';
-exports.builder = {}
+exports.builder = {
+  a: {
+    alias: 'a'
+  },
+  b: {
+    alias: 'b'
+  }
+}
 
 const openMVG = (command, args) => new Promise(async (resolve, reject) => {
   const stdout = [];
@@ -56,22 +63,49 @@ const openMVG = (command, args) => new Promise(async (resolve, reject) => {
 });
 
 
+const getLinks = (object, id) => {
+  r.match(/n(.\d)+\s-{2}?\s+n(.\d)/g)
+    .map(m => m.split(' --  ').map(id => parseInt(id.replace( /^\D+/g, ''))))
+    .map(([m, g]) => m === 10 ? g : null ).filter(Boolean)
+}
+
 const updatePanoPosition = async () => {
   const sfmData = JSON.parse(await fs.readFile(path.resolve(outputDir, 'sfm_data.json'),'utf-8'));
   const tour = JSON.parse(await fs.readFile(path.resolve(webDir, 'tour.json'),'utf-8'));
+  const putativeMatches = await fs.readFile(path.resolve(outputDir, 'putative_matches'),'utf-8');
+  const matches = putativeMatches.match(/n(\d)+\s-{2}?\s+n(\d)/g)
+    .map(m => m.split(' --  ').map(id => parseInt(id.replace( /^\D+/g, ''))));
+
+  // const matching = {};
+  // sfmData.views.forEach(v => {
+  //   const data = v?.value.ptr_wrapper?.data;
+  //   const panoId = data?.filename.replace('.jpg', '');
+  //   matching[panoId] = data?.id_view;
+  // });
+
   tour.panorams = tour.panorams.map(p => {
     const view = sfmData.views.find(v => {
       return v.value.ptr_wrapper.data.filename.toString() === p.id + '.jpg'
     });
 
-    const value = sfmData.extrinsics.find(p => p.key === view?.value?.ptr_wrapper?.data?.id_view)?.value;
+    const currentViewId = view?.value?.ptr_wrapper?.data?.id_view;
+    const value = sfmData.extrinsics.find(p => p.key === currentViewId)?.value;
     const position = value?.center;
     const rotation = value?.rotation?.[0];
 
+
+    const links = matches
+      .map(([m, g]) => m === currentViewId ? g : null )
+      .filter(Boolean)
+      .map(viewId => sfmData.views.find(v => {
+        return parseInt(v.value.ptr_wrapper.data.id_view) === parseInt(viewId)
+      })?.value?.ptr_wrapper?.data?.filename.replace('.jpg', ''));
+
+
+    console.log(p.id.bold + ` [${currentViewId}]`[position ? 'green' : 'red'] + ' - ' + links );
+
     if (position) {
       const [lat, lon, alt] = projector.unproject(rotation[0], rotation[2], rotation[1]);
-      console.log({ rotation });
-      console.log({lat, lon, alt});
 
       const scale = Math.atan(Math.PI/2)*180/Math.PI*10 || 588;
       const [x, y, z] = position.map(c => c * scale);
@@ -81,21 +115,47 @@ const updatePanoPosition = async () => {
         y: z * -1,
         heading: lon * -1,
         heightFromFloor: 148,
+        links: [],
+        // links: links.map(id => ({ id }))
       }
     } else {
       return p;
     }
   });
 
-  console.log(sfmData.views[0].value.ptr_wrapper.data.filename);
-  console.log(tour.panorams);
+  // NORMOLIZE
+  const center = (arr) => {
+    return arr.reduce((a, b) => a + b, 0) / arr.length;
+  }
+
+  const circleSize = 8 * 100;
+  const circleS = circleSize * circleSize;
+  const xs = tour.panorams.map(p => p.x).filter(Boolean);
+  const ys = tour.panorams.map(p => p.y).filter(Boolean);
+  const width = Math.abs(Math.max(...xs) - Math.min(...xs));
+  const height = Math.abs(Math.max(...ys) - Math.min(...ys));
+  const s = width * height;
+  const rate = Math.sqrt(circleS * xs.length) / Math.sqrt(s);
+  const offsetX = center(xs);
+  const offsetY = center(ys);
+
+
+  tour.panorams = tour.panorams.map(p => {
+    return p.x ? {
+      ...p,
+      x: (p.x - offsetX) * rate,
+      y: (p.y - offsetY) * rate,
+    } : p
+  });
+
+
 
   await fs.writeFile(path.resolve(webDir, 'tour.json'), JSON.stringify(tour, null, 2));
 }
 
 
 
-exports.handler = async () => {
+exports.handler = async ({ a, b }) => {
 
   try {
     console.log('1/5'.green);
@@ -117,7 +177,7 @@ exports.handler = async () => {
     try {
       await openMVG(
         'openMVG_main_IncrementalSfM',
-        '-i /result/sfm_data.json -m /result/ -o /result/'
+        `-i /result/sfm_data.json -f ADJUST_ALL -m /result/ -o /result/` + ((a && b) ? ` -a ${a}.jpg -b ${b}.jpg` : '')
       );
     } catch (e) {}
     console.log('5/5'.green);
