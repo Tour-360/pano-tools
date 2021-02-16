@@ -84,7 +84,7 @@ exports.handler = async () => {
   if (ptguiQueue.length){
     console.log(`Конвертация ${ptguiQueue.length} стороны куба`.bold);
 
-    const chunkSize = workFiles.length * 1;
+    const chunkSize = workFiles.length * 50;
     const ptguiQueueChunked = ptguiQueue.chunk(chunkSize);
 
     if (ptguiQueueChunked.length > 1){
