@@ -31,7 +31,10 @@ exports.command = 'cube'
 exports.desc = 'Конвертация панорам в стороны куба'
 exports.builder = {};
 
+
 exports.handler = async () => {
+  const workFiles = ['0', '1','2','3','4','5','ultra_wide_nadir'];
+
   !ifExistSync(cubeDir) && fs.mkdirSync(cubeDir);
   files(jpegDir, 'jpg').map(panoName => {
     panoName = panoName.split('.')[0];
@@ -52,8 +55,7 @@ exports.handler = async () => {
     }
 
     const size = Math.pow(2, Math.round(Math.log(image.width / Math.PI) / Math.log(2)));
-
-    ['0', '1','2','3','4','5','ultra_wide_nadir'].forEach((i) => {
+    workFiles.forEach((i) => {
       let templatePath = path.resolve(__dirname,  "../templates/ptgui/cube/",  i + ".pts");
       const ptsPath = path.resolve(panoFolder, i + ".pts");
       const jpgPath = path.resolve(panoFolder, i + ".jpg");
@@ -63,7 +65,6 @@ exports.handler = async () => {
           fs.symlinkSync(jpegPath, panoFile);
           panoFiles.push(panoFile);
         }
-
 
         if (!ifExistSync(ptsPath)) {
           const template = fs.readFileSync(templatePath);
@@ -83,7 +84,7 @@ exports.handler = async () => {
   if (ptguiQueue.length){
     console.log(`Конвертация ${ptguiQueue.length} стороны куба`.bold);
 
-    const chunkSize = 500;
+    const chunkSize = workFiles.length * 1;
     const ptguiQueueChunked = ptguiQueue.chunk(chunkSize);
 
     if (ptguiQueueChunked.length > 1){
@@ -106,28 +107,23 @@ exports.handler = async () => {
       }
     });
 
-
     for (var i = 0; i < ptguiQueueChunked.length; i++) {
       try {
-        // console.log(await exec('ls'));
         await exec(`open '/Applications/PTGui Pro.app' -n -W --args -batch -d -x ${ptguiQueueChunked[i].map(p => `'${p}'`).join(' ')}`);
-
-        panoFiles.map(panoFile => {
-          fs.unlink(panoFile);
-        })
-
-        watcher.close();
-        bar.stop();
-        notification.success('Конвертация панорам в стороны куба успешно завершена');
-
       } catch (e) {
-        watcher.close();
-        bar.stop();
         notification.error('Ощибка конвертации панорам в стороны куба');
         process.exit(1);
       }
-      process.exit(0);
     }
+
+    panoFiles.forEach(async panoFile => {
+      await fs.unlinkSync(panoFile);
+    });
+
+    watcher.close();
+    bar.stop();
+    notification.success('Конвертация панорам в стороны куба успешно завершена');
+    process.exit(0);
   } else {
     console.log("Нет файлов для обработки".yellow);
   }
