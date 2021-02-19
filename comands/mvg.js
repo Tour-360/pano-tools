@@ -26,10 +26,15 @@ const openMVG = (command, args) => new Promise(async (resolve, reject) => {
   const stderr = [];
 
   const dockerImageName = 'larshaalck/openmvg';
-  const images = (await execPromise('docker images')).stdout.toString();
-  if (!images.includes(dockerImageName)) {
-    console.log(`docker pull ${dockerImageName}`.bold);
-    await execPromise(`docker pull ${dockerImageName}`);
+  try {
+    const images = (await execPromise('docker images')).stdout.toString();
+    if (!images.includes(dockerImageName)) {
+      console.log(`docker pull ${dockerImageName}`.bold);
+      await execPromise(`docker pull ${dockerImageName}`);
+    }
+  } catch (e) {
+    await notification.error('Docker is not running');
+    process.exit(1);
   }
 
   const cmdLine = [`docker run`,
