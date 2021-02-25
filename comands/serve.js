@@ -1,6 +1,6 @@
 const {exec} = require('child_process');
 const path = require("path");
-const {notification, getFreePort} = require('../utils');
+const {notification, getFreePort, stringify } = require('../utils');
 const bodyParser = require('body-parser');
 const {stages, execs} = require('../config.json');
 const express = require('express');
@@ -71,7 +71,7 @@ exports.handler = async ({port, open}) => {
     // console.log(JSON.stringify(req.body.tour || {}, null, 2));
     fs.writeFile(
       tourFile,
-      JSON.stringify(tour || {}, null, 2),
+      stringify(tour || {}),
       (err) => {
         if (err) {
           res.send({

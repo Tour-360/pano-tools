@@ -20,6 +20,11 @@ module.exports.dirs = p => {
   }
 }
 
+module.exports.stringify = (object) => {
+  const json = JSON.stringify(object, null, 2);
+  return json.length <= 500*1000 ? json : JSON.stringify(object);
+}
+
 
 module.exports.files = (patch, ext) => {
   try {
