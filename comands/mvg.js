@@ -163,21 +163,23 @@ const updatePanoPosition = async () => {
 exports.handler = async ({ a, b }) => {
 
   try {
-    console.log('1/5'.green);
-    await openMVG(
-      'openMVG_main_SfMInit_ImageListing',
-      '-i /dataset/  -o /result/ -c 7 -f 1'
-    );
-    console.log('2/5'.green);
-    await openMVG(
-      'openMVG_main_ComputeFeatures',
-      '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
-    );
-    console.log('3/5'.green);
-    await openMVG(
-      'openMVG_main_ComputeMatches',
-      '-i /result/sfm_data.json  -o /result/ -g a'
-    );
+    if (!(a && b)) {
+      console.log('1/5'.green);
+      await openMVG(
+        'openMVG_main_SfMInit_ImageListing',
+        '-i /dataset/  -o /result/ -c 7 -f 1'
+      );
+      console.log('2/5'.green);
+      await openMVG(
+        'openMVG_main_ComputeFeatures',
+        '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
+      );
+      console.log('3/5'.green);
+      await openMVG(
+        'openMVG_main_ComputeMatches',
+        '-i /result/sfm_data.json  -o /result/ -g a'
+      );
+    }
     console.log('4/5'.green);
     try {
       await openMVG(
