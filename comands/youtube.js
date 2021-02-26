@@ -5,11 +5,11 @@ const Spinner = require('cli-spinner').Spinner;
 const { stages } = require('../config.json');
 
 exports.command = 'youtube';
-exports.desc = 'Создание видео для YouTub';
+exports.desc = 'Создание видео для YouTube';
 
 exports.handler = async () => {
 
-  const spinner = new Spinner(`Идет процес создания видео для youtube`);
+  const spinner = new Spinner(`Идет процес создания видео для YouTube`);
   spinner.setSpinnerString(18);
   spinner.start();
 

@@ -8,7 +8,7 @@ function sleep(ms) {
 }
 
 exports.command = 'watch-jpeg'
-exports.desc = 'Следить за наполнением каталога ' + stages[1];
+exports.desc = 'Следить за наполнением каталога ' + stages[5];
 exports.builder = {
   amount: {
     alias: 'a',
