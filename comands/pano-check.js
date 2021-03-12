@@ -1,5 +1,7 @@
 const { files, chunk, average, getProject } = require('../utils.js');
 const path = require("path");
+const util = require("util");
+const execPromise = util.promisify(require('child_process').exec);
 const fs = require("fs");
 const { stages, presets } = require('../config.json');
 
@@ -77,15 +79,13 @@ exports.handler = async ({ jpeg }) => {
 
 
     const directionValues = Object.values(direction);
-    const success = directionValues.length >= preset.directions &&
-      Math.min(...directionValues) >= 5 // Колличество точек на сторону >= 5
 
     const dCheck = (D1, D2) => {
       const [d1, d2] = [D1, D2].sort((a, b) => a - b);
       return directionStrict?.[d1]?.[d2];
     }
 
-    const successStrict = [
+    const success = [
       dCheck(1,4), dCheck(1,2), // 1
       dCheck(2,1), dCheck(2,3), // 2
       dCheck(3,2), dCheck(3,4), // 3
@@ -99,7 +99,7 @@ exports.handler = async ({ jpeg }) => {
 
     if (averageDistance > 1.8 || cpList.length === 0 || !success) {
       distanceStatus = 'bad';
-    } else if ( averageDistance <= 1.8 && averageDistance > 1 || !successStrict) {
+    } else if ( averageDistance <= 1.8 && averageDistance > 1 || !success) {
       distanceStatus = 'warning';
     } else if (averageDistance <= 1) {
       distanceStatus = 'good';
@@ -113,11 +113,25 @@ exports.handler = async ({ jpeg }) => {
         good: 'green',
         bad: 'red',
       }[distanceStatus]],
-      success ? 'success'.green : 'fail'.red,
-      successStrict ? 'success'.green : 'warning'.yellow
+      success ? 'good'.green : 'bad'.yellow
     );
-
-
+    [
+      filePath,
+      filePath.replace('.pts', '.tif')
+    ].forEach(f => {
+      execPromise(`tag --set ${[
+        `${averageDistance}`,
+        `[${cpList.length}]`,
+        {
+          warning: 'acpd-warning',
+          good: 'acpd-good',
+          bad: 'acpd-bad',
+        }[distanceStatus],
+        success ? 'stitch-good' : 'stitch-bad'
+      ].join(',')} "${f}"`).catch((e) => {
+        console.log(e);
+      });
+    });
     status[success ? (distanceStatus === 'warning' ? 'warning' : 'success') : 'fail']++;
   });
 
@@ -128,7 +142,7 @@ exports.handler = async ({ jpeg }) => {
 
   const percent = (processed / status.all * 100).toFixed(0);
   console.log(`Processed – ${processed}/${status.all} (${percent}%)`[status.notProcessed ? 'gray' : "white"]);
-  status.success && console.log(`Success: ${status.success}`.green);
+  status.success && console.log(`good: ${status.success}`.green);
   status.warning && console.log(`Warning: ${status.warning}`.yellow);
   status.fail && console.log(`Fail: ${status.fail}`.red);
 }
