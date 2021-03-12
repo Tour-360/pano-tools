@@ -1,3 +1,4 @@
+const { diffJson } = require('diff');
 const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
@@ -28,14 +29,14 @@ exports.builder = {
 
 async function download(url, filePath) {
   const res = await fetch(url);
-  await new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     const fileStream = fs.createWriteStream(filePath);
     res.body.pipe(fileStream);
     res.body.on("error", (err) => {
       reject(err);
     });
-    fileStream.on("finish", function() {
-      resolve();
+    fileStream.on("finish", () => {
+      resolve(fs.readFileSync(filePath,'utf-8'));
     });
   });
 }
@@ -83,12 +84,19 @@ exports.handler = async ({ base, table, removeTable }) => {
     !fs.existsSync(tablesDir) && fs.mkdirSync(tablesDir);
     for (const t of tour.db.tables) {
       process.stdout.write(`Закгпузка таблицы ${t.toString().yellow}`.bold);
+      const filePath = path.resolve(tablesDir, `${t}.json`);
+      const currentContent = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf-8') : "{}";
       try {
-        await download(
-          `https://tour-360.ru/airtable/base/${tour.db.base}/${t}`,
-          path.resolve(tablesDir, `${t}.json`)
-        );
-        console.log(` – ${'success'.green}`.bold);
+
+        const newContent = await download(`https://tour-360.ru/airtable/base/${tour.db.base}/${t}`, filePath);
+
+        const [added, removed] = diffJson(JSON.parse(currentContent), JSON.parse(newContent))
+          .map(a => a.added ? a.value.length : a.removed ? -a.value.length : 0)
+          .reduce((a, b) => [b > 0 ? a[0] + b : a[0], b < 0 ? a[1] + b : a[1] ], [0, 0]);
+
+        const diffRow =  added || removed ? `${(removed ? removed+'' : '').red} ${( added ?' +'+added : '').white}` : 'no modify' ;
+
+        console.log(` – ${'success'.green} | ${diffRow}`.bold);
       } catch (e) {
         console.log(` – ${'fail'.red}`.bold);
       }

@@ -34,7 +34,10 @@ exports.handler = async () => {
   }
 
   const shotsOnPano = bracketing * directions;
-  !_.isInteger(tiffFiles.length / shotsOnPano) && reject(`Количество исходных файлов должно быть кратно ${shotsOnPano}`);
+  if (!_.isInteger(tiffFiles.length / shotsOnPano)) {
+    notification.error(`Количество исходных файлов должно быть кратно ${shotsOnPano}`);
+    return process.exit(1);
+  }
 
   const panos = _.chunk(_.chunk(tiffFiles, bracketing), directions);
 
