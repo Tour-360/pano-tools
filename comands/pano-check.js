@@ -27,8 +27,8 @@ exports.handler = async ({ jpeg }) => {
 
   const status = {
     all: list?.length,
-    fail: 0,
-    success: 0,
+    bad: 0,
+    good: 0,
     warning: 0,
     notProcessed: list?.length
   }
@@ -85,21 +85,25 @@ exports.handler = async ({ jpeg }) => {
       return directionStrict?.[d1]?.[d2];
     }
 
-    const success = [
+
+    const successStitch = [
       dCheck(1,4), dCheck(1,2), // 1
       dCheck(2,1), dCheck(2,3), // 2
       dCheck(3,2), dCheck(3,4), // 3
       dCheck(4,3), dCheck(4,1), // 4
-    ].every(d => d >= 3);
+    ].map(i => i || 0);
+
+    const successStitchMin = Math.min(...successStitch);
+    const stitchStatus = successStitchMin > 5 ? 'good' : successStitchMin >= 1 ? 'warning' : 'bad';
 
     const distances = cpList.map(p => parseFloat(p.split(' ').pop())) || [];
     const averageDistance = average(distances).toFixed(3);
     const minDistance = Math.min(...distances).toFixed(3);
     const maxDistance = Math.max(...distances).toFixed(3);
 
-    if (averageDistance > 1.8 || cpList.length === 0 || !success) {
+    if (averageDistance > 1.8 || cpList.length === 0) {
       distanceStatus = 'bad';
-    } else if ( averageDistance <= 1.8 && averageDistance > 1 || !success) {
+    } else if ( averageDistance <= 1.8 && averageDistance > 1) {
       distanceStatus = 'warning';
     } else if (averageDistance <= 1) {
       distanceStatus = 'good';
@@ -113,7 +117,8 @@ exports.handler = async ({ jpeg }) => {
         good: 'green',
         bad: 'red',
       }[distanceStatus]],
-      success ? 'good'.green : 'bad'.yellow
+      // successStitch,
+      stitchStatus === 'good' ? 'good'.green : stitchStatus === 'warning' ? 'warning'.yellow : 'bad'.red,
     );
     [
       filePath,
@@ -127,12 +132,12 @@ exports.handler = async ({ jpeg }) => {
           good: 'acpd-good',
           bad: 'acpd-bad',
         }[distanceStatus],
-        success ? 'stitch-good' : 'stitch-bad'
+        `stitch-${stitchStatus}`,
       ].join(',')} "${f}"`).catch((e) => {
         console.log(e);
       });
     });
-    status[success ? (distanceStatus === 'warning' ? 'warning' : 'success') : 'fail']++;
+    status[stitchStatus === 'good' ? (distanceStatus === 'warning' ? 'warning' : 'good') : stitchStatus === 'warning' ? 'warning' : 'bad']++;
   });
 
   console.log('---------[stats]---------'.gray);
@@ -142,7 +147,7 @@ exports.handler = async ({ jpeg }) => {
 
   const percent = (processed / status.all * 100).toFixed(0);
   console.log(`Processed – ${processed}/${status.all} (${percent}%)`[status.notProcessed ? 'gray' : "white"]);
-  status.success && console.log(`good: ${status.success}`.green);
+  status.good && console.log(`Good: ${status.good}`.green);
   status.warning && console.log(`Warning: ${status.warning}`.yellow);
-  status.fail && console.log(`Fail: ${status.fail}`.red);
+  status.bad && console.log(`Bad: ${status.bad}`.red);
 }
