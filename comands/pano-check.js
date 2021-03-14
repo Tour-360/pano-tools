@@ -13,11 +13,16 @@ exports.builder = {
     desc: `Проверить панорамы сшитые из jpeg'ов`,
     type: 'boolean',
     default: false,
+  },
+  debug: {
+    alias: 'd',
+    type: 'boolean',
+    default: false,
   }
 }
 
 
-exports.handler = async ({ jpeg }) => {
+exports.handler = async ({ jpeg, debug }) => {
   const panoramsDir = path.resolve(jpeg ? stages[6] : stages[3]);
 
   const list = files(panoramsDir, 'pts');
@@ -134,7 +139,7 @@ exports.handler = async ({ jpeg }) => {
         }[distanceStatus],
         `stitch-${stitchStatus}`,
       ].join(',')} "${f}"`).catch((e) => {
-        console.log(e);
+        debug && console.log(e);
       });
     });
     status[stitchStatus === 'good' ? (distanceStatus === 'warning' ? 'warning' : 'good') : stitchStatus === 'warning' ? 'warning' : 'bad']++;
