@@ -12,7 +12,7 @@ exports.handler = ({ jpeg }) => {
   const { stages, execs } = require('../config.json');
 
 
-  exports.command = 'pano'
+  exports.comand = 'pano'
   exports.desc = 'Объединение снимков в панорамы'
   exports.builder = {
     jpeg: {

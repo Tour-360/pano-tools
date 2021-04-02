@@ -4,9 +4,9 @@ const {notification, getFreePort, stringify } = require('../utils');
 const bodyParser = require('body-parser');
 const {stages, execs} = require('../config.json');
 const express = require('express');
+var serveIndex = require('serve-index')
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-const webDir = path.resolve(stages[9]);
 const fs = require('fs');
 const fse = require('fs-extra');
 const mime = require('mime');
@@ -14,6 +14,11 @@ const mime = require('mime');
 exports.comand = 'serve';
 exports.desc = 'Запуск сервера для разработки';
 exports.builder = {
+  folder: {
+    alias: 'f',
+    desc: 'Web folder',
+    type: 'string',
+  },
   open: {
     alias: 'o',
     desc: 'Open in browser',
@@ -25,8 +30,9 @@ exports.builder = {
   }
 }
 
-exports.handler = async ({port, open}) => {
+exports.handler = async ({port, open, folder}) => {
   const app = express();
+  const webDir = folder || path.resolve(stages[9]);
 
   app.use(fileUpload());
 
@@ -67,7 +73,9 @@ exports.handler = async ({port, open}) => {
 
   app.post("/server/save", (req, res) => {
     const {tour, manifest} = req.body;
+    console.log({tour, manifest});
     const tourFile = path.resolve(webDir, manifest || 'tour.json');
+    console.log(tourFile);
     // console.log(JSON.stringify(req.body.tour || {}, null, 2));
     fs.writeFile(
       tourFile,
@@ -95,10 +103,9 @@ exports.handler = async ({port, open}) => {
       });
   });
 
-  app.use(express.static(webDir));
+  app.use(express.static(webDir), serveIndex(webDir, {view: 'details', 'icons': true}));
 
   const freePort = await getFreePort(port);
-
   app.listen(freePort, () => {
     const host = ['http://localhost', freePort].join(':');
     notification.success('Сервер доступен по адресу: ' + host);

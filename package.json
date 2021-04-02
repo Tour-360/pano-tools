@@ -52,6 +52,7 @@
     "semver": "^7.3.4",
     "semver-diff": "^3.1.1",
     "semver-sort": "0.0.4",
+    "serve-index": "^1.9.1",
     "terminal-link": "^1.1.0",
     "update-notifier": "^2.5.0",
     "vorpal": "^1.12.0",

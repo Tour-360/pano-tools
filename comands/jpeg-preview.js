@@ -9,7 +9,7 @@ const hdrDir = stages[2]+'_JPEG';
 const _ = require('lodash');
 
 exports.command = 'jpeg-preview'
-exports.desc = 'Создание jpeg из превью cr2 в папку' + hdrDir;
+exports.desc = 'Создание jpeg из превью cr2 в папку ' + hdrDir;
 exports.builder = {
   bracket: {
     alias: 'b',

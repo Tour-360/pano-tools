@@ -163,34 +163,41 @@ const updatePanoPosition = async () => {
 exports.handler = async ({ a, b }) => {
 
   try {
-    if (!(a && b)) {
-      console.log('1/5'.green);
-      await openMVG(
-        'openMVG_main_SfMInit_ImageListing',
-        '-i /dataset/  -o /result/ -c 7 -f 1'
-      );
-      console.log('2/5'.green);
-      await openMVG(
-        'openMVG_main_ComputeFeatures',
-        '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
-      );
-      console.log('3/5'.green);
-      await openMVG(
-        'openMVG_main_ComputeMatches',
-        '-i /result/sfm_data.json  -o /result/ -g a'
-      );
-    }
-    console.log('4/5'.green);
-    try {
-      await openMVG(
-        'openMVG_main_IncrementalSfM',
-        `-i /result/sfm_data.json -f ADJUST_ALL -m /result/ -o /result/` + ((a && b) ? ` -a ${a}.jpg -b ${b}.jpg` : '')
-      );
-    } catch (e) {}
-    console.log('5/5'.green);
+    // if (!(a && b)) {
+    //   console.log('1/5'.green);
+    //   await openMVG(
+    //     'openMVG_main_SfMInit_ImageListing',
+    //     '-i /dataset/  -o /result/ -c 7 -f 1'
+    //   );
+    //   console.log('2/5'.green);
+    //   await openMVG(
+    //     'openMVG_main_ComputeFeatures',
+    //     '-i /result/sfm_data.json  -o /result/ -m SIFT -p HIGH'
+    //   );
+    //   console.log('3/5'.green);
+    //   await openMVG(
+    //     'openMVG_main_ComputeMatches',
+    //     '-i /result/sfm_data.json  -o /result/ -g a'
+    //   );
+    // }
+    // console.log('4/5'.green);
+    // try {
+    //   await openMVG(
+    //     'openMVG_main_IncrementalSfM',
+    //     `-i /result/sfm_data.json -f ADJUST_ALL -m /result/ -o /result/` + ((a && b) ? ` -a ${a}.jpg -b ${b}.jpg` : '')
+    //   );
+    // } catch (e) {}
+    //
+    // console.log('5/5'.green);
+    // await openMVG(
+    //   'openMVG_main_ConvertSfM_DataFormat',
+    //   'binary -i /result/sfm_data.bin -o /result/sfm_data.json -V -I -E'
+    // );
+
+    console.log('6/6'.green);
     await openMVG(
-      'openMVG_main_ConvertSfM_DataFormat',
-      'binary -i /result/sfm_data.bin -o /result/sfm_data.json -V -I -E'
+      'openMVG_main_openMVG2openMVS',
+      'binary -i /result/sfm_data.bin -o /result/scene.mvs -d scene_undistorted_images'
     );
 
 
