@@ -7,6 +7,7 @@ const { notification } = require('../utils');
 
 const { dirs, bar, getProject, ifExistSync } = require('../utils.js');
 
+const { stages, execs } = require('../config.json');
 
 
 exports.comand = 'pano'
@@ -21,11 +22,11 @@ exports.builder = {
 };
 
 exports.handler = ({ jpeg }) => {
-  const project = getProject();
-  const { stages, execs } = require('../config.json');
 
   const hdrDir = path.resolve(stages[2] + (jpeg ? '_JPEG' : ''));
   const panoDir = path.resolve(jpeg ? stages[6] : stages[3]);
+
+  const project = getProject();
 
   const template =  fs.readFileSync(path.resolve(
     __dirname,
