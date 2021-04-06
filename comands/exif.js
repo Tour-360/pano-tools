@@ -2,7 +2,7 @@ const path = require("path");
 const { stages, execs } = require('../config.json');
 const { exec } = require('child_process');
 const { notification } = require('../utils');
-const exiftool = path.resolve(__dirname, execs.exiftool);
+const exiftool = path.resolve(__dirname, '../', execs.exiftool);
 
 const jpegDir = path.resolve(stages[6]);
 
