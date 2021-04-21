@@ -9,14 +9,18 @@ const path = require("path");
 const { dirs, bar, getProject, notification } = require('../utils.js');
 const { stages, execs } = require('../config.json');
 
+exports.builder = {
+  fix: {
+    alias: 'f',
+    desc: 'Fix (update) panorams link',
+    type: 'boolean',
+  },
+}
+
 exports.comand = 'web';
 exports.desc = 'Компоновка виртуального тура для веб';
 
-exports.handler = async () => {
-  const spinner = new Spinner(`-`);
-  spinner.setSpinnerString(18);
-  spinner.start();
-
+exports.handler = async ({ fix }) => {
   const project = getProject();
   const projectDirName = path.basename(path.resolve());
   const projectName = project.name || /\(([^)]+)\)/.exec(projectDirName)?.[1] ||
@@ -38,6 +42,27 @@ exports.handler = async () => {
       }
     ]
   }
+
+  if (fix) {
+    const panoramsDir = path.resolve(projectDir, 'panorams');
+    if (fs.existsSync(indexPagePath)) {
+      fs.existsSync(panoramsDir) && fs.unlinkSync(panoramsDir);
+      try {
+        fs.symlinkSync(path.resolve(playerDir), panoramsDir);
+      } catch (e) {
+        await notification.error(`Ошибка создания ссылки ${panoramsDir}`);
+        console.error(e);
+      }
+    } else {
+      await notification.error('папки Web не существует');
+    }
+    process.exit(0);
+    return false;
+  }
+
+  const spinner = new Spinner(`-`);
+  spinner.setSpinnerString(18);
+  spinner.start();
 
   if (!fs.existsSync(indexPagePath)) {
 
