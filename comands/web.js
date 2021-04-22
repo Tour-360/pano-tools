@@ -46,8 +46,8 @@ exports.handler = async ({ fix }) => {
   if (fix) {
     const panoramsDir = path.resolve(projectDir, 'panorams');
     if (fs.existsSync(indexPagePath)) {
-      fs.existsSync(panoramsDir) && fs.unlinkSync(panoramsDir);
       try {
+        fs.readlinkSync(panoramsDir) && fs.unlinkSync(panoramsDir);
         fs.symlinkSync(path.resolve(playerDir), panoramsDir);
       } catch (e) {
         await notification.error(`Ошибка создания ссылки ${panoramsDir}`);
@@ -56,6 +56,7 @@ exports.handler = async ({ fix }) => {
     } else {
       await notification.error('папки Web не существует');
     }
+    await notification.success("Ссылка на panorams обновленна");
     process.exit(0);
     return false;
   }
