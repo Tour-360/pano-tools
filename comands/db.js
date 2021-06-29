@@ -87,7 +87,7 @@ exports.handler = async ({ base, table, removeTable }) => {
       const filePath = path.resolve(tablesDir, `${t}.json`);
       const currentContent = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf-8') : "{}";
       try {
-        const newContent = await download(`https://tour-360.ru/airtable/base/${tour.db.base}/${t}?view=table`, filePath);
+        const newContent = await download(`https://tour-360.ru/airtable/base/${tour.db.base}/${encodeURI(t)}?view=table`, filePath);
 
         const [added, removed] = diffJson(JSON.parse(currentContent), JSON.parse(newContent))
           .map(a => a.added ? a.value.length : a.removed ? -a.value.length : 0)
