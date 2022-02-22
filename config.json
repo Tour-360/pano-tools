@@ -28,6 +28,11 @@
       "bracketing": 3,
       "nadirFill": 28
     },
+    "sigma8-no-align": {
+      "directions": 4,
+      "bracketing": 3,
+      "nadirFill": 28
+    },
     "sigma8_nadir": {
       "directions": 5,
       "bracketing": 3,
