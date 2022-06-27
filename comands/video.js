@@ -49,20 +49,22 @@ module.exports = (fileName, options) => {
     for (var i = parseInt(start); i < parseInt(end); i += chunk) {
       projectFileName = path.resolve(videoDir, 'video_' + pad(i.toFixed(4), 9) + '.pts');
 
-      fs.writeFileSync(
-        projectFileName,
-        template.toString('utf8')
-          .replace(/IMAGE_WIDTH/g, image.width)
-          .replace(/IMAGE_HEIGHT/g, image.height)
-          .replace(/VIDEO_WIDTH/g, options.width)
-          .replace(/VIDEO_HEIGHT/g, options.height)
-          .replace(/FOW_WIDTH/g, pxToFow(image.width, options.width))
-          .replace(/FOW_HEIGHT/g, pxToFow(image.width, options.height))
-          .replace(/PANO_NAME/g, filePath)
-          .replace(/BIAS/g, -i)
-      );
+      if(!fs.existsSync(path.resolve(videoDir, 'video_' + pad(i.toFixed(4), 9) + '.jpg'))){
+          fs.writeFileSync(
+          projectFileName,
+          template.toString('utf8')
+            .replace(/IMAGE_WIDTH/g, image.width)
+            .replace(/IMAGE_HEIGHT/g, image.height)
+            .replace(/VIDEO_WIDTH/g, options.width)
+            .replace(/VIDEO_HEIGHT/g, options.height)
+            .replace(/FOW_WIDTH/g, pxToFow(image.width, options.width))
+            .replace(/FOW_HEIGHT/g, pxToFow(image.width, options.height))
+            .replace(/PANO_NAME/g, filePath)
+            .replace(/BIAS/g, -i)
+        );
 
-      ptguiQueue.push(projectFileName);
+        ptguiQueue.push(projectFileName);
+      }
     }
 
     bar.start(ptguiQueue.length, 0);
