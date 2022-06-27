@@ -79,6 +79,8 @@ exports.handler = async ({open, display}) => {
       const url = `https://tour-360.ru/projects/${projectFolder}`;
       notification.success(`Проект доступен по ссылке: ${url}`);
       open && exec('open ' + url);
+    } else if(code == 12){
+      notification.error('Недостаточно места на диске');
     } else {
       notification.error(['Error:', code, message].join(' '));
       process.exit(1);
